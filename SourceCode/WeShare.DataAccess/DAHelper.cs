@@ -10,8 +10,12 @@ namespace WeShare.DataAccess
 {
     public class DAHelper
     {
+        /// <summary>
+        /// Returns the connection string from the web config file for the WeShare application
+        /// </summary>
+        /// <returns></returns>
         public static string GetConnectionString()
-        {
+        {  
             return ConfigurationManager.ConnectionStrings["WeShareConnectionString"].ConnectionString;
         }
 

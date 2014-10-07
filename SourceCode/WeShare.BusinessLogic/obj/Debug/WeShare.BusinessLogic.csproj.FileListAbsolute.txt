@@ -1,0 +1,9 @@
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessLogic.dll
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessLogic.pdb
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessModel.dll
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.DataAccess.dll
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessModel.pdb
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\bin\Debug\WeShare.DataAccess.pdb
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.csprojResolveAssemblyReference.cache
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.dll
+D:\IU\Fall 2014\Software Engineering\Projects\WeShare\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.pdb

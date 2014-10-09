@@ -1,4 +1,4 @@
 WeShare
 =======
 
-Task Management System using Java and MySQL
+Task Management System using ASP.Net and SQL Server

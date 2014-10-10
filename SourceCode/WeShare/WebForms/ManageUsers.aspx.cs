@@ -53,7 +53,7 @@ namespace WeShare.WebForms
                 txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
                 txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();
                 txtContactNumber.Text = gvUsers.DataKeys[rowIndex].Values["ContactNumber"].ToString();
-                
+                txtEmailAddress.Enabled = false;
             }
         }
 
@@ -67,6 +67,7 @@ namespace WeShare.WebForms
         private void ClearControls()
         {
             txtContactNumber.Text = txtEmailAddress.Text = txtFirstName.Text = txtLastName.Text = string.Empty;
+            txtEmailAddress.Enabled = true;
         }
 
         protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)

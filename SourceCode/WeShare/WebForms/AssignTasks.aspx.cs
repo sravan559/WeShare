@@ -59,6 +59,8 @@ namespace WeShare.WebForms
             objBlTasks.SaveAssignedTaskDetails(objTaskAssignmentInfo);
             ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);            
             LoadUnAssignedTasks();
+            LoadUsers();
+            txtDueDate.Text = string.Empty;
         }
 
 

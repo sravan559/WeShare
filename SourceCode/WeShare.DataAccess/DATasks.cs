@@ -62,8 +62,10 @@ namespace WeShare.DataAccess
                     {
                         TaskInfo objTaskInfo = new TaskInfo()
                         {
-
-
+                            TaskId = objSqlReader["Task_Id"].ToInt32(),
+                            TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                            TaskDescription = objSqlReader["Task_Description"].ToStr(),
+                            PointsAllocated=objSqlReader["Points"].ToInt32()
                         };
                         listTaskInfo.Add(objTaskInfo);
                     }
@@ -110,8 +112,9 @@ namespace WeShare.DataAccess
                     TaskInfo objTaskInfo = new TaskInfo()
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
-                        TaskTitle = objSqlReader["Task_Title"].ToStr()
-
+                        TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
+                        PointsAllocated = objSqlReader["Points"].ToInt32()
                     };
                     listTasks.Add(objTaskInfo);
                 }

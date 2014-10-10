@@ -7,6 +7,7 @@
     <script type="text/javascript" src="../Scripts/jquery.js"></script>
     <link type="text/css" href="../Styles/jquery-ui.css" rel="stylesheet" />
     <link href="../Styles/menustyle.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/weshare.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

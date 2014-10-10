@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAHelper.cs" />
+    <Compile Include="DATaskAssignment.cs" />
     <Compile Include="DATasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAUser.cs" />

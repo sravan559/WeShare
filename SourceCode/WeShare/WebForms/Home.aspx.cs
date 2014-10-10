@@ -21,7 +21,7 @@ namespace WeShare.WebForms
 
         private void LoadMyTasks()
         {
-            BLTasks objBlTasks = new BLTasks();
+            BLTaskAssignment objBlTasks = new BLTaskAssignment();
             if (Session["UserId"] == null)
             {
                 Response.Redirect("Login.aspx");

@@ -32,24 +32,10 @@ namespace WeShare.BusinessLogic
             objDaTasks.DeleteTask(TaskId);
         }
 
-        public List<TaskInfo> GetUnassignedTasks()
-        {
-            return objDaTasks.GetUnassignedTasks();
-        }
+      
 
-        public List<TaskAssignmentInfo> GetUserTasksByMailId(string emailId)
-        {
-            return objDaTasks.GetUserTasksByMailId(emailId);
-        }
+       
 
-        public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
-        {
-            return objDaTasks.SaveAssignedTaskDetails(objTaskInfo);
-        }
 
-        public bool UpdateTaskStatus(int taskId, string status)
-        {
-            return objDaTasks.UpdateTaskStatus(taskId, status);
-        }
     }
 }

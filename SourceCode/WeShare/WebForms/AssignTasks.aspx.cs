@@ -17,6 +17,7 @@ namespace WeShare.WebForms
             {
                 LoadUsers();
                 LoadUnAssignedTasks();
+                LoadAssignedTasks();
             }
         }
 
@@ -24,7 +25,7 @@ namespace WeShare.WebForms
         {
             ddlTasks.Items.Clear();
             ddlTasks.Items.Add(new ListItem("Select Task", ""));
-            BLTasks objBlTasks = new BLTasks();
+            BLTaskAssignment objBlTasks = new BLTaskAssignment();
             List<TaskInfo> listTask = objBlTasks.GetUnassignedTasks();
             ddlTasks.DataSource = listTask;
             ddlTasks.DataTextField = "TaskTitle";
@@ -44,23 +45,44 @@ namespace WeShare.WebForms
             ddlUsers.DataBind();
         }
 
+        private void LoadAssignedTasks()
+        {
+            BLTaskAssignment objBlTasks = new BLTaskAssignment();
+            List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetAssignedTaskList();
+            gvAssignedTasks.DataSource = listTaskInfo;
+            gvAssignedTasks.DataBind();
+
+        }
+
         protected void btnAssignTask_Click(object sender, EventArgs e)
         {
             TaskAssignmentInfo objTaskAssignmentInfo = new TaskAssignmentInfo()
             {
                 EmailId = ddlUsers.SelectedValue,
                 TaskId = ddlTasks.SelectedValue.ToInt32(),
-                DueDate = Convert.ToDateTime(txtDueDate.Text.Trim()),
+                DueDate = txtDueDate.Text.Trim().ToDateTime(),
                 Status = "Pending"
-
             };
 
-            BLTasks objBlTasks = new BLTasks();
+            BLTaskAssignment objBlTasks = new BLTaskAssignment();
             objBlTasks.SaveAssignedTaskDetails(objTaskAssignmentInfo);
-            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);            
+            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);
             LoadUnAssignedTasks();
             LoadUsers();
             txtDueDate.Text = string.Empty;
+        }
+
+        protected void gvAssignedTasks_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "EditTask")
+            {
+
+            }
+        }
+
+        protected void gvAssignedTasks_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        { 
+        
         }
 
 

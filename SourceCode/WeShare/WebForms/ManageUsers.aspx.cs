@@ -35,7 +35,7 @@ namespace WeShare.WebForms
             BLUsers objUserBL = new BLUsers();
             objUserBL.SaveUserDetails(objUserInfo);
             ClearControls();
-            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Saved Successfully!')", true);
+            ScriptManager.RegisterStartupScript(this,this.GetType(), "Alert", "alert('User details saved successfully!')", true);
             LoadUsersList();
         }
 

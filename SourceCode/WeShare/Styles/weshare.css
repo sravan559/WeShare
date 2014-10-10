@@ -50,10 +50,13 @@ input[type="submit"], button { font-weight: bold; margin: 10px; background-color
 
 .gridcontainer div { padding: 0px !important; }
 
-.gridcontainer h1 { background-color: #D3CFCF !important; border-radius: 5px; }
+.gridcontainer h1 { background-color: #D3CFCF !important; border-radius: 5px; font-size:16px;padding:4px;}
 
 .gridcontainer table { min-width: 40%;}
 
 .inputcontainer { padding: 10px; text-align:left; }
 
-#css3menu1 a { font-size:18px; height: 30px; line-height: 30px; }
+#css3menu1 a { font-size:14px; height: 20px; line-height: 20px; }
+.emptytable {width:100%;}
+.emptytable th{background-color:LightBlue; }
+.emptytable  td {text-align:center;}

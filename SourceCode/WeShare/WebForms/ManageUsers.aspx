@@ -64,6 +64,27 @@
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>
+                    <EmptyDataTemplate>
+                    <table class="emptytable">
+                        <tr>
+                            <th>
+                                Email ID
+                            </th>
+                            <th>
+                                First Name
+                            </th>
+                            <th>
+                                Last Name
+                            </th>
+                            <th>Contact Number</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                No data available.
+                            </td>
+                        </tr>
+                    </table>
+                </EmptyDataTemplate>
                     <HeaderStyle BackColor="LightBlue" />
                 </asp:GridView>
             </div>

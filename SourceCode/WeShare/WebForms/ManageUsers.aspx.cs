@@ -35,6 +35,7 @@ namespace WeShare.WebForms
             BLUsers objUserBL = new BLUsers();
             objUserBL.SaveUserDetails(objUserInfo);
             ClearControls();
+            ScriptManager.RegisterStartupScript(this,this.GetType(), "Alert", "alert('User details saved successfully!')", true);
             LoadUsersList();
         }
 
@@ -49,6 +50,10 @@ namespace WeShare.WebForms
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
                 txtEmailAddress.Text = gvUsers.DataKeys[rowIndex].Values["EmailId"].ToString();
+                txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
+                txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();
+                txtContactNumber.Text = gvUsers.DataKeys[rowIndex].Values["ContactNumber"].ToString();
+                
             }
         }
 

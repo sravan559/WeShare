@@ -8,12 +8,34 @@
         <h1>
             My Tasks
         </h1>
-        <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="false">
-            <Columns>
-                <asp:BoundField DataField="TaskTitle" HeaderText="Task Title" />
-                <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}" />
-                <asp:BoundField DataField="Status" HeaderText="Status" />
-            </Columns>
-        </asp:GridView>
-    </div>
+        <div class="grid">
+            <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="false" Width="80%">
+                <Columns>
+                    <asp:BoundField DataField="TaskTitle" HeaderText="Task Title" />
+                    <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}" />
+                    <asp:BoundField DataField="Status" HeaderText="Status" />
+                </Columns>
+                <HeaderStyle BackColor="LightBlue" />
+                <EmptyDataTemplate>
+                    <table class="emptytable">
+                        <tr>
+                            <th>
+                                Task Title
+                            </th>
+                            <th>
+                                Due Date
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                No data available.
+                            </td>
+                        </tr>
+                    </table>
+                </EmptyDataTemplate>
+            </asp:GridView>
+        </div>
 </asp:Content>

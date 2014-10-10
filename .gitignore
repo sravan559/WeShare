@@ -17,3 +17,10 @@ hs_err_pid*
 *.dll
 *.dll
 *.dll
+*.cache
+*.cache
+*.txt
+*.cache
+*.cache
+*.txt
+*.cache

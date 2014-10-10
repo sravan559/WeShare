@@ -67,3 +67,23 @@ input[type="submit"], button
     background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
     text-decoration: none;
 }
+.gridcontainer
+{
+    padding: 10px;
+}
+
+.gridcontainer div
+{
+    padding: 0px !important;
+}
+
+.gridcontainer h1
+{
+    background-color: #D3CFCF !important;
+    border-radius: 5px;
+}
+
+.gridcontainer table
+{
+    min-width: 40%;
+}

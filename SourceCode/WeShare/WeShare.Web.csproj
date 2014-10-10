@@ -54,6 +54,9 @@
     <Content Include="Images\img_edit.gif" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Styles\Images\arrow.gif" />
+    <Content Include="Styles\Images\arrowsub.gif" />
+    <Content Include="Styles\Images\mainbk.png" />
     <Content Include="Styles\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Styles\Images\ui-bg_flat_55_fbec88_40x100.png" />
     <Content Include="Styles\Images\ui-bg_glass_75_d0e5f5_1x400.png" />
@@ -70,6 +73,7 @@
     <Content Include="Styles\Images\ui-icons_d8e7f3_256x240.png" />
     <Content Include="Styles\Images\ui-icons_f9bd01_256x240.png" />
     <Content Include="Styles\jquery-ui.css" />
+    <Content Include="Styles\menustyle.css" />
     <Content Include="Styles\weshare.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

@@ -3,17 +3,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>WeShare</title>
+    <title>We Share</title>
     <script type="text/javascript" src="../Scripts/jquery.js"></script>
     <link type="text/css" href="../Styles/jquery-ui.css" rel="stylesheet" />
+    <link href="../Styles/menustyle.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="weShareForm" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
+    <div id="topdiv">
+        <ul id="css3menu1" class="topmenu">
+            <%-- <input type="checkbox" id="css3menu-switcher" class="switchbox"><label onclick=""
+                class="switch" for="css3menu-switcher"></label>--%>
+            <li class="topfirst"><a href="Home.aspx" style="height: 15px; line-height: 15px;">Home</a></li>
+            <li class="topmenu"><a href="ManageUsers.aspx" style="height: 15px; line-height: 15px;">
+                <span>Manage Users</span></a>
+                <%-- <ul>
+                    <li class="subfirst"><a href="#">Item 1 0</a></li>
+                    <li><a href="#">Item 1 1</a></li>
+                    <li><a href="#">Item 1 2</a></li>
+                </ul>--%>
+            </li>
+            <li class="topmenu"><a href="ManageTasks.aspx" style="height: 15px; line-height: 15px;">
+                Manage Tasks</a></li>
+            <li class="toplast"><a href="AssignTasks.aspx" style="height: 15px; line-height: 15px;">
+                Assign Tasks</a></li>
+        </ul>
+    </div>
     <div>
         <asp:ContentPlaceHolder ID="cphBody" runat="server">
         </asp:ContentPlaceHolder>

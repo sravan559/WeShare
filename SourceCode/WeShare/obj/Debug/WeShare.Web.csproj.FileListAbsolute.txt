@@ -1,0 +1,11 @@
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.pdb
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.BusinessLogic.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.BusinessModel.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.DataAccess.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.BusinessLogic.pdb
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.BusinessModel.pdb
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.DataAccess.pdb
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\obj\Debug\WeShare.Web.csprojResolveAssemblyReference.cache
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\obj\Debug\WeShare.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\obj\Debug\WeShare.pdb

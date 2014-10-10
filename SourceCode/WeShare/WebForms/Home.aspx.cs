@@ -22,6 +22,10 @@ namespace WeShare.WebForms
         private void LoadMyTasks()
         {
             BLTasks objBlTasks = new BLTasks();
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
             List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(Session["UserId"].ToString());
             gvMyTasks.DataSource = listTaskInfo;
             gvMyTasks.DataBind();

@@ -11,7 +11,7 @@
         <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="false">
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Title" />
-                <asp:BoundField DataField="DueDate" HeaderText="Due Date" />
+                <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}"/>
                 <asp:BoundField DataField="Status" HeaderText="Status" />
             </Columns>
         </asp:GridView>

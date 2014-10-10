@@ -4,7 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-    <div>
+    <div style="width:60%">
+    <asp:Panel ID="Panel1" BackColor="#CCCCCC" runat="server" BorderColor="Black" 
+            BorderStyle="Solid">
         <table>
             <tr>
                 <th>
@@ -31,11 +33,12 @@
             <tr>
                 <td colspan="4" style="text-align: center;">
                     <asp:HiddenField ID="hdnTaskId" runat="server" />
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
-                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn"/>
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn"/>
                 </td>
             </tr>
         </table>
+        </asp:Panel>
     </div>
     <div>
         <br />

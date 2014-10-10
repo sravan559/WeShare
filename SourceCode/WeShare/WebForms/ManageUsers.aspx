@@ -6,7 +6,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div style="text-align: center;">
+            <div style="text-align: center;width:60%;">
+              <asp:Panel runat="server" BackColor="#CCCCCC" BorderColor="Black" 
+                    BorderStyle="Solid">
+                
+                
                 <table>
                     <tr>
                         <th>
@@ -32,22 +36,23 @@
                         <th>
                             Contact Number:
                         </th>
-                        <td>
+                        <td ID="panel1">
                             <asp:TextBox ID="txtContactNumber" runat="server"></asp:TextBox>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4" style="text-align: center;">
-                            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
-                            <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn"/>
+                            <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn"/>
                         </td>
                     </tr>
                 </table>
+              </asp:Panel>
             </div>
             <div>
                 <br />
                 <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsers_RowCommand"
-                    DataKeyNames="EmailId,FirstName" OnRowDeleting="gvUsers_RowDeleting">
+                    DataKeyNames="EmailId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting">
                     <Columns>
                         <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
                         <asp:BoundField DataField="FirstName" HeaderText="First Name" />

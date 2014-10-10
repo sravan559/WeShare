@@ -81,7 +81,7 @@ namespace WeShare.DataAccess
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@Action", "D");
-            parameters[1] = new SqlParameter("@EmailId", emailId);
+            parameters[1] = new SqlParameter("@Email_Id", emailId);
             cmd.Parameters.AddRange(parameters);
             connection.Open();
             cmd.ExecuteNonQuery();

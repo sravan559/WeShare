@@ -6,53 +6,50 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <div style="text-align: center;width:60%;">
-              <asp:Panel runat="server" BackColor="#CCCCCC" BorderColor="Black" 
-                    BorderStyle="Solid">
-                
-                
-                <table>
-                    <tr>
-                        <th>
-                            First Name:
-                        </th>
-                        <td>
-                            <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
-                        </td>
-                        <th>
-                            Last Name:
-                        </th>
-                        <td>
-                            <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Email Address:
-                        </th>
-                        <td>
-                            <asp:TextBox ID="txtEmailAddress" runat="server"></asp:TextBox>
-                        </td>
-                        <th>
-                            Contact Number:
-                        </th>
-                        <td ID="panel1">
-                            <asp:TextBox ID="txtContactNumber" runat="server"></asp:TextBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4" style="text-align: center;">
-                            <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn"/>
-                            <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn"/>
-                        </td>
-                    </tr>
-                </table>
-              </asp:Panel>
+            <div class="inputcontainer">
+                <asp:Panel runat="server" BackColor="#CCCCCC" BorderColor="Black" BorderStyle="Solid">
+                    <table>
+                        <tr>
+                            <th>
+                                First Name:
+                            </th>
+                            <td>
+                                <asp:TextBox ID="txtFirstName" runat="server"></asp:TextBox>
+                            </td>
+                            <th>
+                                Last Name:
+                            </th>
+                            <td>
+                                <asp:TextBox ID="txtLastName" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Email Address:
+                            </th>
+                            <td>
+                                <asp:TextBox ID="txtEmailAddress" runat="server"></asp:TextBox>
+                            </td>
+                            <th>
+                                Contact Number:
+                            </th>
+                            <td id="panel1">
+                                <asp:TextBox ID="txtContactNumber" runat="server"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="text-align: center;">
+                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn" />
+                                <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" CssClass="btn" />
+                            </td>
+                        </tr>
+                    </table>
+                </asp:Panel>
             </div>
-            <div>
-                <br />
+            <div class="grid" >
                 <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsers_RowCommand"
-                    DataKeyNames="EmailId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting">
+                    DataKeyNames="EmailId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting"
+                    Width="80%">
                     <Columns>
                         <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
                         <asp:BoundField DataField="FirstName" HeaderText="First Name" />

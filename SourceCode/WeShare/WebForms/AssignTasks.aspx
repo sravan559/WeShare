@@ -4,9 +4,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-    <div style="width:60%">
+    <div class="inputcontainer">
         <asp:Panel ID="Panel1" BackColor="#CCCCCC" runat="server" BorderColor="Black" BorderStyle="Solid">
-            <table>
+            <table style="min-width:400px;">
                 <tr>
                     <th>
                         Select Task:
@@ -36,8 +36,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
-                        <asp:Button ID="btnAssignTask" runat="server" Text="Assign Task" OnClick="btnAssignTask_Click" CssClass="btn"/>
+                    <td colspan="2" style="text-align: center;">
+                        <asp:Button ID="btnAssignTask" runat="server" Text="Assign Task" OnClick="btnAssignTask_Click"
+                            CssClass="btn" />
                     </td>
                 </tr>
             </table>

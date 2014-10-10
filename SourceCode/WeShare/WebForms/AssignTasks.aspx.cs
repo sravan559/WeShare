@@ -39,7 +39,7 @@ namespace WeShare.WebForms
             BLUsers objUserBl = new BLUsers();
             List<UserInfo> listUsers = objUserBl.GetUsersList();
             ddlUsers.DataSource = listUsers;
-            ddlUsers.DataTextField = "FirstName";
+            ddlUsers.DataTextField = "Name";
             ddlUsers.DataValueField = "EmailId";
             ddlUsers.DataBind();
         }
@@ -57,8 +57,8 @@ namespace WeShare.WebForms
 
             BLTasks objBlTasks = new BLTasks();
             objBlTasks.SaveAssignedTaskDetails(objTaskAssignmentInfo);
+            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);            
             LoadUnAssignedTasks();
-
         }
 
 

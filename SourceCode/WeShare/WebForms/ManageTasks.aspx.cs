@@ -52,7 +52,7 @@ namespace WeShare.WebForms
             if (e.CommandName == "EditTask")
             {
                 int rowIndex = Convert.ToInt32(e.CommandArgument);
-                int taskId = Convert.ToInt32(gvtasks.DataKeys[rowIndex].Values["TaskId"].ToString());
+                hdnTaskId.Value = gvtasks.DataKeys[rowIndex].Values["TaskId"].ToString();
                 txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
                 txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
                 txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
@@ -68,7 +68,7 @@ namespace WeShare.WebForms
 
         private void ClearControls()
         {
-            txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text = string.Empty;
+            hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text = string.Empty;
         }
 
         protected void gvtasks_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -78,6 +78,7 @@ namespace WeShare.WebForms
                 int TaskId = Convert.ToInt32(gvtasks.DataKeys[e.RowIndex].Values["TaskId"].ToString());
                 BLTasks objBlTasks = new BLTasks();
                 objBlTasks.DeleteTask(TaskId);
+                LoadTasksList();
             }
             catch (Exception)
             {

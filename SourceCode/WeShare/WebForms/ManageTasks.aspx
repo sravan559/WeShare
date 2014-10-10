@@ -42,7 +42,6 @@
         <asp:GridView ID="gvtasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvtasks_RowCommand"
             DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvtasks_RowDeleting">
             <Columns>
-                <asp:BoundField DataField="TaskId" HeaderText="Task Id" />
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="TaskDescription" HeaderText="Description" />
                 <asp:BoundField DataField="PointsAllocated" HeaderText="Points" />

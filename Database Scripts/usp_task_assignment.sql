@@ -42,7 +42,7 @@ BEGIN
 		SELECT Task_Id,Task_Title,Task_Description,Points from Tasks where Task_Id NOT IN (SELECT Task_Id FROM AssignedTasks)
 		
 	ELSE IF @Action='GETASSIGNEDTASKS'
-		SELECT t.Task_Id,Task_Title,u.Email_Id,First_Name+', '+Last_Name, Due_Date,Status from Tasks t inner join AssignedTasks at on t.Task_Id=at.Task_Id
+		SELECT t.Task_Id,Task_Title,u.Email_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status from Tasks t inner join AssignedTasks at on t.Task_Id=at.Task_Id
 		inner join Users u on at.Email_Id=u.Email_Id
 				
 	ELSE IF @Action='GetTasksByEmailId'

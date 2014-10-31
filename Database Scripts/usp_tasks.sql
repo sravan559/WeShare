@@ -1,11 +1,11 @@
 
-/****** Object:  StoredProcedure [dbo].[usp_task]    Script Date: 10/10/2014 14:37:55 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_task]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[usp_task]
+/****** Object:  StoredProcedure [dbo].[usp_tasks]    Script Date: 10/10/2014 14:37:55 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_tasks]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[usp_tasks]
 GO
 
 
-/****** Object:  StoredProcedure [dbo].[usp_task]    Script Date: 10/10/2014 14:37:55 ******/
+/****** Object:  StoredProcedure [dbo].[usp_tasks]    Script Date: 10/10/2014 14:37:55 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -17,7 +17,7 @@ GO
 -- Create date: 
 -- Description:	
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_task] 
+CREATE PROCEDURE [dbo].[usp_tasks] 
 (
 	@Task_Id NVARCHAR(50)=NULL,
 	@Task_Title NVARCHAR(50)=NULL,

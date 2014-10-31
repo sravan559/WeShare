@@ -26,7 +26,7 @@ namespace WeShare.WebForms
         {
             UserInfo objUserInfo = new UserInfo()
             {
-                EmailId = txtEmailAddress.Text.Trim(),
+                UserId = txtEmailAddress.Text.Trim(),
                 FirstName = txtFirstName.Text.Trim(),
                 LastName = txtLastName.Text.Trim(),
                 ContactNumber = txtContactNumber.Text.Trim()

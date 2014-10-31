@@ -5,6 +5,9 @@ using System.Text;
 
 namespace WeShare.BusinessModel
 {
+    /// <summary>
+    /// Helper Class to perform data type convertions with null value validation
+    /// </summary>
     public static class Extensions
     {
         public static string ToStr(this object value)

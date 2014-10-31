@@ -19,11 +19,11 @@ namespace WeShare.DataAccess
             {
                 connection = new SqlConnection(GetConnectionString());
                 SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "usp_user";
+                cmd.CommandText = DbConstants.UspUsers;
                 cmd.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[5];
                 parameters[0] = new SqlParameter("@Action", "C");
-                parameters[1] = new SqlParameter("@Email_Id", objUserInfo.EmailId);
+                parameters[1] = new SqlParameter("@User_Id", objUserInfo.UserId);
                 parameters[2] = new SqlParameter("@First_Name", objUserInfo.FirstName);
                 parameters[3] = new SqlParameter("@Last_Name", objUserInfo.LastName);
                 parameters[4] = new SqlParameter("@Contact_Number", objUserInfo.ContactNumber);
@@ -47,7 +47,7 @@ namespace WeShare.DataAccess
             SqlConnection connection = new SqlConnection(GetConnectionString());
 
             SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "usp_user";
+            cmd.CommandText = DbConstants.UspUsers;
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@Action", "R");
@@ -60,7 +60,7 @@ namespace WeShare.DataAccess
                 {
                     UserInfo objUserInfo = new UserInfo()
                     {
-                        EmailId = objSqlReader["Email_Id"].ToStr(),
+                        UserId = objSqlReader["User_Id"].ToStr(),
                         FirstName = objSqlReader["First_Name"].ToString(),
                         LastName = objSqlReader["Last_Name"].ToString(),
                         ContactNumber = objSqlReader["Contact_Number"].ToString(),
@@ -73,30 +73,30 @@ namespace WeShare.DataAccess
             return listUserInfo;
         }
 
-        public void DeleteUser(string emailId)
+        public void DeleteUser(string userId)
         {
             SqlConnection connection = new SqlConnection(GetConnectionString());
             SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "usp_user";
+            cmd.CommandText = DbConstants.UspUsers;
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@Action", "D");
-            parameters[1] = new SqlParameter("@Email_Id", emailId);
+            parameters[1] = new SqlParameter("@User_Id", userId);
             cmd.Parameters.AddRange(parameters);
             connection.Open();
             cmd.ExecuteNonQuery();
         }
 
-        public string VerifyUser(string emailId)
+        public string VerifyUser(string userId)
         {
             string password = string.Empty;
             SqlConnection connection = new SqlConnection(GetConnectionString());
             SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "usp_user";
+            cmd.CommandText = DbConstants.UspUsers;
             cmd.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@Action", "CHECK_USER");
-            parameters[1] = new SqlParameter("@Email_Id", emailId);
+            parameters[1] = new SqlParameter("@User_Id", userId);
             cmd.Parameters.AddRange(parameters);
             connection.Open();
             SqlDataReader dataReader = cmd.ExecuteReader();

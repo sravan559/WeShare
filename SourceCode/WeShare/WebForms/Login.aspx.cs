@@ -17,13 +17,13 @@ namespace WeShare.WebForms
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string user_id = txtUserID.Text;
-            string pwd = txtPwd.Text;
+            string user_id = txtLoginEmail.Text;
+            string pwd = txtLoginPassword.Text;
             BLUsers objBlUsers = new BLUsers();
             string db_pwd = objBlUsers.check_user(user_id);
             if (pwd == db_pwd)
             {
-                Session["UserId"] = txtUserID.Text.Trim();
+                Session["UserId"] = txtLoginEmail.Text.Trim();
                 Response.Redirect("Home.aspx");
             }
             else

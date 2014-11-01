@@ -30,3 +30,5 @@ SourceCode/WeShare.suo
 *.dll
 *.cache
 *.txt
+SourceCode/WeShare.BusinessLogic/bin/Debug/WeShare.BusinessLogic.dll
+SourceCode/WeShare/Web.config

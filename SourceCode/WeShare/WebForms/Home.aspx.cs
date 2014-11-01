@@ -16,6 +16,7 @@ namespace WeShare.WebForms
             if (!IsPostBack)
             {
                 LoadMyTasks();
+               //oadAllTasks();
             }
         }
 
@@ -30,5 +31,47 @@ namespace WeShare.WebForms
             gvMyTasks.DataSource = listTaskInfo;
             gvMyTasks.DataBind();
         }
-    }
+
+        protected void gvMyTasks_RowCommand(object sender,GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "StatusChange")
+            {
+                int index = Convert.ToInt32(e.CommandArgument);
+                GridViewRow row = gvMyTasks.Rows[index];
+
+                // Mark the respective task as completed
+
+
+                // Refresh the gridview
+                LoadMyTasks();
+            }
+
+        }
+
+        //private void LoadAllTasks()
+        //{
+        //     BLTaskAssignment objBlTasks = new BLTaskAssignment();
+        //    if (Session["UserId"] == null)
+        //    {
+        //        Response.Redirect("Login.aspx");
+        //    }
+        //    List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetCompletedTasksByMailId(Session["UserId"].ToString());
+        //    gvMyTasks.DataSource = listTaskInfo;
+        //    gvMyTasks.DataBind();
+        //}
+        //protected void gvMyTasks_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    BLTaskAssignment objBL = new BLTaskAssignment();
+        //    int r =gvMyTasks.SelectedIndex;
+        //    bool c= objBL.Status_Change(r);
+        //    if (c)
+        //        ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", "alert('The record is saved sucessfully.')", true);
+            
+        //   //LoadMyTasks();
+        //    // update new gridview
+      
+        //}
+
+      
+     }
 }

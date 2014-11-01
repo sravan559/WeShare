@@ -40,6 +40,15 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.TextBox txtLoginPassword;
         
         /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+        
+        /// <summary>
         /// btnLogin control.
         /// </summary>
         /// <remarks>
@@ -76,13 +85,13 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.TextBox txtEmailId;
         
         /// <summary>
-        /// TextBox4 control.
+        /// txtContactNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtContactNumber;
         
         /// <summary>
         /// txtPassword control.

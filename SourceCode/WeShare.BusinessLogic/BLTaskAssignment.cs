@@ -30,6 +30,14 @@ namespace WeShare.BusinessLogic
         {
             return objDaTaskAssignment.GetUserTasksByMailId(emailId);
         }
+        public bool Status_Change(int r)
+        {
+            return objDaTaskAssignment.Status_Change(r);
+        }
+        //public List<TaskAssignmentInfo> GetCompletedTasksByMailId(string emailId)
+        //{
+        //    return objDaTaskAssignment.GetCompletedTasksByMailId(emailId);
+        //}
 
         public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
         {

@@ -32,6 +32,11 @@
                     --%>
                 </td>
             </tr>
+            <tr>
+                <td style="color: Red">
+                    <asp:Label ID="lblErrorMessage" runat="server" Text="Session Expired. Please login again to continue." Visible="false"></asp:Label>
+                </td>
+            </tr>
             <%--<tr>
                 <td>
                     <label class="checkbox">
@@ -42,14 +47,14 @@
             </tr>--%>
             <tr align="center">
                 <td>
-                    <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn" OnClick="Button1_Click" />
+                    <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn" OnClick="btnLogin_Click" />
                     <input id="btnShowSignUp" type="button" value="Sign Up" class="btn" />
                 </td>
             </tr>
         </table>
     </div>
     <div id="userSignUp" style="display: none; border: 2px solid black; width: 70% !important;
-        max-width: 800px;" class="login form-signin">
+        max-width: 500px;" class="login form-signin">
         <table style="width: 100%;">
             <tr>
                 <th>
@@ -80,7 +85,7 @@
                     Contact No.:
                 </th>
                 <td>
-                    <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtContactNumber" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -116,46 +121,25 @@ $(document).ready(function ()
   CreateSignUpValidationRules();
 });
 
-function CreateLoginValidationRules() {
-$("#signUpForm").validate(
-        {
-            rules:
-             {       
-             
-                 <%=txtLoginEmail.ClientID%>:
-                {
-                    required: true,
-                    email:true
-                   
-                },
-                <%=txtLoginPassword.ClientID%>:
-                {
-                    required: true                
-                }
-             },
-            messages: 
-            {     
-                <%=txtLoginEmail.ClientID%>: 
-                {
-                    required: "Please enter login details.",
-                    email:"Please enter valid email address"
-                },      
-                <%=txtLoginPassword.ClientID%>: 
-                {
-                    required: "Please enter a password"
-                   
-                }
-            }
-        });
-}
-
 function CreateSignUpValidationRules() {
 $("#signUpForm").validate(
         {
             rules:
-             {     
-             
-                 <%=txtPassword.ClientID%>:
+             {  
+                <%=txtFirstName.ClientID%>:
+                {
+                    required: true
+                },
+                <%=txtLastName.ClientID%>:
+                {
+                    required: true
+                },   
+                <%=txtEmailId.ClientID%>:
+                {
+                    required: true,
+                    email:true
+                },
+                <%=txtPassword.ClientID%>:
                 {
                     required: true,
                     minlength: 6,
@@ -168,10 +152,23 @@ $("#signUpForm").validate(
              },
             messages: 
             {     
+                <%=txtFirstName.ClientID%>:
+                {
+                    required: "Please enter your First Name"
+                },
+                <%=txtLastName.ClientID%>:
+                {
+                    required: "Please enter your Last Name"
+                },   
+                <%=txtEmailId.ClientID%>:
+                {
+                    required: "Please enter an e-mail address",
+                    email:"Please enter a valid e-mail address"
+                },
                 <%=txtPassword.ClientID%>: 
                 {
                     required: "Please enter a password",
-                    minlength: "First Name must contain at least 6 characters.",
+                    minlength: "Password must contain at least 6 characters.",
                     maxlength: "Password cannot exceed 10 characters."
                 },      
                 <%=txtConfirmPassword.ClientID%>: 
@@ -186,8 +183,17 @@ $("#signUpForm").validate(
     {
         if (!$('#signUpForm').valid()) 
         {
-        alert('Please make sure all the data is valid before submitting.')
+            alert('Please make sure all the data is valid before submitting.');
         }     
+    });
+
+      $('#btnLogin').click(function(){
+        if($('#<%=txtLoginEmail.ClientID %>').val()=='' || $('#<%=txtLoginPassword.ClientID %>').val()=='')
+        {
+            alert('Please enter your login credentials to login.')
+            return false;
+        }
+        return true;
     });
 
     $('#btnShowSignUp').click(function(){

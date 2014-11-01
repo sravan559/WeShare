@@ -93,6 +93,7 @@ namespace WeShare.DataAccess
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
                         TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
                         DueDate = objSqlReader["Due_Date"].ToDateTime(),
                         Status = objSqlReader["Status"].ToStr(),
                     };
@@ -101,6 +102,7 @@ namespace WeShare.DataAccess
             }
             return listTasks;
         }
+
 
         public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
         {
@@ -150,6 +152,57 @@ namespace WeShare.DataAccess
             }
             return true;
         }
+        public bool Status_Change(int r)
+        {
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = "usp_task_assignment";
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "StatusUpdate");
+                parameters[1] = new SqlParameter("@Task_id", r);
+                objSqlConnection.Open();
+                objSqlCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                CloseConnection(objSqlConnection);
+            }
+            return true;
+        }
+
+        // public List<TaskAssignmentInfo> GetCompletedTasksByMailId(string emailId)
+        //{
+        //    List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
+        //    objSqlConnection = new SqlConnection(GetConnectionString());
+        //    objSqlCommand = objSqlConnection.CreateCommand();
+        //    objSqlCommand.CommandText = "usp_task_assignment";
+        //    objSqlCommand.CommandType = CommandType.StoredProcedure;
+        //    SqlParameter[] parameters = new SqlParameter[2];
+        //    parameters[0] = new SqlParameter("@Action", "GetCompTasksByEmailId");
+        //    parameters[1] = new SqlParameter("@Email_Id", emailId);
+        //    objSqlCommand.Parameters.AddRange(parameters);
+        //    objSqlConnection.Open();
+        //    SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
+        //    if (objSqlReader != null && objSqlReader.HasRows)
+        //    {
+        //        while (objSqlReader.Read())
+        //        {
+        //            TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo()
+        //            {
+        //                TaskId = objSqlReader["Task_Id"].ToInt32(),
+        //                TaskTitle = objSqlReader["Task_Title"].ToStr(),
+        //                DueDate = objSqlReader["Due_Date"].ToDateTime(),
+        //                Status = objSqlReader["Status"].ToStr(),
+        //            };
+        //            listTasks.Add(objTaskInfo);
+        //        }
+        //    }
+        //    return listTasks;
+        //}
+
 
     }
 }

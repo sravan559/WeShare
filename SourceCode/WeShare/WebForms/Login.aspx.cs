@@ -12,10 +12,13 @@ namespace WeShare.WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
 
+            }
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnLogin_Click(object sender, EventArgs e)
         {
             string user_id = txtLoginEmail.Text;
             string pwd = txtLoginPassword.Text;

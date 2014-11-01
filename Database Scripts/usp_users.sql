@@ -47,8 +47,9 @@ BEGIN
 		UPDATE Users SET First_Name=@First_Name,
 						 Last_Name=@Last_Name,
 						 Contact_Number=@Contact_Number
-					WHERE User_Id=@User_Id						
-	ELSE IF @Action = 'CHECK_USER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
+					WHERE User_Id=@User_Id	
+										
+	ELSE IF @Action = 'VALIDATEUSER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
 		IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
 			SELECT 'TRUE'					 
 	END

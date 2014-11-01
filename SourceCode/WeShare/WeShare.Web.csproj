@@ -151,6 +151,10 @@
       <Project>{DCFC8AD2-9969-4CFC-BEAA-CB94A45D7C6B}</Project>
       <Name>WeShare.BusinessModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WeShare.WebHelper\WeShare.WebHelper.csproj">
+      <Project>{070E4B40-1B8B-487A-96BE-F776E00B8F89}</Project>
+      <Name>WeShare.WebHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

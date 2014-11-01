@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.BusinessModel", "We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.BusinessLogic", "WeShare.BusinessLogic\WeShare.BusinessLogic.csproj", "{1E1B8468-FBA9-42DB-BA5D-9520FDFFD112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.WebHelper", "WeShare.WebHelper\WeShare.WebHelper.csproj", "{070E4B40-1B8B-487A-96BE-F776E00B8F89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{1E1B8468-FBA9-42DB-BA5D-9520FDFFD112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E1B8468-FBA9-42DB-BA5D-9520FDFFD112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E1B8468-FBA9-42DB-BA5D-9520FDFFD112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

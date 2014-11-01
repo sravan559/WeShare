@@ -34,7 +34,8 @@
             </tr>
             <tr>
                 <td style="color: Red">
-                    <asp:Label ID="lblErrorMessage" runat="server" Text="Session Expired. Please login again to continue." Visible="false"></asp:Label>
+                    <asp:Label ID="lblErrorMessage" runat="server" Text="Session Expired. Please login again to continue."
+                        Visible="false"></asp:Label>
                 </td>
             </tr>
             <%--<tr>
@@ -106,7 +107,8 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
-                    <asp:Button ID="btnSignUpUser" runat="server" Text="Start Sharing" CssClass="btn" />
+                    <asp:Button ID="btnSignUpUser" runat="server" Text="Start Sharing" CssClass="btn"
+                        OnClick="btnSignUpUser_Click" />
                     <input id="btnShowLogin" type="button" value="Back to Login" class="btn" />
                 </td>
             </tr>

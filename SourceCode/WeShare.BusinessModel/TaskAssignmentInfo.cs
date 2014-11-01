@@ -7,10 +7,11 @@ namespace WeShare.BusinessModel
 {
     public class TaskAssignmentInfo : TaskInfo
     {
-        //public int TaskId { get; set; }
+       // public int TaskId { get; set; }
         public string EmailId { get; set; }
         public string UserName { get; set; }
         public DateTime DueDate { get; set; }
         public string Status { get; set; }
+        //public string TaskDesc { get; set; }
     }
 }

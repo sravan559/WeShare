@@ -49,6 +49,12 @@ BEGIN
 		Select t.Task_Id,Task_Title,Task_Description, Due_Date,Status from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
 		where at.Email_Id=@Email_Id
 				 	 	
+	ELSE IF @Action='StatusUpdate'
+		Update Tasks set Status='Completed' where Task_id=@Task_id;
+	
+	else if @Action ='GetCompTasksByEmailId'
+	Select Select t.Task_Id,Task_Title,Task_Description, Due_Date,Status from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
+		where at.Email_Id=@Email_Id and Status='Completed';
 END
 
 GO

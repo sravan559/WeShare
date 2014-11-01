@@ -18,7 +18,7 @@ namespace WeShare.DataAccess
             List<TaskInfo> listTasks = new List<TaskInfo>();
             objSqlConnection = new SqlConnection(GetConnectionString());
             objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = "usp_task_assignment";
+            objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
             objSqlCommand.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@Action", "GETUNASSIGNEDTASKS");
@@ -47,7 +47,7 @@ namespace WeShare.DataAccess
             List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
             objSqlConnection = new SqlConnection(GetConnectionString());
             objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = "usp_task_assignment";
+            objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
             objSqlCommand.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@Action", "GETASSIGNEDTASKS");
@@ -77,7 +77,7 @@ namespace WeShare.DataAccess
             List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
             objSqlConnection = new SqlConnection(GetConnectionString());
             objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = "usp_task_assignment";
+            objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
             objSqlCommand.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@Action", "GetTasksByEmailId");
@@ -111,7 +111,7 @@ namespace WeShare.DataAccess
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = "usp_task_assignment";
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[5];
                 parameters[0] = new SqlParameter("@Action", "C");
@@ -136,7 +136,7 @@ namespace WeShare.DataAccess
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = "usp_task_assignment";
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[3];
                 parameters[0] = new SqlParameter("@Action", "UPDATESTATUS");
@@ -158,7 +158,7 @@ namespace WeShare.DataAccess
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = "usp_task_assignment";
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
                 parameters[0] = new SqlParameter("@Action", "StatusUpdate");

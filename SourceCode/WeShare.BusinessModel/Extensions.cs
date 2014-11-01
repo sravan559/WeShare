@@ -57,5 +57,25 @@ namespace WeShare.BusinessModel
             else
                 return Convert.ToDateTime(value);
         }
+
+        public static bool ToBoolean(this object value)
+        {
+            if (value == DBNull.Value)
+                return false;
+            else if (value.ToInt32() == 1 || value.ToString().ToLower() == "true" || value.ToString().ToLower() == "yes")
+                return true;
+            else
+                return false;
+        }
+
+        public static bool ToBoolean(this string value)
+        {
+            if (string.IsNullOrEmpty(value))
+                return false;
+            else if (value == "1" || value.ToLower() == "true" || value.ToLower() == "yes")
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -14,98 +14,118 @@ namespace WeShare.DataAccess
         public bool SaveUserDetails(UserInfo objUserInfo)
         {
             //Implementation
-            SqlConnection connection = null;
+            SqlConnection objSqlConnection = null;
+            bool isRecordSaved = false;
             try
             {
-                connection = new SqlConnection(GetConnectionString());
-                SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = DbConstants.UspUsers;
-                cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[5];
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                SqlCommand objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspUsers;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[6];
                 parameters[0] = new SqlParameter("@Action", "C");
                 parameters[1] = new SqlParameter("@User_Id", objUserInfo.UserId);
                 parameters[2] = new SqlParameter("@First_Name", objUserInfo.FirstName);
                 parameters[3] = new SqlParameter("@Last_Name", objUserInfo.LastName);
                 parameters[4] = new SqlParameter("@Contact_Number", objUserInfo.ContactNumber);
-                cmd.Parameters.AddRange(parameters);
-                connection.Open();
-                int rows = cmd.ExecuteNonQuery();
+                parameters[5] = new SqlParameter("@Password", objUserInfo.Password);
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isRecordSaved = rowsAffected > 0;
+
             }
             finally
             {
-                connection.Close();
+                CloseConnection(objSqlConnection);
             }
 
-            return true;
+            return isRecordSaved;
         }
 
         public List<UserInfo> GetUsersList()
         {
-            List<UserInfo> listUserInfo = new List<UserInfo>();
+            List<UserInfo> listUserInfo = null;
             //Code to get the list of users from the database
-
-            SqlConnection connection = new SqlConnection(GetConnectionString());
-
-            SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = DbConstants.UspUsers;
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@Action", "R");
-            cmd.Parameters.AddRange(parameters);
-            connection.Open();
-            SqlDataReader objSqlReader = cmd.ExecuteReader();
-            if (objSqlReader != null && objSqlReader.HasRows)
+            try
             {
-                while (objSqlReader.Read())
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                SqlCommand cmd = objSqlConnection.CreateCommand();
+                cmd.CommandText = DbConstants.UspUsers;
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@Action", "R");
+                cmd.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                SqlDataReader objSqlReader = cmd.ExecuteReader();
+                if (objSqlReader != null && objSqlReader.HasRows)
                 {
-                    UserInfo objUserInfo = new UserInfo()
+                    listUserInfo = new List<UserInfo>();
+                    while (objSqlReader.Read())
                     {
-                        UserId = objSqlReader["User_Id"].ToStr(),
-                        FirstName = objSqlReader["First_Name"].ToString(),
-                        LastName = objSqlReader["Last_Name"].ToString(),
-                        ContactNumber = objSqlReader["Contact_Number"].ToString(),
-                        Name = objSqlReader["Name"].ToString()
-                    };
-                    listUserInfo.Add(objUserInfo);
+                        UserInfo objUserInfo = new UserInfo()
+                        {
+                            UserId = objSqlReader["User_Id"].ToStr(),
+                            FirstName = objSqlReader["First_Name"].ToString(),
+                            LastName = objSqlReader["Last_Name"].ToString(),
+                            ContactNumber = objSqlReader["Contact_Number"].ToString(),
+                            Name = objSqlReader["Name"].ToString()
+                        };
+                        listUserInfo.Add(objUserInfo);
+                    }
                 }
             }
-
+            finally
+            {
+                CloseConnection(objSqlConnection);
+            }
             return listUserInfo;
         }
 
         public void DeleteUser(string userId)
         {
-            SqlConnection connection = new SqlConnection(GetConnectionString());
-            SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = DbConstants.UspUsers;
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("@Action", "D");
-            parameters[1] = new SqlParameter("@User_Id", userId);
-            cmd.Parameters.AddRange(parameters);
-            connection.Open();
-            cmd.ExecuteNonQuery();
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                SqlCommand cmd = objSqlConnection.CreateCommand();
+                cmd.CommandText = DbConstants.UspUsers;
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "D");
+                parameters[1] = new SqlParameter("@User_Id", userId);
+                cmd.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                cmd.ExecuteNonQuery();
+
+            }
+            finally
+            {
+                CloseConnection(objSqlConnection);
+            }
         }
 
-        public string VerifyUser(string userId)
+        public bool IsUserValid(string userId, string password)
         {
-            string password = string.Empty;
-            SqlConnection connection = new SqlConnection(GetConnectionString());
-            SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = DbConstants.UspUsers;
-            cmd.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("@Action", "CHECK_USER");
-            parameters[1] = new SqlParameter("@User_Id", userId);
-            cmd.Parameters.AddRange(parameters);
-            connection.Open();
-            SqlDataReader dataReader = cmd.ExecuteReader();
-            while (dataReader.Read())
+            bool isValidUser = false;
+            try
             {
-                password = dataReader["Password"].ToString();
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                SqlCommand cmd = objSqlConnection.CreateCommand();
+                cmd.CommandText = DbConstants.UspUsers;
+                cmd.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "VALIDATEUSER");
+                parameters[1] = new SqlParameter("@User_Id", userId);
+                parameters[2] = new SqlParameter("@Password", password);
+                cmd.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                isValidUser = cmd.ExecuteScalar().ToBoolean();
             }
-
-            return password;
+            finally
+            {
+                CloseConnection(objSqlConnection);
+            }
+            return isValidUser;
         }
     }
 }

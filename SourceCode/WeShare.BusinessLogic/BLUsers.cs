@@ -9,31 +9,32 @@ namespace WeShare.BusinessLogic
 {
     public class BLUsers
     {
-        DAUser objUserDa = null;
+        DAUser objDaUser = null;
         public BLUsers()
         {
-            objUserDa = new DAUser();
+            objDaUser = new DAUser();
         }
 
         public bool SaveUserDetails(UserInfo objUserInfo)
         {
-            return objUserDa.SaveUserDetails(objUserInfo);
+            return objDaUser.SaveUserDetails(objUserInfo);
         }
 
         public List<UserInfo> GetUsersList()
         {
-            return objUserDa.GetUsersList();
+            return objDaUser.GetUsersList();
         }
 
         public void DeleteUser(string emailId)
         {
-            objUserDa.DeleteUser(emailId);
+            objDaUser.DeleteUser(emailId);
         }
 
-        public string check_user(string emailId)
+        public bool IsUserValid(string userId, string password)
         {
-            string pwd = objUserDa.VerifyUser(emailId);
-            return pwd;
+            return objDaUser.IsUserValid(userId, password);
         }
+
+
     }
 }

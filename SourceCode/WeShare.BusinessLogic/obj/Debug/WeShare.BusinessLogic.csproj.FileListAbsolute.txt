@@ -7,3 +7,12 @@ D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debu
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.csprojResolveAssemblyReference.cache
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.dll
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.csprojResolveAssemblyReference.cache
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\obj\Debug\WeShare.BusinessLogic.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessLogic.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessLogic.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessModel.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.DataAccess.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.BusinessModel.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessLogic\bin\Debug\WeShare.DataAccess.pdb

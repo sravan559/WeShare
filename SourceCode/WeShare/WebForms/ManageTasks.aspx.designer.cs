@@ -49,6 +49,24 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.TextBox txtTaskDesc;
         
         /// <summary>
+        /// rbTaskType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbTaskType;
+        
+        /// <summary>
+        /// rbTaskRecursive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList rbTaskRecursive;
+        
+        /// <summary>
         /// hdnTaskId control.
         /// </summary>
         /// <remarks>

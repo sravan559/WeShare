@@ -25,8 +25,32 @@
                     <th>
                         Task Description:
                     </th>
-                    <td colspan="3"> 
-                        <asp:TextBox ID="txtTaskDesc" runat="server" TextMode="MultiLine" Rows="5" Columns="30" Width="98%"></asp:TextBox>
+                    <td colspan="3">
+                        <asp:TextBox ID="txtTaskDesc" runat="server" TextMode="MultiLine" Rows="5" Columns="30"
+                            Width="98%"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        TaskType:
+                    </th>
+                    <td colspan="3">
+                        <asp:RadioButtonList ID="rbTaskType" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem Text="Weekly" Value="Weekly"></asp:ListItem>
+                            <asp:ListItem Text="Monthly" Value="Monthly"></asp:ListItem>
+                        </asp:RadioButtonList>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Is this task recursive?
+                    </th>
+                    <td colspan="3">
+                        <asp:RadioButtonList ID="rbTaskRecursive" runat="server" 
+                            RepeatDirection="Horizontal">
+                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                        </asp:RadioButtonList>
                     </td>
                 </tr>
                 <tr>
@@ -39,13 +63,18 @@
             </table>
         </asp:Panel>
     </div>
+    <h3>
+        List of tasks...</h3>
     <div class="grid">
         <asp:GridView ID="gvtasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvtasks_RowCommand"
-            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvtasks_RowDeleting" Width="80%">
+            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvtasks_RowDeleting"
+            Width="100%">
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="TaskDescription" HeaderText="Description" />
                 <asp:BoundField DataField="PointsAllocated" HeaderText="Points" />
+                <asp:BoundField DataField="TaskType" HeaderText="Type" />
+                <asp:BoundField DataField="TaskRecursive" HeaderText="Is Recursive?" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" CommandName="EditTask" AlternateText="Edit"
@@ -56,25 +85,25 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                    <table class="emptytable">
-                        <tr>
-                            <th>
-                                Task Name
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Points
-                            </th>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
-                                No data available.
-                            </td>
-                        </tr>
-                    </table>
-                </EmptyDataTemplate>
+                <table class="emptytable">
+                    <tr>
+                        <th>
+                            Task Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Points
+                        </th>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            No data available.
+                        </td>
+                    </tr>
+                </table>
+            </EmptyDataTemplate>
             <HeaderStyle BackColor="LightBlue" />
         </asp:GridView>
     </div>

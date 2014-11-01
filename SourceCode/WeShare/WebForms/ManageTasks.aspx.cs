@@ -28,7 +28,9 @@ namespace WeShare.WebForms
                     TaskId = hdnTaskId.Value.ToInt32(),
                     TaskTitle = txtTaskName.Text.Trim(),
                     TaskDescription = txtTaskDesc.Text.Trim(),
-                    PointsAllocated = Convert.ToInt32(txtTaskPoints.Text.Trim())
+                    PointsAllocated = Convert.ToInt32(txtTaskPoints.Text.Trim()),
+                    TaskType = rbTaskType.Text.Trim(),
+                    TaskRecursive = rbTaskRecursive.Text.Trim(),
                 };
 
                 BLTasks objTaskBL = new BLTasks();
@@ -56,6 +58,8 @@ namespace WeShare.WebForms
                 txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
                 txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
                 txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
+                rbTaskType.Text = gvtasks.DataKeys[rowIndex].Values["TaskType"].ToString();
+                rbTaskRecursive.Text = gvtasks.DataKeys[rowIndex].Values["TaskRecursive"].ToString();
             }
         }
 

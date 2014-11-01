@@ -23,20 +23,25 @@ CREATE PROCEDURE [dbo].[usp_tasks]
 	@Task_Title NVARCHAR(50)=NULL,
 	@Task_Description NVARCHAR(50)=NULL,
 	@Points NVARCHAR(20) = NULL,
-	@Action NVARCHAR(10) = NULL
+	@Action NVARCHAR(10) = NULL,
+	@Task_Type NVARCHAR(50)= NULL,
+	@Is_Task_Recursive NVARCHAR(50)=NULL
 )
 AS
 BEGIN
 	IF @Action = 'C' -- create/save task details
-		INSERT INTO Tasks ( Task_Title, Task_Description, Points)
-				   VALUES ( @Task_Title,@Task_Description,@Points)
+	
+		INSERT INTO Tasks ( Task_Title, Task_Description, Points, Task_Type, Is_Task_Recursive)
+				   VALUES ( @Task_Title,@Task_Description,@Points,@Task_Type,@Is_Task_Recursive)
 	ELSE IF @Action = 'U'
 		UPDATE Tasks SET Task_Title=@Task_Title,
 						 Task_Description=@Task_Description,
-						 Points=@Points
+						 Points=@Points,
+						 Task_Type=@Task_Type,
+						 Is_Task_Recursive=@Is_Task_Recursive
 						 WHERE Task_Id=@Task_Id
 	ELSE IF @Action = 'R'
-		SELECT Task_Id, Task_Title, Task_Description, Points FROM Tasks
+		SELECT Task_Id, Task_Title, Task_Description, Points,Task_Type,Is_Task_Recursive FROM Tasks
 		
 	ELSE IF @Action = 'D'
 		DELETE FROM Tasks WHERE Task_Id=@Task_Id

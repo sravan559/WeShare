@@ -58,7 +58,7 @@ namespace WeShare.WebForms
         {
             TaskAssignmentInfo objTaskAssignmentInfo = new TaskAssignmentInfo()
             {
-                EmailId = ddlUsers.SelectedValue,
+                UserId = ddlUsers.SelectedValue,
                 TaskId = ddlTasks.SelectedValue.ToInt32(),
                 DueDate = txtDueDate.Text.Trim().ToDateTime(),
                 Status = "Pending"

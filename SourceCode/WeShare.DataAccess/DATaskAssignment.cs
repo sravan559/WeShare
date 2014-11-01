@@ -62,7 +62,7 @@ namespace WeShare.DataAccess
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
                         TaskTitle = objSqlReader["Task_Title"].ToStr(),
-                        EmailId = objSqlReader["Email_Id"].ToStr(),
+                        UserId = objSqlReader["User_Id"].ToStr(),
                         UserName = objSqlReader["User_Name"].ToStr(),
                         DueDate = objSqlReader["Due_Date"].ToDateTime()
                     };
@@ -72,7 +72,7 @@ namespace WeShare.DataAccess
             return listTasks;
         }
 
-        public List<TaskAssignmentInfo> GetUserTasksByMailId(string emailId)
+        public List<TaskAssignmentInfo> GetUserTasksByMailId(string userId)
         {
             List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
             objSqlConnection = new SqlConnection(GetConnectionString());
@@ -81,7 +81,7 @@ namespace WeShare.DataAccess
             objSqlCommand.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
             parameters[0] = new SqlParameter("@Action", "GetTasksByEmailId");
-            parameters[1] = new SqlParameter("@Email_Id", emailId);
+            parameters[1] = new SqlParameter("@User_Id", userId);
             objSqlCommand.Parameters.AddRange(parameters);
             objSqlConnection.Open();
             SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
@@ -116,7 +116,7 @@ namespace WeShare.DataAccess
                 SqlParameter[] parameters = new SqlParameter[5];
                 parameters[0] = new SqlParameter("@Action", "C");
                 parameters[1] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
-                parameters[2] = new SqlParameter("@Email_Id", objTaskInfo.EmailId);
+                parameters[2] = new SqlParameter("@User_Id", objTaskInfo.UserId);
                 parameters[3] = new SqlParameter("@Due_Date", objTaskInfo.DueDate);
                 parameters[4] = new SqlParameter("@Status", objTaskInfo.Status);
                 objSqlCommand.Parameters.AddRange(parameters);
@@ -182,7 +182,7 @@ namespace WeShare.DataAccess
         //    objSqlCommand.CommandType = CommandType.StoredProcedure;
         //    SqlParameter[] parameters = new SqlParameter[2];
         //    parameters[0] = new SqlParameter("@Action", "GetCompTasksByEmailId");
-        //    parameters[1] = new SqlParameter("@Email_Id", emailId);
+        //    parameters[1] = new SqlParameter("@User_Id", emailId);
         //    objSqlCommand.Parameters.AddRange(parameters);
         //    objSqlConnection.Open();
         //    SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();

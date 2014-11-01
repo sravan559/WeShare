@@ -2,3 +2,7 @@ D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessModel\bin\Debu
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessModel\bin\Debug\WeShare.BusinessModel.pdb
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessModel\obj\Debug\WeShare.BusinessModel.dll
 D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare.BusinessModel\obj\Debug\WeShare.BusinessModel.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessModel\bin\Debug\WeShare.BusinessModel.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessModel\bin\Debug\WeShare.BusinessModel.pdb
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessModel\obj\Debug\WeShare.BusinessModel.dll
+D:\Indy\SE\Projects\WeShare\SourceCode\WeShare.BusinessModel\obj\Debug\WeShare.BusinessModel.pdb

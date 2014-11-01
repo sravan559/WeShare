@@ -24,3 +24,9 @@ hs_err_pid*
 *.cache
 *.txt
 *.cache
+SourceCode/WeShare/Web.config
+SourceCode/WeShare.suo
+*.pdb
+*.dll
+*.cache
+*.txt

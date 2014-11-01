@@ -73,9 +73,31 @@
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="TaskDescription" HeaderText="Description" />
                 <asp:BoundField DataField="PointsAllocated" HeaderText="Points" />
-                <asp:BoundField DataField="TaskType" HeaderText="Type" />
-                <asp:BoundField DataField="TaskRecursive" HeaderText="Is Recursive?" />
-                <asp:TemplateField HeaderText="Action">
+               
+                
+               <asp:TemplateField HeaderText ="Type">
+               <ItemTemplate>
+               <asp:Label ID="lblTaskType" runat="server" Text='<%# Eval("TaskType") %>'></asp:Label>
+               </ItemTemplate>
+               <EditItemTemplate>
+               <asp:RadioButtonList ID="rbTaskType" runat="server" >
+               <asp:ListItem>Weekly</asp:ListItem>
+               <asp:ListItem>Monthly</asp:ListItem>
+               </asp:RadioButtonList>
+               </EditItemTemplate>
+               </asp:TemplateField>
+               <asp:TemplateField HeaderText ="Type">
+               <ItemTemplate>
+               <asp:Label ID="lblTaskRecursive" runat="server" Text='<%# Eval("TaskRecursive") %>'></asp:Label>
+               </ItemTemplate>
+               <EditItemTemplate>
+               <asp:RadioButtonList ID="rbTaskRecursive" runat="server" >
+               <asp:ListItem>Yes</asp:ListItem>
+               <asp:ListItem>No</asp:ListItem>
+               </asp:RadioButtonList>
+               </EditItemTemplate>
+               </asp:TemplateField>
+               <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" CommandName="EditTask" AlternateText="Edit"
                             CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/Images/img_edit.gif" />

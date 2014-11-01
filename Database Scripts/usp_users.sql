@@ -32,15 +32,10 @@ CREATE PROCEDURE [dbo].[usp_users]
 	)
 AS
 BEGIN
-	IF @Action = 'C' -- create/save user details
-		IF EXISTS(SELECT First_name from Users where User_Id=@User_Id)
-			UPDATE Users SET First_Name=@First_Name,
-							 Last_Name=@Last_Name,
-							 Contact_Number=@Contact_Number							 
-							 WHERE User_Id=@User_Id
-		ELSE
+	IF @Action = 'C' -- create/save user details		
+		IF NOT EXISTS (SELECT First_Name FROM Users WHERE User_Id=@User_Id)
 			INSERT INTO Users (User_Id, First_Name, Last_Name, Contact_Number, [Password])
-				   VALUES (@User_Id, @First_Name,@Last_Name,@Contact_Number,@Password)
+			   VALUES (@User_Id, @First_Name,@Last_Name,@Contact_Number,@Password)
 				   
 	ELSE IF @Action = 'R'
 		SELECT User_Id,First_Name+', '+Last_Name as 'Name', First_Name, Last_Name, Contact_Number FROM Users
@@ -54,7 +49,8 @@ BEGIN
 						 Contact_Number=@Contact_Number
 					WHERE User_Id=@User_Id						
 	ELSE IF @Action = 'CHECK_USER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
-		SELECT [Password] from Users where User_Id=@User_Id					 
+		IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
+			SELECT 'TRUE'					 
 	END
 	
 GO

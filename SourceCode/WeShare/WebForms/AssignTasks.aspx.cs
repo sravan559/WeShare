@@ -41,7 +41,7 @@ namespace WeShare.WebForms
             List<UserInfo> listUsers = objUserBl.GetUsersList();
             ddlUsers.DataSource = listUsers;
             ddlUsers.DataTextField = "Name";
-            ddlUsers.DataValueField = "EmailId";
+            ddlUsers.DataValueField = "UserId";
             ddlUsers.DataBind();
         }
 
@@ -70,6 +70,7 @@ namespace WeShare.WebForms
             LoadUnAssignedTasks();
             LoadUsers();
             txtDueDate.Text = string.Empty;
+            LoadAssignedTasks();
         }
 
         protected void gvAssignedTasks_RowCommand(object sender, GridViewCommandEventArgs e)

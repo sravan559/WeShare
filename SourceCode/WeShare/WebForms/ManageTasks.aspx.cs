@@ -58,8 +58,9 @@ namespace WeShare.WebForms
                 txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
                 txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
                 txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
-                rbTaskType.Text = gvtasks.DataKeys[rowIndex].Values["TaskType"].ToString();
-                rbTaskRecursive.Text = gvtasks.DataKeys[rowIndex].Values["TaskRecursive"].ToString();
+                //rbTaskType.Text = gvtasks.DataKeys[rowIndex].Values["TaskType"].ToString();
+                //rbTaskRecursive.Text = gvtasks.DataKeys[rowIndex].Values["TaskRecursive"].ToString();
+
             }
         }
 
@@ -72,7 +73,10 @@ namespace WeShare.WebForms
 
         private void ClearControls()
         {
-            hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text = string.Empty;
+            hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text  = string.Empty;
+            rbTaskType.SelectedIndex = -1;
+            rbTaskRecursive.SelectedIndex = -1;
+
         }
 
         protected void gvtasks_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -92,5 +96,7 @@ namespace WeShare.WebForms
 
 
         }
+
+      
     }
 }

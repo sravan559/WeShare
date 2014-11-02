@@ -20,3 +20,5 @@ D:\Indy\SE\Projects\WeShare\SourceCode\WeShare\bin\WeShare.DataAccess.pdb
 D:\Indy\SE\Projects\WeShare\SourceCode\WeShare\obj\Debug\WeShare.Web.csprojResolveAssemblyReference.cache
 D:\Indy\SE\Projects\WeShare\SourceCode\WeShare\obj\Debug\WeShare.dll
 D:\Indy\SE\Projects\WeShare\SourceCode\WeShare\obj\Debug\WeShare.pdb
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.WebHelper.dll
+D:\IU\Fall 2014\GitProjects\SE\WeShare\SourceCode\WeShare\bin\WeShare.WebHelper.pdb

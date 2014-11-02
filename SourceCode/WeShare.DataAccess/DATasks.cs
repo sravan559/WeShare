@@ -22,20 +22,33 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = "usp_tasks";
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[6];
                 if (objTaskInfo.TaskId > 0)
+                {
+                    SqlParameter[] parameters = new SqlParameter[7];
                     parameters[0] = new SqlParameter("@Action", "U");
+                    parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
+                    parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
+                    parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
+                    parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
+                    parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
+                    parameters[6] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
+                    objSqlCommand.Parameters.AddRange(parameters);
+                    objSqlConnection.Open();
+                    objSqlCommand.ExecuteNonQuery();
+                }
                 else
+                {
+                    SqlParameter[] parameters = new SqlParameter[6];
                     parameters[0] = new SqlParameter("@Action", "C");
-
-                parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
-                parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
-                parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
-                parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
-                parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
-                objSqlCommand.Parameters.AddRange(parameters);
-                objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
+                    parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
+                    parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
+                    parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
+                    parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
+                    parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
+                    objSqlCommand.Parameters.AddRange(parameters);
+                    objSqlConnection.Open();
+                    objSqlCommand.ExecuteNonQuery();
+                }
             }
             finally
             {

@@ -12,7 +12,7 @@ namespace WeShare.BusinessModel
     {
         public static string ToStr(this object value)
         {
-            if (value == DBNull.Value)
+            if (value == DBNull.Value || value == null)
                 return string.Empty;
             else
                 return (Convert.ToString(value));
@@ -28,7 +28,7 @@ namespace WeShare.BusinessModel
 
         public static Int32 ToInt32(this object value)
         {
-            if (value == DBNull.Value)
+            if (value == DBNull.Value || value == null)
                 return 0;
             else
                 return (Convert.ToInt32(value));
@@ -44,7 +44,7 @@ namespace WeShare.BusinessModel
 
         public static DateTime ToDateTime(this object value)
         {
-            if (value == DBNull.Value)
+            if (value == DBNull.Value || value == null)
                 return DateTime.MinValue;
             else
                 return Convert.ToDateTime(value);
@@ -60,9 +60,9 @@ namespace WeShare.BusinessModel
 
         public static bool ToBoolean(this object value)
         {
-            if (value == DBNull.Value)
+            if (value == DBNull.Value || value == null)
                 return false;
-            else if (value.ToInt32() == 1 || value.ToString().ToLower() == "true" || value.ToString().ToLower() == "yes")
+            else if (value.ToString().ToLower() == "true" || value.ToString().ToLower() == "yes" || value.ToInt32() == 1)
                 return true;
             else
                 return false;

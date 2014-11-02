@@ -10,7 +10,10 @@ namespace WeShare.BusinessLogic
     public class BLTaskAssignment
     {
         DATaskAssignment objDaTaskAssignment = null;
-
+        
+        /// <summary>
+        /// Construct for Title of the Task
+        /// </summary>
         public BLTaskAssignment()
         {
             objDaTaskAssignment = new DATaskAssignment();

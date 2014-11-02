@@ -23,10 +23,18 @@ namespace WeShare.BusinessModel
         public string TaskDescription { get; set; }
 
         /// <summary>
-        /// Property for Points allocated to that task
+        /// Property for Points allocated to that Task
         /// </summary>
         public int PointsAllocated { get; set; }
+
+        /// <summary>
+        /// Property for Type of the Task
+        /// </summary>
         public string TaskType { get; set; }
+
+        /// <summary>
+        /// Property to know if the Task is recursive
+        /// </summary>
         public string TaskRecursive { get; set; }
     }
 

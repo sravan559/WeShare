@@ -12,7 +12,10 @@ namespace WeShare.DataAccess
     {
         SqlConnection objSqlConnection = null;
         SqlCommand objSqlCommand = null;
-
+        
+        /// <summary>
+        /// Returns the list of unassigned tasks
+        /// </summary>
         public List<TaskInfo> GetUnassignedTasks()
         {
             List<TaskInfo> listTasks = new List<TaskInfo>();
@@ -42,6 +45,9 @@ namespace WeShare.DataAccess
             return listTasks;
         }
 
+        /// <summary>
+        /// Returns the list of assigned tasks
+        /// </summary>
         public List<TaskAssignmentInfo> GetAssignedTaskList()
         {
             List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
@@ -74,6 +80,9 @@ namespace WeShare.DataAccess
             return listTasks;
         }
 
+        /// <summary>
+        /// Returns the list of tasks assigned to a user using his/her mailid
+        /// </summary>
         public List<TaskAssignmentInfo> GetUserTasksByMailId(string userId)
         {
             List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
@@ -105,7 +114,9 @@ namespace WeShare.DataAccess
             return listTasks;
         }
 
-
+        /// <summary>
+        /// Returns true if a new task with its details is saved by a user
+        /// </summary>
         public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
         {
             //Implementation
@@ -132,6 +143,9 @@ namespace WeShare.DataAccess
             return true;
         }
 
+        /// <summary>
+        /// Returns true if the task details are updated successfully by taskid
+        /// </summary>
         public bool UpdateTaskStatus(int taskId, string status)
         {
             try
@@ -154,6 +168,10 @@ namespace WeShare.DataAccess
             }
             return true;
         }
+
+        /// <summary>
+        /// Returns true if the task details are updated successfully by taskid
+        /// </summary>
         public bool Status_Change(int r)
         {
             try

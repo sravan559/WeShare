@@ -48,10 +48,10 @@
             </div>
             <div class="grid" >
                 <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsers_RowCommand"
-                    DataKeyNames="EmailId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting"
+                    DataKeyNames="UserId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting"
                     Width="80%">
                     <Columns>
-                        <asp:BoundField DataField="EmailId" HeaderText="Email Id" />
+                        <asp:BoundField DataField="UserId" HeaderText="Email Id" />
                         <asp:BoundField DataField="FirstName" HeaderText="First Name" />
                         <asp:BoundField DataField="LastName" HeaderText="Last Name" />
                         <asp:BoundField DataField="ContactNumber" HeaderText="Contact Number" />

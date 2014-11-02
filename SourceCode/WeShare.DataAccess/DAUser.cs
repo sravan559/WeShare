@@ -119,6 +119,13 @@ namespace WeShare.DataAccess
                 parameters[2] = new SqlParameter("@Password", password);
                 cmd.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
+                //SqlDataReader objSqlReader = cmd.ExecuteReader();
+                //if (objSqlReader != null && objSqlReader.HasRows)
+                //{
+                //    if (objSqlReader.Read())
+                //        isValidUser = objSqlReader["RESULT"].ToBoolean();
+                //}
+
                 isValidUser = cmd.ExecuteScalar().ToBoolean();
             }
             finally

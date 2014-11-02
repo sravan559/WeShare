@@ -44,8 +44,12 @@ namespace WeShare.WebForms
             bool isUserRegistered = objBlUsers.SaveUserDetails(objUserInfo);
             if (!isUserRegistered)
             {
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('Email Id already registered. Please use a different Email Id.')", true);
             }
-            ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('Email Id already registered. Please use a different Email Id.')", true);
+            else
+            {
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('User registered successfully. Please login to access the application.')", true);
+            }
         }
     }
 }

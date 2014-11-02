@@ -28,15 +28,16 @@ CREATE PROCEDURE [dbo].[usp_users]
 	@Last_Name nvarchar(50)=NULL,
 	@Contact_Number nvarchar(20) = NULL,
 	@Password nvarchar(20) = NULL,
-	@Action nvarchar(10) = NULL
+	@Action nvarchar(20) = NULL
 	)
 AS
 BEGIN
-	IF @Action = 'C' -- create/save user details		
+	IF @Action = 'C' -- create/save user details
+		BEGIN		
 		IF NOT EXISTS (SELECT First_Name FROM Users WHERE User_Id=@User_Id)
 			INSERT INTO Users (User_Id, First_Name, Last_Name, Contact_Number, [Password])
 			   VALUES (@User_Id, @First_Name,@Last_Name,@Contact_Number,@Password)
-				   
+		END		   
 	ELSE IF @Action = 'R'
 		SELECT User_Id,First_Name+', '+Last_Name as 'Name', First_Name, Last_Name, Contact_Number FROM Users
 		
@@ -50,10 +51,11 @@ BEGIN
 					WHERE User_Id=@User_Id	
 										
 	ELSE IF @Action = 'VALIDATEUSER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
-		IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
-			SELECT 'TRUE'					 
-	END
-	
+		BEGIN
+			IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
+				SELECT 'TRUE' as 'RESULT'					 
+		END
+END
 GO
 
 

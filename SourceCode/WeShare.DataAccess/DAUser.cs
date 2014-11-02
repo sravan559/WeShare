@@ -113,7 +113,7 @@ namespace WeShare.DataAccess
                 SqlCommand cmd = objSqlConnection.CreateCommand();
                 cmd.CommandText = DbConstants.UspUsers;
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[2];
+                SqlParameter[] parameters = new SqlParameter[3];
                 parameters[0] = new SqlParameter("@Action", "VALIDATEUSER");
                 parameters[1] = new SqlParameter("@User_Id", userId);
                 parameters[2] = new SqlParameter("@Password", password);

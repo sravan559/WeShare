@@ -53,7 +53,7 @@
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="UserName" HeaderText="Assigned To" />
-                <asp:BoundField DataField="EmailId" HeaderText="Email ID" />
+                <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}" />
                 <asp:TemplateField HeaderText="Action" Visible="false">
                     <ItemTemplate>
@@ -74,7 +74,7 @@
                             Assigned To
                         </th>
                         <th>
-                            Email ID
+                            User ID
                         </th>
                         <th>
                             Due Date

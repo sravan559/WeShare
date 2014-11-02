@@ -68,7 +68,7 @@
     <div class="grid">
         <asp:GridView ID="gvtasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvtasks_RowCommand"
             DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvtasks_RowDeleting"
-            Width="100%">
+            Width="100%" onselectedindexchanged="gvtasks_SelectedIndexChanged">
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="TaskDescription" HeaderText="Description" />
@@ -86,7 +86,7 @@
                </asp:RadioButtonList>
                </EditItemTemplate>
                </asp:TemplateField>
-               <asp:TemplateField HeaderText ="Type">
+               <asp:TemplateField HeaderText ="Is Recursive?">
                <ItemTemplate>
                <asp:Label ID="lblTaskRecursive" runat="server" Text='<%# Eval("TaskRecursive") %>'></asp:Label>
                </ItemTemplate>

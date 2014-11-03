@@ -4,119 +4,58 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WeShare.BusinessModel;
-using WeShare.BusinessLogic;
 using WeShare.WebHelper;
+using WeShare.BusinessLogic;
+using WeShare.BusinessModel;
 
 namespace WeShare.WebForms
 {
     public partial class ManageUsers : BasePage
     {
         #region Events
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                if (!IsPostBack)
-                {
-                    LoadUsersList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex, "Page_Load");
-            }
+
+        }
+        protected void gvUsersInGroup_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            try
-            {
-                UserInfo objUserInfo = new UserInfo()
-                {
-                    UserId = txtEmailAddress.Text.Trim(),
-                    FirstName = txtFirstName.Text.Trim(),
-                    LastName = txtLastName.Text.Trim(),
-                    ContactNumber = txtContactNumber.Text.Trim()
-                };
-                BLUsers objUserBL = new BLUsers();
-                objUserBL.SaveUserDetails(objUserInfo);
-                ClearControls();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Alert", "alert('User details saved successfully!')", true);
-                LoadUsersList();
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex, "btnSave_Click");
-            }
+
         }
 
-        protected void btnClear_Click(object sender, EventArgs e)
+        protected void ddlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                ClearControls();
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex, "btnSave_Click");
-            }
+            LoadUsersInGroup();
         }
-
-        protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            try
-            {
-
-                if (e.CommandName == "EditUser")
-                {
-                    int rowIndex = Convert.ToInt32(e.CommandArgument);
-                    txtEmailAddress.Text = gvUsers.DataKeys[rowIndex].Values["EmailId"].ToString();
-                    txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
-                    txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();
-                    txtContactNumber.Text = gvUsers.DataKeys[rowIndex].Values["ContactNumber"].ToString();
-                    txtEmailAddress.Enabled = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex, "gvUsers_RowCommand");
-            }
-        }
-
-        protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            try
-            {
-                string emaildId = gvUsers.DataKeys[e.RowIndex].Values["EmailId"].ToStr();
-                BLUsers objUserBL = new BLUsers();
-                objUserBL.DeleteUser(emaildId);
-                LoadUsersList();
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex, "gvUsers_RowDeleting");
-            }
-        }
-
         #endregion
 
         #region User Defined Methods
-
-        private void LoadUsersList()
+        private void LoadGroupsList()
         {
-            BLUsers objUserBl = new BLUsers();
-            gvUsers.DataSource = objUserBl.GetUsersList();
-            gvUsers.DataBind();
+            List<GroupInfo> listGroups = new List<GroupInfo>();
+            //TODO wright Code to get the groups from database
+
+            ddlGroups.Items.Clear();
+            ddlGroups.Items.Add(new ListItem("Select Group", ""));
+            ddlGroups.DataTextField = "GroupName";
+            ddlGroups.DataValueField = "GroupId";
+            ddlGroups.DataSource = listGroups;
+            ddlGroups.DataBind();
         }
 
-        private void ClearControls()
+        private void LoadUsersInGroup()
         {
-            txtContactNumber.Text = txtEmailAddress.Text = txtFirstName.Text = txtLastName.Text = string.Empty;
-            txtEmailAddress.Enabled = true;
+            BLGroups objBlGroups = new BLGroups();
+            List<string> listUsers = objBlGroups.GetUsersListByGroupId(ddlGroups.SelectedValue.ToInt32());            
+            gvUsersInGroup.DataSource = listUsers;
+            gvUsersInGroup.DataBind();
         }
-
         #endregion
+
+
     }
 }

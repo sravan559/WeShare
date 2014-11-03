@@ -4,59 +4,46 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-    <div class="grid container">
-        <h1>
-            Tasks Assigned to me..
-        </h1>
-        <div class="grid1">
-            <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId" OnRowCommand="gvMyTasks_RowCommand"
-                Width="80%" >
+    <div>
+        <h3>
+            My Tasks:
+        </h3>
+        <div class="gridcontainer">
+            <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
+                OnRowCommand="gvMyTasks_RowCommand" Width="80%" OnRowDataBound="gvMyTasks_RowDataBound">
                 <Columns>
-                    <asp:TemplateField HeaderText="Task id">
+                    <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltaskid" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskId", "") %>'>
+                            <asp:Label ID="lblTaskTitle" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskTitle") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Task">
+                    <asp:TemplateField HeaderText="Description" HeaderStyle-Width="20%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltasktitle" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskTitle", "") %>'>
+                            <asp:Label ID="lblTaskDesc" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Description">
+                    <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}"
+                        HeaderStyle-Width="10%" />
+                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="10%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltaskdesc" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription", "") %>'>
+                            <asp:Label ID="lblTaskStatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Finish by">
+                    <asp:TemplateField HeaderText="Mark Task as Complete?" HeaderStyle-Width="20%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltaskduedate" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "DueDate", "") %>'>
-                            </asp:Label>
+                            <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark Task as Complete"
+                                ImageUrl="~/Images/img_complete.jpg" CssClass="imagebutton" ImageAlign="Middle"
+                                OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')" />
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Status">
-                        <ItemTemplate>
-                            <asp:Label ID="lbltaskstatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status", "") %>'>
-                            </asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Completed?">
-                    <ItemTemplate>
-                        <asp:ImageButton ID="imgComplete" runat="server" CommandName="TaskComplete" AlternateText="Complete"
-                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/Images/img_complete.jpg" Height="20px" Width="20px" ImageAlign="Middle" />
-                        
-                    </ItemTemplate>
-                </asp:TemplateField>
                 </Columns>
                 <HeaderStyle BackColor="LightBlue" />
                 <EmptyDataTemplate>
                     <table class="emptytable">
                         <tr>
-                            <th>
-                                Task ID
-                            </th>
                             <th>
                                 Task
                             </th>
@@ -64,7 +51,7 @@
                                 Description
                             </th>
                             <th>
-                                Finish by
+                                Due Date
                             </th>
                             <th>
                                 Status
@@ -79,44 +66,34 @@
                 </EmptyDataTemplate>
             </asp:GridView>
         </div>
-        <h1>
-            List of all tasks..
-        </h1>
-        <div class="grid2">
+        <h3>
+            Roommates Tasks:
+        </h3>
+        <div class="gridcontainer">
             <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId"
-                Width="100%">
+                Width="80%">
                 <Columns>
-                    <asp:TemplateField HeaderText="Task id">
+                    <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltaskid" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskId", "") %>'>
+                            <asp:Label ID="lblTaskTitle" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskTitle", "") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Task">
+                    <asp:TemplateField HeaderText="Description" HeaderStyle-Width="15%">
                         <ItemTemplate>
-                            <asp:Label ID="lbltasktitle" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskTitle", "") %>'>
+                            <asp:Label ID="lblTaskDescription" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription", "") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Description">
-                        <ItemTemplate>
-                            <asp:Label ID="lbltaskdesc" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription", "") %>'>
-                            </asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Assigned to">
+                    <asp:TemplateField HeaderText="Assigned To" HeaderStyle-Width="10%">
                         <ItemTemplate>
                             <asp:Label ID="lbltaskassign" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "UserName", "") %>'>
                             </asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Finish by">
-                        <ItemTemplate>
-                            <asp:Label ID="lbltaskduedate" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "DueDate", "") %>'>
-                            </asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Status">
+                    <asp:BoundField DataField="DueDate" HeaderText="Due Date" DataFormatString="{0:MM/dd/yyyy}"
+                        HeaderStyle-Width="10%" />
+                    <asp:TemplateField HeaderText="Status" HeaderStyle-Width="10%">
                         <ItemTemplate>
                             <asp:Label ID="lbltaskstatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status", "") %>'>
                             </asp:Label>
@@ -128,9 +105,6 @@
                     <table class="emptytable">
                         <tr>
                             <th>
-                                Task ID
-                            </th>
-                            <th>
                                 Task
                             </th>
                             <th>
@@ -140,7 +114,7 @@
                                 Assigned To
                             </th>
                             <th>
-                                Finish by
+                                Due Date
                             </th>
                             <th>
                                 Status

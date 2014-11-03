@@ -97,9 +97,10 @@
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" CommandName="EditTask" AlternateText="Edit"
-                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/Images/img_edit.gif" />
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/Images/img_edit.gif"
+                            CssClass="imagebutton" />
                         <asp:ImageButton ID="ImageButton2" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure?')"
-                            AlternateText="Delete" ImageUrl="~/Images/img_delete.gif" />
+                            AlternateText="Delete" ImageUrl="~/Images/img_delete.gif" CssClass="imagebutton" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>

@@ -13,49 +13,22 @@ namespace WeShare.WebForms {
     public partial class ManageUsers {
         
         /// <summary>
-        /// UpdatePanel1 control.
+        /// ddlGroups control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroups;
         
         /// <summary>
-        /// txtFirstName control.
+        /// txtUserId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
-        /// <summary>
-        /// txtLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
-        /// <summary>
-        /// txtEmailAddress control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailAddress;
-        
-        /// <summary>
-        /// txtContactNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContactNumber;
+        protected global::System.Web.UI.WebControls.TextBox txtUserId;
         
         /// <summary>
         /// btnSave control.
@@ -67,21 +40,12 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// btnClear control.
+        /// gvUsersInGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
-        
-        /// <summary>
-        /// gvUsers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvUsers;
+        protected global::System.Web.UI.WebControls.GridView gvUsersInGroup;
     }
 }

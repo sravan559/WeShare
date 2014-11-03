@@ -47,19 +47,32 @@ namespace WeShare.WebForms
 
         protected void gvMyTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-
             if (e.CommandName == "TaskComplete")
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                int TaskCompId = Convert.ToInt32(gvMyTasks.DataKeys[rowIndex].Values["TaskId"]);
-
+                GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int rowIndex = currentGridRow.RowIndex;
+                int taskId = Convert.ToInt32(gvMyTasks.DataKeys[rowIndex].Values["TaskId"]);
                 // Mark the respective task as completed
                 BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                bool b = objBlTasks.UpdateTaskStatus(TaskCompId, "Completed");
-                gvMyTasks.Controls[5].Dispose();
+                objBlTasks.UpdateTaskStatus(taskId, "Completed");
                 LoadMyTasks();
             }
         }
+
+        protected void gvMyTasks_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string status = gvMyTasks.DataKeys[e.Row.RowIndex].Values["Status"].ToStr();
+                if (status.ToLower() == "complete")
+                {
+                    ImageButton imgMarkComplete = (ImageButton)e.Row.FindControl("imgMarkComplete");
+                    imgMarkComplete.Visible = false;
+                }
+            }
+        }
+
+
 
     }
 }

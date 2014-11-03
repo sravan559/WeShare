@@ -140,7 +140,9 @@
       <DependentUpon>WeShare.Master</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="WebForms\WeShare.Master" />
   </ItemGroup>

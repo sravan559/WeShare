@@ -32,23 +32,23 @@
                 </tr>
                 <tr>
                     <th>
-                        TaskType:
+                        Is task recursive?
+                    </th>
+                    <td colspan="3">
+                        <asp:RadioButtonList ID="rbtnTaskRecursive" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                        </asp:RadioButtonList>
+                    </td>
+                </tr>
+                <tr id="trRecursionType" style="display: none;">
+                    <th>
+                        Recursion Type:
                     </th>
                     <td colspan="3">
                         <asp:RadioButtonList ID="rbTaskType" runat="server" RepeatDirection="Horizontal">
                             <asp:ListItem Text="Weekly" Value="Weekly"></asp:ListItem>
                             <asp:ListItem Text="Monthly" Value="Monthly"></asp:ListItem>
-                        </asp:RadioButtonList>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Is this task recursive?
-                    </th>
-                    <td colspan="3">
-                        <asp:RadioButtonList ID="rbTaskRecursive" runat="server" RepeatDirection="Horizontal">
-                            <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                            <asp:ListItem Text="No" Value="No"></asp:ListItem>
                         </asp:RadioButtonList>
                     </td>
                 </tr>
@@ -127,4 +127,15 @@
             <HeaderStyle BackColor="LightBlue" />
         </asp:GridView>
     </div>
+    <script type="text/javascript">
+        $("#<%=rbtnTaskRecursive.ClientID%> input[type='radio']").click(function () {
+            var isRecursive = $(this).val();
+            if (isRecursive == "Yes") {
+                $('#trRecursionType').css("display", "");
+            }
+            else {
+                $('#trRecursionType').css("display", "none");
+            }
+        });
+    </script>
 </asp:Content>

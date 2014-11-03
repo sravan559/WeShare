@@ -16,7 +16,6 @@ namespace WeShare.BusinessLogic
             objDaTasks = new DATasks();
         }
 
-
         public bool SaveTaskDetails(TaskInfo objUserInfo)
         {
             return objDaTasks.SaveTaskDetails(objUserInfo);

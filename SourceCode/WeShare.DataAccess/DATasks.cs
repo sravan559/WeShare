@@ -10,51 +10,45 @@ namespace WeShare.DataAccess
 {
     public class DATasks : DAHelper
     {
-        SqlConnection objSqlConnection = null;
-        SqlCommand objSqlCommand = null;
-
         public bool SaveTaskDetails(TaskInfo objTaskInfo)
         {
             //Implementation
+            bool isDataSaved = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = "usp_tasks";
+                objSqlCommand.CommandText = DbConstants.UspTasks;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = null;
                 if (objTaskInfo.TaskId > 0)
                 {
-                    SqlParameter[] parameters = new SqlParameter[7];
+                    parameters = new SqlParameter[7];
                     parameters[0] = new SqlParameter("@Action", "U");
-                    parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
-                    parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
-                    parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
-                    parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
-                    parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
                     parameters[6] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
-                    objSqlCommand.Parameters.AddRange(parameters);
-                    objSqlConnection.Open();
-                    objSqlCommand.ExecuteNonQuery();
                 }
                 else
                 {
-                    SqlParameter[] parameters = new SqlParameter[6];
+                    parameters = new SqlParameter[6];
                     parameters[0] = new SqlParameter("@Action", "C");
-                    parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
-                    parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
-                    parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
-                    parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
-                    parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
-                    objSqlCommand.Parameters.AddRange(parameters);
-                    objSqlConnection.Open();
-                    objSqlCommand.ExecuteNonQuery();
                 }
+
+                parameters[1] = new SqlParameter("@Task_Title", objTaskInfo.TaskTitle);
+                parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
+                parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
+                parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
+                parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
+
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isDataSaved = rowsAffected > 0;
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
-            return true;
+            return isDataSaved;
         }
 
         public List<TaskInfo> GetTasksList()
@@ -64,7 +58,7 @@ namespace WeShare.DataAccess
                 List<TaskInfo> listTaskInfo = new List<TaskInfo>();
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = "usp_tasks";
+                objSqlCommand.CommandText = DbConstants.UspTasks;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[1];
                 parameters[0] = new SqlParameter("@Action", "R");
@@ -81,8 +75,8 @@ namespace WeShare.DataAccess
                             TaskTitle = objSqlReader["Task_Title"].ToStr(),
                             TaskDescription = objSqlReader["Task_Description"].ToStr(),
                             PointsAllocated = objSqlReader["Points"].ToInt32(),
-                            TaskType=objSqlReader["Task_Type"].ToStr(),
-                            TaskRecursive=objSqlReader["Is_Task_Recursive"].ToStr()
+                            TaskType = objSqlReader["Task_Type"].ToStr(),
+                            TaskRecursive = objSqlReader["Is_Task_Recursive"].ToStr()
                         };
                         listTaskInfo.Add(objTaskInfo);
                     }
@@ -92,26 +86,31 @@ namespace WeShare.DataAccess
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
         }
 
         public void DeleteTask(int TaskId)
         {
-            objSqlConnection = new SqlConnection(GetConnectionString());
-            objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = "usp_task";
-            objSqlCommand.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("@Action", "D");
-            parameters[1] = new SqlParameter("@Task_Id", TaskId);
-            objSqlCommand.Parameters.AddRange(parameters);
-            objSqlConnection.Open();
-            objSqlCommand.ExecuteNonQuery();
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTasks;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "D");
+                parameters[1] = new SqlParameter("@Task_Id", TaskId);
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                objSqlCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
         }
-
-
-
 
     }
 }

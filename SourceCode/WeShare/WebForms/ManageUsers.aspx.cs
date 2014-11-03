@@ -6,56 +6,103 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WeShare.BusinessModel;
 using WeShare.BusinessLogic;
+using WeShare.WebHelper;
 
 namespace WeShare.WebForms
 {
-    public partial class ManageUsers : System.Web.UI.Page
+    public partial class ManageUsers : BasePage
     {
+        #region Events
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadUsersList();
-
+                if (!IsPostBack)
+                {
+                    LoadUsersList();
+                }
             }
-
+            catch (Exception ex)
+            {
+                ManageException(ex, "Page_Load");
+            }
         }
-
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            UserInfo objUserInfo = new UserInfo()
+            try
             {
-                UserId = txtEmailAddress.Text.Trim(),
-                FirstName = txtFirstName.Text.Trim(),
-                LastName = txtLastName.Text.Trim(),
-                ContactNumber = txtContactNumber.Text.Trim()
-            };
-
-            BLUsers objUserBL = new BLUsers();
-            objUserBL.SaveUserDetails(objUserInfo);
-            ClearControls();
-            ScriptManager.RegisterStartupScript(this,this.GetType(), "Alert", "alert('User details saved successfully!')", true);
-            LoadUsersList();
+                UserInfo objUserInfo = new UserInfo()
+                {
+                    UserId = txtEmailAddress.Text.Trim(),
+                    FirstName = txtFirstName.Text.Trim(),
+                    LastName = txtLastName.Text.Trim(),
+                    ContactNumber = txtContactNumber.Text.Trim()
+                };
+                BLUsers objUserBL = new BLUsers();
+                objUserBL.SaveUserDetails(objUserInfo);
+                ClearControls();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "Alert", "alert('User details saved successfully!')", true);
+                LoadUsersList();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex, "btnSave_Click");
+            }
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            ClearControls();
+            try
+            {
+                ClearControls();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex, "btnSave_Click");
+            }
         }
 
         protected void gvUsers_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "EditUser")
+            try
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                txtEmailAddress.Text = gvUsers.DataKeys[rowIndex].Values["EmailId"].ToString();
-                txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
-                txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();
-                txtContactNumber.Text = gvUsers.DataKeys[rowIndex].Values["ContactNumber"].ToString();
-                txtEmailAddress.Enabled = false;
+
+                if (e.CommandName == "EditUser")
+                {
+                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    txtEmailAddress.Text = gvUsers.DataKeys[rowIndex].Values["EmailId"].ToString();
+                    txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
+                    txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();
+                    txtContactNumber.Text = gvUsers.DataKeys[rowIndex].Values["ContactNumber"].ToString();
+                    txtEmailAddress.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex, "gvUsers_RowCommand");
             }
         }
+
+        protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+                string emaildId = gvUsers.DataKeys[e.RowIndex].Values["EmailId"].ToStr();
+                BLUsers objUserBL = new BLUsers();
+                objUserBL.DeleteUser(emaildId);
+                LoadUsersList();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex, "gvUsers_RowDeleting");
+            }
+        }
+
+        #endregion
+
+        #region User Defined Methods
 
         private void LoadUsersList()
         {
@@ -70,23 +117,6 @@ namespace WeShare.WebForms
             txtEmailAddress.Enabled = true;
         }
 
-        protected void gvUsers_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            try
-            {
-                string emaildId = gvUsers.DataKeys[e.RowIndex].Values["EmailId"].ToStr();
-                BLUsers objUserBL = new BLUsers();
-                objUserBL.DeleteUser(emaildId);
-                LoadUsersList();
-            }
-            catch (Exception)
-            {
-                //Implement logging and display alert to the user
-                throw;
-            }
-
-
-        }
-
+        #endregion
     }
 }

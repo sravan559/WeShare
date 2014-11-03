@@ -18,34 +18,19 @@
             <tr>
                 <td>
                     <asp:TextBox ID="txtLoginEmail" runat="server" placeholder="Email address" TextMode="Email"></asp:TextBox>
-                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please enter a User ID."
-                        ControlToValidate="txtUserID" ForeColor="#3366FF"></asp:RequiredFieldValidator>
-                    --%>
                 </td>
             </tr>
             <tr>
                 <td>
                     <asp:TextBox ID="txtLoginPassword" runat="server" TextMode="Password" placeholder="Password"></asp:TextBox>
-                    <%--<asp:RequiredFieldValidator
-                        ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please enter a valid password."
-                        ControlToValidate="txtPwd" ForeColor="#3366FF"></asp:RequiredFieldValidator>
-                    --%>
                 </td>
             </tr>
             <tr>
                 <td style="color: Red">
-                    <asp:Label ID="lblErrorMessage" runat="server" Text="Session Expired. Please login again to continue."
+                    <asp:Label ID="lblErrorMessage" runat="server" Text="Session Expired. Please login to access the application."
                         Visible="false"></asp:Label>
                 </td>
             </tr>
-            <%--<tr>
-                <td>
-                    <label class="checkbox">
-                        <input type="checkbox" value="remember-me" />
-                        Remember me
-                    </label>
-                </td>
-            </tr>--%>
             <tr align="center">
                 <td>
                     <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn" OnClick="btnLogin_Click" />
@@ -114,6 +99,8 @@
             </tr>
         </table>
     </div>
+
+
     </form>
 </body>
 <script type="text/javascript">

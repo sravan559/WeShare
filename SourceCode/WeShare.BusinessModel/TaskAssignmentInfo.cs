@@ -8,21 +8,6 @@ namespace WeShare.BusinessModel
     public class TaskAssignmentInfo:TaskInfo
     {
         /// <summary>
-        /// Property for ID of the Task
-        /// </summary>
-        public int TaskId { get; set; }
-
-        /// <summary>
-        /// Property for Title of the Task
-        /// </summary>
-        public string TaskTitle { get; set; }
-
-        /// <summary>
-        /// Property for description of the Task
-        /// </summary>
-        public string TaskDescription { get; set; }
-
-        /// <summary>
         /// Property for the Username assigned to the Task
         /// </summary>
         public string UserName { get; set; }

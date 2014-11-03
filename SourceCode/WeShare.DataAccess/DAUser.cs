@@ -11,15 +11,20 @@ namespace WeShare.DataAccess
 {
     public class DAUser : DAHelper
     {
+
+        /// <summary>
+        /// Used to save the details of the new user signing up to the application
+        /// </summary>
+        /// <param name="objUserInfo"></param>
+        /// <returns></returns>
         public bool SaveUserDetails(UserInfo objUserInfo)
         {
             //Implementation
-            SqlConnection objSqlConnection = null;
             bool isRecordSaved = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
-                SqlCommand objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspUsers;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[6];
@@ -33,16 +38,19 @@ namespace WeShare.DataAccess
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
                 isRecordSaved = rowsAffected > 0;
-
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
-
             return isRecordSaved;
         }
 
+
+        /// <summary>
+        /// Used to get the list of users from the database
+        /// </summary>
+        /// <returns></returns>
         public List<UserInfo> GetUsersList()
         {
             List<UserInfo> listUserInfo = null;
@@ -50,14 +58,14 @@ namespace WeShare.DataAccess
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
-                SqlCommand cmd = objSqlConnection.CreateCommand();
-                cmd.CommandText = DbConstants.UspUsers;
-                cmd.CommandType = CommandType.StoredProcedure;
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspUsers;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[1];
                 parameters[0] = new SqlParameter("@Action", "R");
-                cmd.Parameters.AddRange(parameters);
+                objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                SqlDataReader objSqlReader = cmd.ExecuteReader();
+                SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
                 if (objSqlReader != null && objSqlReader.HasRows)
                 {
                     listUserInfo = new List<UserInfo>();
@@ -77,33 +85,42 @@ namespace WeShare.DataAccess
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
             return listUserInfo;
         }
 
+        /// <summary>
+        /// Used to delete a User with the given User ID
+        /// </summary>
+        /// <param name="userId">Id of the user to be deleted</param>
         public void DeleteUser(string userId)
         {
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
-                SqlCommand cmd = objSqlConnection.CreateCommand();
-                cmd.CommandText = DbConstants.UspUsers;
-                cmd.CommandType = CommandType.StoredProcedure;
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspUsers;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
                 parameters[0] = new SqlParameter("@Action", "D");
                 parameters[1] = new SqlParameter("@User_Id", userId);
-                cmd.Parameters.AddRange(parameters);
+                objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                cmd.ExecuteNonQuery();
-
+                objSqlCommand.ExecuteNonQuery();
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
         }
 
+        /// <summary>
+        /// Used to validate the login credentials of the User with the given User ID
+        /// </summary>
+        /// <param name="userId">User Id of the current User</param>
+        /// <param name="password">Password of the current User</param>
+        /// <returns>True if valid user, false otherwise</returns>
         public bool IsUserValid(string userId, string password)
         {
             bool isValidUser = false;
@@ -119,18 +136,11 @@ namespace WeShare.DataAccess
                 parameters[2] = new SqlParameter("@Password", password);
                 cmd.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                //SqlDataReader objSqlReader = cmd.ExecuteReader();
-                //if (objSqlReader != null && objSqlReader.HasRows)
-                //{
-                //    if (objSqlReader.Read())
-                //        isValidUser = objSqlReader["RESULT"].ToBoolean();
-                //}
-
                 isValidUser = cmd.ExecuteScalar().ToBoolean();
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
             return isValidUser;
         }

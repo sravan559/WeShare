@@ -10,9 +10,6 @@ namespace WeShare.DataAccess
 {
     public class DATaskAssignment : DAHelper
     {
-        SqlConnection objSqlConnection = null;
-        SqlCommand objSqlCommand = null;
-        
         /// <summary>
         /// Returns the list of unassigned tasks
         /// </summary>
@@ -68,11 +65,11 @@ namespace WeShare.DataAccess
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
                         TaskTitle = objSqlReader["Task_Title"].ToStr(),
-                        TaskDescription=objSqlReader["Task_Description"].ToStr(),
+                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
                         UserId = objSqlReader["User_Id"].ToStr(),
                         UserName = objSqlReader["User_Name"].ToStr(),
                         DueDate = objSqlReader["Due_Date"].ToDateTime(),
-                        Status=objSqlReader["Status"].ToStr()
+                        Status = objSqlReader["Status"].ToStr()
                     };
                     listTasks.Add(objTaskInfo);
                 }
@@ -138,7 +135,7 @@ namespace WeShare.DataAccess
             }
             finally
             {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
             return true;
         }
@@ -164,62 +161,48 @@ namespace WeShare.DataAccess
             }
             finally
             {
-                CloseConnection(objSqlConnection);
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Returns true if the task details are updated successfully by taskid
-        /// </summary>
-        public bool Status_Change(int r)
-        {
-            try
-            {
-                objSqlConnection = new SqlConnection(GetConnectionString());
-                objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
-                objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[2];
-                parameters[0] = new SqlParameter("@Action", "StatusUpdate");
-                parameters[1] = new SqlParameter("@Task_id", r);
-                objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
-            }
-            finally
-            {
-                CloseConnection(objSqlConnection);
+                CloseConnection();
             }
             return true;
         }
 
         public List<TaskAssignmentInfo> GetAllAssignedTasks()
         {
-            List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
-            objSqlConnection = new SqlConnection(GetConnectionString());
-            objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = "usp_task_assignment";
-            objSqlCommand.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@Action", "GetAllTasks");
-            objSqlCommand.Parameters.AddRange(parameters);
-            objSqlConnection.Open();
-            SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
-            if (objSqlReader != null && objSqlReader.HasRows)
+            List<TaskAssignmentInfo> listTasks = null;
+            try
             {
-                while (objSqlReader.Read())
+
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@Action", "GetAllTasks");
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
+                if (objSqlReader != null && objSqlReader.HasRows)
                 {
-                    TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo()
+                    listTasks = new List<TaskAssignmentInfo>();
+                    while (objSqlReader.Read())
                     {
-                        TaskId = objSqlReader["Task_Id"].ToInt32(),
-                        TaskTitle = objSqlReader["Task_Title"].ToStr(),
-                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
-                        UserName=objSqlReader["User_Name"].ToStr(),
-                        DueDate = objSqlReader["Due_Date"].ToDateTime(),
-                        Status = objSqlReader["Status"].ToStr()
-                    };
-                    listTasks.Add(objTaskInfo);
+                        TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo()
+                        {
+                            TaskId = objSqlReader["Task_Id"].ToInt32(),
+                            TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                            TaskDescription = objSqlReader["Task_Description"].ToStr(),
+                            UserName = objSqlReader["User_Name"].ToStr(),
+                            DueDate = objSqlReader["Due_Date"].ToDateTime(),
+                            Status = objSqlReader["Status"].ToStr()
+                        };
+                        listTasks.Add(objTaskInfo);
+                    }
                 }
+
+            }
+            finally
+            {
+                CloseConnection();
             }
             return listTasks;
         }

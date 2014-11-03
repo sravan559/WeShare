@@ -23,7 +23,7 @@ namespace WeShare.DataAccess
         }
 
         //TODO Remove the parameter after code integration
-        protected void CloseConnection(SqlConnection objConn = null)
+        protected void CloseConnection()
         {
             if (objSqlConnection != null && objSqlConnection.State == ConnectionState.Open)
                 objSqlConnection.Close();

@@ -14,7 +14,11 @@ namespace WeShare.WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                bool isSessionExpired = Request.QueryString["IsSessionExpired"].ToBoolean();
+                lblErrorMessage.Visible = isSessionExpired;
+            }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)

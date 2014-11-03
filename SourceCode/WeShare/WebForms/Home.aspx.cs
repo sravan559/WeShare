@@ -25,7 +25,7 @@ namespace WeShare.WebForms
             BLTaskAssignment objBlTasks = new BLTaskAssignment();
             if (Session["UserId"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Login.aspx?IsSessionExpired=1");
             }
             List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(Session["UserId"].ToString());
             gvMyTasks.DataSource = listTaskInfo;

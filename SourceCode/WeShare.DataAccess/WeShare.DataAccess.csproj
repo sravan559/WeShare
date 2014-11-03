@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAGroups.cs" />
     <Compile Include="DAHelper.cs" />
     <Compile Include="DATaskAssignment.cs" />
     <Compile Include="DATasks.cs" />

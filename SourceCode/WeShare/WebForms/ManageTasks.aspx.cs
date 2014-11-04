@@ -30,7 +30,7 @@ namespace WeShare.WebForms
                     TaskDescription = txtTaskDesc.Text.Trim(),
                     PointsAllocated = Convert.ToInt32(txtTaskPoints.Text.Trim()),
                     TaskType = rbTaskType.Text.Trim(),
-                    TaskRecursive = rbTaskRecursive.Text.Trim(),
+                    TaskRecursive = rbtnTaskRecursive.Text.Trim(),
                 };
 
                 BLTasks objTaskBL = new BLTasks();
@@ -75,7 +75,7 @@ namespace WeShare.WebForms
         {
             hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text  = string.Empty;
             rbTaskType.SelectedIndex = -1;
-            rbTaskRecursive.SelectedIndex = -1;
+            rbtnTaskRecursive.SelectedIndex = -1;
 
         }
 

@@ -55,10 +55,12 @@
     <Content Include="Images\img_delete.gif" />
     <Content Include="Images\img_edit.gif" />
     <Content Include="Scripts\additional-methods.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\Images\arrow.gif" />
     <Content Include="Styles\Images\arrowsub.gif" />
     <Content Include="Styles\Images\mainbk.png" />
@@ -80,6 +82,7 @@
     <Content Include="Styles\jquery-ui.css" />
     <Content Include="Styles\menustyle.css" />
     <Content Include="Styles\weshare.css" />
+    <Content Include="Styles\WeShareProject.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

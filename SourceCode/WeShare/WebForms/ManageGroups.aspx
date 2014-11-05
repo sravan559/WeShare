@@ -4,27 +4,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-    <div class="inputcontainer">
-        <table style="min-width: 400px;">
-            <tr>
-                <th>
-                    Group Name:
-                </th>
-                <td>
-                    <asp:TextBox ID="txtGroupName" runat="server"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: center;">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn" />
-                   
-                </td>
-            </tr>
-        </table>
-    </div>
+ <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="ddlGroups" class="col-sm-2 control-label">
+                        Group Name</label>
+                    <div class="col-sm-10">
+                       <asp:TextBox ID="txtGroupName" runat="server" Width="50%"></asp:TextBox>
+                       
+                    </div>
+                </div>
+
+                <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10" align="left">
+                                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click"  class="btn btn-info"
+                                        BorderColor="Black" /> 
+                           
+                                </div>
+                     </div>
+
+          </div>
+       
+    
     <div class="gridcontainer">
         <asp:GridView ID="gvUserGroups" runat="server" DataKeyNames="GroupId" AutoGenerateColumns="false"
-            OnRowCommand="gvUserGroups_RowCommand">
+            OnRowCommand="gvUserGroups_RowCommand" class="table table-hover">
             <Columns>
                 <asp:TemplateField HeaderText="No.">
                     <ItemTemplate>
@@ -42,7 +45,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="emptytable">
+                <table class="table table-hover">
                     <tr>
                         <th>
                             Group Name

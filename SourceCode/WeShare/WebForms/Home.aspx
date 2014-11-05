@@ -10,7 +10,7 @@
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
-                OnRowCommand="gvMyTasks_RowCommand" Width="80%" OnRowDataBound="gvMyTasks_RowDataBound">
+                OnRowCommand="gvMyTasks_RowCommand" Width="80%" OnRowDataBound="gvMyTasks_RowDataBound" class="table table-hover">
                 <Columns>
                     <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
@@ -36,13 +36,13 @@
                         <ItemTemplate>
                             <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark Task as Complete"
                                 ImageUrl="~/Images/img_complete.jpg" CssClass="imagebutton" ImageAlign="Middle"
-                                OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')" />
+                                OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')" Height="20px" Width="20px" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
                 <HeaderStyle BackColor="LightBlue" />
                 <EmptyDataTemplate>
-                    <table class="emptytable">
+                    <table class="table table-hover">
                         <tr>
                             <th>
                                 Task
@@ -71,7 +71,7 @@
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId"
-                Width="80%">
+                Width="80%" class="table table-hover">
                 <Columns>
                     <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
@@ -102,7 +102,7 @@
                 </Columns>
                 <HeaderStyle BackColor="LightBlue" />
                 <EmptyDataTemplate>
-                    <table class="emptytable">
+                    <table class="table table-hover">
                         <tr>
                             <th>
                                 Task

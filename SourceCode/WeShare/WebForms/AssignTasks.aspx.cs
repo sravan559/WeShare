@@ -51,7 +51,7 @@ namespace WeShare.WebForms
             List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetAssignedTaskList();
             gvAssignedTasks.DataSource = listTaskInfo;
             gvAssignedTasks.DataBind();
-
+                                             
         }
 
         protected void btnAssignTask_Click(object sender, EventArgs e)

@@ -4,33 +4,38 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-    <div class="inputcontainer">
-        <table style="min-width: 400px;">
-            <tr>
-                <th>
-                    Select Group:
-                </th>
-                <td>
-                    <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
-                        OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged">
+    
+      <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="ddlGroups" class="col-sm-2 control-label">
+                        Select Group</label>
+                    <div class="col-sm-10">
+                        <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
+                        OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" Width="50%">
                     </asp:DropDownList>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    User ID:
-                </th>
-                <td>
-                    <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: center;">
-                    <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" CssClass="btn" />
-                </td>
-            </tr>
-        </table>
-    </div>
+                       
+                    </div>
+                </div>
+
+                 <div class="form-group">
+                    <label for="txtUserId" class="col-sm-2 control-label">
+                       User ID</label>
+                    <div class="col-sm-10">
+                           <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%"></asp:TextBox>
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10" align="left">
+                                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
+                                        BorderColor="Black" /> 
+                                </div>
+                            </div>
+
+          </div>
+       
+                
+   
     <div class="gridcontainer">
         <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting"
             DataKeyNames="UserId">

@@ -1,0 +1,25 @@
+﻿body 
+{
+   background-color: inherit;
+    font-family: Verdana;
+    font-size: 12px;
+    padding-top: 80px;
+}
+.inputcontainer
+{
+    text-align:left;
+    text-align:justify;
+    padding:10px;
+    width:80%;
+}
+.form-horizontal
+{
+}
+.form-group
+{
+    text-align:justify;
+}
+.emptytable td
+{
+    text-align: center;
+}

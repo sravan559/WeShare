@@ -6,21 +6,52 @@
     <title>We Share</title>
     <script type="text/javascript" src="../Scripts/jquery.js"></script>
     <link type="text/css" href="../Styles/jquery-ui.css" rel="stylesheet" />
-    <link href="../Styles/weshare.css" rel="stylesheet" type="text/css" />
+    <%-- <link href="../Styles/weshare.css" rel="stylesheet" type="text/css" /> --%>   
+    <link href="../Styles/WeShareProject.css" rel="Stylesheet" type="text/css" />
     <link href="../Styles/menustyle.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/bootstrap.min.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="weShareForm" runat="server">
+    
+    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse" aria-expanded="false" aria-controls="navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+       </button>
+       
+       <div id="navbar" class="collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><a href="Home.aspx">Home</a></li>
+           <li><a href="ManageGroups.aspx">Manage Groups</a></li>
+           <li><a href="ManageUsers.aspx">Manage Users</a></li>
+           <li><a href="ManageUsersDetails.aspx"><span>Manage User Details</span></a></li>
+           <li><a href="ManageTasks.aspx">Manage Tasks</a></li>
+           <li><a href="AssignTasks.aspx">Assign Tasks</a></li>
+         
+         </ul>
+       
+       </div>
+
+       </div>
+      </div>
+
+
+    </div>
+
+    <form id="weShareForm" runat="server"> 
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
-    <div id="topdiv">
+   <%--  <div id="topdiv">
         <ul id="css3menu1" class="topmenu">
             <%-- <input type="checkbox" id="css3menu-switcher" class="switchbox"><label onclick=""
                 class="switch" for="css3menu-switcher"></label>--%>
-            <li class="topfirst"><a href="Home.aspx">Home</a></li>
+          <%--  <li class="topfirst"><a href="Home.aspx">Home</a></li>
             <li class="topmenu"><a href="ManageGroups.aspx">Manage Groups</a></li>
             <li class="topmenu"><a href="ManageUsers.aspx">Manage Users</a></li>
             <li class="topmenu"><a href="ManageUsersDetails.aspx"><span>Manage User Details</span></a>
@@ -29,15 +60,19 @@
                     <li><a href="#">Item 1 1</a></li>
                     <li><a href="#">Item 1 2</a></li>
                 </ul>--%>
-            </li>
+         <%--   </li>
             <li class="topmenu"><a href="ManageTasks.aspx">Manage Tasks</a></li>
             <li class="toplast"><a href="AssignTasks.aspx">Assign Tasks</a></li>
         </ul>
-    </div>
-    <div>
+    </div> --%>
+    <div class="container">
         <asp:ContentPlaceHolder ID="cphBody" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-    </form>
+    </form> 
+
+ <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
+ <script type="text/javascript" src="../Scripts/jquery-1.11.1.js"></script>
+ 
 </body>
 </html>

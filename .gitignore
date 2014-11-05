@@ -49,3 +49,7 @@ SourceCode/WeShare.BusinessLogic/bin/Debug/WeShare.BusinessLogic.pdb
 *.dll
 *.cache
 *.cache
+*.dll
+*.pdb
+*.dll
+*.dll

@@ -8,6 +8,9 @@ namespace WeShare.WebHelper
 {
     public class BasePage : Page
     {
+        /// <summary>
+        /// Property to store the User Id in Session
+        /// </summary>
         public string UserId
         {
             set { Session["UserId"] = value; }

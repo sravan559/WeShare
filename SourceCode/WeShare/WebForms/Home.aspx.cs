@@ -6,10 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WeShare.BusinessLogic;
 using WeShare.BusinessModel;
+using WeShare.WebHelper;
 
 namespace WeShare.WebForms
 {
-    public partial class Home : System.Web.UI.Page
+    public partial class Home : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,7 +28,7 @@ namespace WeShare.WebForms
             {
                 Response.Redirect("Login.aspx?IsSessionExpired=1");
             }
-            List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(Session["UserId"].ToString());
+            List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(UserId);
             gvMyTasks.DataSource = listTaskInfo;
             gvMyTasks.DataBind();
         }

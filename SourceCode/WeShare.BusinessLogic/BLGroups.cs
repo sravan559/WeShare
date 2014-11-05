@@ -9,12 +9,12 @@ namespace WeShare.BusinessLogic
 {
     public class BLGroups
     {
-        DAGroups objDaGroups = null;
+        DAGroups objDaGroups = new DAGroups();
 
         public List<GroupInfo> GetGroupsList()
         {
-            List<GroupInfo> listGroups = new List<GroupInfo>();
-            return listGroups;
+            return objDaGroups.GetGroupsList();
+
         }
 
         /// <summary>
@@ -23,7 +23,6 @@ namespace WeShare.BusinessLogic
         /// <returns></returns>
         public bool SaveGroup(GroupInfo objGroupInfo)
         {
-
             return objDaGroups.SaveGroup(objGroupInfo);
         }
 
@@ -42,9 +41,9 @@ namespace WeShare.BusinessLogic
             return objDaGroups.GetUsersListByGroupId(groupId);
         }
 
-        public bool AddUserToGroup(int groupId, string userId)
+        public bool AddUserToGroup(int groupID, string userId)
         {
-            return objDaGroups.AddUserToGroup(groupId, userId);
+            return objDaGroups.AddUserToGroup(groupID, userId);
         }
 
         public bool DeleteUserFromGroup(int groupId, string userId)

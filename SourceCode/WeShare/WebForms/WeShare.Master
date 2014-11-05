@@ -30,7 +30,7 @@
            <li class="active"><a href="Home.aspx">Home</a></li>
            <li><a href="ManageGroups.aspx">Manage Groups</a></li>
            <li><a href="ManageUsers.aspx">Manage Users</a></li>
-           <li><a href="ManageUsersDetails.aspx"><span>Manage User Details</span></a></li>
+           <%--<li><a href="ManageUsersDetails.aspx"><span>Manage User Details</span></a></li>--%>
            <li><a href="ManageTasks.aspx">Manage Tasks</a></li>
            <li><a href="AssignTasks.aspx">Assign Tasks</a></li>
          

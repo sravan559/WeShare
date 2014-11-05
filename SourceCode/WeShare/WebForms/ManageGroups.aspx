@@ -34,7 +34,7 @@
                         <%# Container.DataItemIndex + 1 %>
                     </ItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="GroupName" />
+                <asp:BoundField DataField="GroupName" HeaderText="Group Name"/>
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="imgEditGroup" runat="server" CommandName="EditGroup" AlternateText="Edit"

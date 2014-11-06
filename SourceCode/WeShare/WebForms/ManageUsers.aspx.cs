@@ -15,42 +15,59 @@ namespace WeShare.WebForms
         #region Events
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadGroupsList();
+                if (!IsPostBack)
+                {
+                    LoadGroupsList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
         protected void gvUsersInGroup_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             try
             {
-                string userID = gvUsersInGroup.DataKeys[e.RowIndex].Values["UserId"].ToString();
+                Label lblUser = (Label)gvUsersInGroup.Rows[e.RowIndex].FindControl("lblUser");
                 BLGroups objBlGroups = new BLGroups();
-                int groupId = ddlGroups.SelectedValue.ToInt32();
-                bool delete = objBlGroups.DeleteUserFromGroup(groupId, userID);
+
+                bool delete = objBlGroups.DeleteUserFromGroup(ddlGroups.SelectedValue, lblUser.Text);
                 LoadUsersInGroup();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ManageException(ex);
             }
-
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            int groupID = ddlGroups.SelectedValue.ToInt32();
-            string userId = txtUserId.Text.Trim();
-
-            BLGroups objGroupBL = new BLGroups();
-            bool isSaved = objGroupBL.AddUserToGroup(groupID, userId);
+            try
+            {
+                BLGroups objGroupBL = new BLGroups();
+                bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim());
+                LoadUsersInGroup();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
 
         }
 
         protected void ddlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadUsersInGroup();
+            try
+            {
+                LoadUsersInGroup();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
         }
         #endregion
 
@@ -64,7 +81,7 @@ namespace WeShare.WebForms
             ddlGroups.Items.Clear();
             ddlGroups.Items.Add(new ListItem("Select Group", ""));
             ddlGroups.DataTextField = "GroupName";
-            ddlGroups.DataValueField = "GroupId";
+            ddlGroups.DataValueField = "GroupName";
             ddlGroups.DataSource = listGroups;
             ddlGroups.DataBind();
         }
@@ -72,7 +89,7 @@ namespace WeShare.WebForms
         private void LoadUsersInGroup()
         {
             BLGroups objBlGroups = new BLGroups();
-            List<string> listUsers = objBlGroups.GetUsersListByGroupId(ddlGroups.SelectedValue.ToInt32());
+            List<string> listUsers = objBlGroups.GetUsersListByGroupName(ddlGroups.SelectedValue);
             gvUsersInGroup.DataSource = listUsers;
             gvUsersInGroup.DataBind();
         }

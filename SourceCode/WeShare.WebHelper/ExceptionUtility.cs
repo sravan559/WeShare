@@ -44,7 +44,8 @@ namespace WeShare.WebHelper
                 swErrorWriter.Write("Exception Type: ");
                 swErrorWriter.WriteLine(exception.GetType().ToString());
                 swErrorWriter.WriteLine("Exception Message: " + exception.Message);
-                swErrorWriter.WriteLine("Source: " + sourceMethodName);
+                if (!string.IsNullOrEmpty(sourceMethodName))
+                    swErrorWriter.WriteLine("Source: " + sourceMethodName);
                 swErrorWriter.WriteLine("Stack Trace: ");
                 if (exception.StackTrace != null)
                 {

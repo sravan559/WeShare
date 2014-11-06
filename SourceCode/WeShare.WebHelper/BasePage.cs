@@ -17,9 +17,9 @@ namespace WeShare.WebHelper
             get { return Session["UserId"].ToStr(); }
         }
 
-        protected void ManageException(Exception exception, string sourceMethodName)
+        protected void ManageException(Exception exception, string sourceMethodName = null)
         {
-            ExceptionUtility.LogException(exception, "sourceMethodName");
+            ExceptionUtility.LogException(exception, sourceMethodName);
             Response.Redirect("ErrorPage.aspx");
         }
     }

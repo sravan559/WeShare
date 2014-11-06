@@ -167,7 +167,9 @@ namespace WeShare.DataAccess
             }
             return true;
         }
-
+        /// <summary>
+        /// Returns all the tasks assigned to all the Roommates
+        /// </summary>
         public List<TaskAssignmentInfo> GetAllAssignedTasks()
         {
             List<TaskAssignmentInfo> listTasks = null;

@@ -10,6 +10,9 @@ namespace WeShare.DataAccess
 {
     public class DATasks : DAHelper
     {
+        /// <summary>
+        /// Stores the details of the task given by the user into the database
+        /// </summary>
         public bool SaveTaskDetails(TaskInfo objTaskInfo)
         {
             //Implementation
@@ -52,7 +55,9 @@ namespace WeShare.DataAccess
             }
             return isDataSaved;
         }
-
+        /// <summary>
+        /// Returns the list of tasks created
+        /// </summary>
         public List<TaskInfo> GetTasksList()
         {
             try
@@ -91,7 +96,9 @@ namespace WeShare.DataAccess
                 CloseConnection();
             }
         }
-
+        /// <summary>
+        /// Returns the list of tasks in the group selected by the User(User can select only the groups to which he belongs) 
+        /// </summary>
         public List<TaskInfo> GetTasksByGroupName(string groupName)
         {
             try
@@ -132,7 +139,9 @@ namespace WeShare.DataAccess
             }
         }
 
-
+        /// <summary>
+        /// Deletes the task corrsponding to the Task ID of the task deleted by the User
+        /// </summary>
         public void DeleteTask(int TaskId)
         {
             try

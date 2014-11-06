@@ -10,7 +10,7 @@ namespace WeShare.BusinessLogic
     public class BLTaskAssignment
     {
         DATaskAssignment objDaTaskAssignment = null;
-        
+
         /// <summary>
         /// Construct for Title of the Task
         /// </summary>
@@ -19,9 +19,9 @@ namespace WeShare.BusinessLogic
             objDaTaskAssignment = new DATaskAssignment();
         }
 
-        public List<TaskInfo> GetUnassignedTasks()
+        public List<TaskInfo> GetUnassignedTasksByGroup(string groupName)
         {
-            return objDaTaskAssignment.GetUnassignedTasks();
+            return objDaTaskAssignment.GetUnassignedTasksByGroup(groupName);
         }
 
         public List<TaskAssignmentInfo> GetAssignedTaskList()
@@ -34,7 +34,7 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetUserTasksByMailId(emailId);
         }
 
-        
+
         public List<TaskAssignmentInfo> GetAllAssignedTasks()
         {
             return objDaTaskAssignment.GetAllAssignedTasks();

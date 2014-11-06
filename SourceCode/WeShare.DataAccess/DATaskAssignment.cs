@@ -13,15 +13,17 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Returns the list of unassigned tasks
         /// </summary>
-        public List<TaskInfo> GetUnassignedTasks()
+        public List<TaskInfo> GetUnassignedTasksByGroup(string groupName)
         {
             List<TaskInfo> listTasks = new List<TaskInfo>();
             objSqlConnection = new SqlConnection(GetConnectionString());
             objSqlCommand = objSqlConnection.CreateCommand();
             objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
             objSqlCommand.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@Action", "GETUNASSIGNEDTASKS");
+            SqlParameter[] parameters = new SqlParameter[2];
+            parameters[0] = new SqlParameter("@Action", "GETUNASSIGNEDTASKSBYGROUP");
+            parameters[1] = new SqlParameter("@Group_Name", groupName);
+
             objSqlCommand.Parameters.AddRange(parameters);
             objSqlConnection.Open();
             SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();

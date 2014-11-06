@@ -13,13 +13,13 @@ namespace WeShare.WebForms {
     public partial class ManageTasks {
         
         /// <summary>
-        /// Panel1 control.
+        /// ddlGroups control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlGroups;
         
         /// <summary>
         /// txtTaskName control.
@@ -58,13 +58,13 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.RadioButtonList rbtnTaskRecursive;
         
         /// <summary>
-        /// rbTaskType control.
+        /// rbtnTaskType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rbTaskType;
+        protected global::System.Web.UI.WebControls.RadioButtonList rbtnTaskType;
         
         /// <summary>
         /// hdnTaskId control.

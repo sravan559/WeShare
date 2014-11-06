@@ -22,6 +22,7 @@ CREATE PROCEDURE [dbo].[usp_task_assignment]
 @User_Id nvarchar(50)=NULL,
 @Due_Date DATETIME =NULL,
 @Status NVARCHAR(50)=NULL,
+@Group_Name NVARCHAR(50)=NULL,
 @Action NVARCHAR(20)
 )
 AS
@@ -38,8 +39,9 @@ BEGIN
 	ELSE IF @Action='UPDATESTATUS'
 		 UPDATE AssignedTasks SET Status=@Status WHERE Task_Id=@Task_Id	
 		 
-	ELSE IF @Action='GETUNASSIGNEDTASKS'
-		SELECT Task_Id,Task_Title,Task_Description,Points from Tasks where Task_Id NOT IN (SELECT Task_Id FROM AssignedTasks)
+	ELSE IF @Action='GETUNASSIGNEDTASKSBYGROUP' 		
+		SELECT Task_Id,Task_Title,Task_Description,Points from Tasks where 
+		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Task_Id FROM AssignedTasks) 
 		
 	ELSE IF @Action='GETASSIGNEDTASKS'
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
@@ -51,6 +53,7 @@ BEGIN
 		SELECT t.Task_Id,Task_Title,Task_Description,Due_Date,Status 
 		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
 		WHERE at.User_Id=@User_Id
+		
 	ELSE IF @Action='GetAllTasks'
 		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		from Tasks t inner join AssignedTasks at 

@@ -23,13 +23,13 @@ namespace WeShare.DataAccess
                 SqlParameter[] parameters = null;
                 if (objTaskInfo.TaskId > 0)
                 {
-                    parameters = new SqlParameter[7];
+                    parameters = new SqlParameter[8];
                     parameters[0] = new SqlParameter("@Action", "U");
-                    parameters[6] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
+                    parameters[7] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
                 }
                 else
                 {
-                    parameters = new SqlParameter[6];
+                    parameters = new SqlParameter[7];
                     parameters[0] = new SqlParameter("@Action", "C");
                 }
 
@@ -37,7 +37,9 @@ namespace WeShare.DataAccess
                 parameters[2] = new SqlParameter("@Task_Description", objTaskInfo.TaskDescription);
                 parameters[3] = new SqlParameter("@Points", objTaskInfo.PointsAllocated);
                 parameters[4] = new SqlParameter("@Task_Type", objTaskInfo.TaskType);
-                parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.TaskRecursive);
+                parameters[5] = new SqlParameter("@Is_Task_Recursive", objTaskInfo.IsTaskRecursive);
+                parameters[6] = new SqlParameter("@Group_Name", objTaskInfo.GroupName);
+
 
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
@@ -76,7 +78,7 @@ namespace WeShare.DataAccess
                             TaskDescription = objSqlReader["Task_Description"].ToStr(),
                             PointsAllocated = objSqlReader["Points"].ToInt32(),
                             TaskType = objSqlReader["Task_Type"].ToStr(),
-                            TaskRecursive = objSqlReader["Is_Task_Recursive"].ToStr()
+                            IsTaskRecursive = objSqlReader["Is_Task_Recursive"].ToBoolean()
                         };
                         listTaskInfo.Add(objTaskInfo);
                     }
@@ -89,6 +91,47 @@ namespace WeShare.DataAccess
                 CloseConnection();
             }
         }
+
+        public List<TaskInfo> GetTasksByGroupName(string groupName)
+        {
+            try
+            {
+                List<TaskInfo> listTaskInfo = new List<TaskInfo>();
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTasks;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "GETTASKSBYGROUP");
+                parameters[1] = new SqlParameter("@Group_Name", groupName);
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
+                if (objSqlReader != null && objSqlReader.HasRows)
+                {
+                    while (objSqlReader.Read())
+                    {
+                        TaskInfo objTaskInfo = new TaskInfo()
+                        {
+                            TaskId = objSqlReader["Task_Id"].ToInt32(),
+                            TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                            TaskDescription = objSqlReader["Task_Description"].ToStr(),
+                            PointsAllocated = objSqlReader["Points"].ToInt32(),
+                            TaskType = objSqlReader["Task_Type"].ToStr(),
+                            IsTaskRecursive = objSqlReader["Is_Task_Recursive"].ToBoolean()
+                        };
+                        listTaskInfo.Add(objTaskInfo);
+                    }
+                }
+
+                return listTaskInfo;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
 
         public void DeleteTask(int TaskId)
         {

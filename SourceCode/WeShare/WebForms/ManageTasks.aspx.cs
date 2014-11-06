@@ -6,18 +6,28 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WeShare.BusinessModel;
 using WeShare.BusinessLogic;
+using WeShare.WebHelper;
 
 namespace WeShare.WebForms
 {
-    public partial class ManageTasks : System.Web.UI.Page
+    public partial class ManageTasks : BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                LoadTasksList();
+                if (!IsPostBack)
+                {
+                    LoadGroups();
+                    // LoadTasksList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
@@ -29,18 +39,20 @@ namespace WeShare.WebForms
                     TaskTitle = txtTaskName.Text.Trim(),
                     TaskDescription = txtTaskDesc.Text.Trim(),
                     PointsAllocated = Convert.ToInt32(txtTaskPoints.Text.Trim()),
-                    TaskType = rbTaskType.Text.Trim(),
-                    TaskRecursive = rbtnTaskRecursive.Text.Trim(),
+
+                    IsTaskRecursive = rbtnTaskRecursive.Text.Trim().ToBoolean(),
+                    TaskType = rbtnTaskType.SelectedValue.Trim(),
+                    GroupName = ddlGroups.SelectedValue
                 };
 
                 BLTasks objTaskBL = new BLTasks();
                 objTaskBL.SaveTaskDetails(objTaskInfo);
                 ClearControls();
-                LoadTasksList();
+                LoadTasksListByGrpName();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ManageException(ex);
             }
         }
 
@@ -51,32 +63,22 @@ namespace WeShare.WebForms
 
         protected void gvtasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "EditTask")
+            try
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                hdnTaskId.Value = gvtasks.DataKeys[rowIndex].Values["TaskId"].ToString();
-                txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
-                txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
-                txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
-                //rbTaskType.Text = gvtasks.DataKeys[rowIndex].Values["TaskType"].ToString();
-                //rbTaskRecursive.Text = gvtasks.DataKeys[rowIndex].Values["TaskRecursive"].ToString();
-
+                if (e.CommandName == "EditTask")
+                {
+                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    hdnTaskId.Value = gvtasks.DataKeys[rowIndex].Values["TaskId"].ToString();
+                    txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
+                    txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
+                    txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
+                    ddlGroups.SelectedIndex = ddlGroups.Items.IndexOf(ddlGroups.Items.FindByValue(gvtasks.DataKeys[rowIndex].Values["GroupName"].ToString()));
+                }
             }
-        }
-
-        private void LoadTasksList()
-        {
-            BLTasks objUserBl = new BLTasks();
-            gvtasks.DataSource = objUserBl.GetTasksList();
-            gvtasks.DataBind();
-        }
-
-        private void ClearControls()
-        {
-            hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text  = string.Empty;
-            rbTaskType.SelectedIndex = -1;
-            rbtnTaskRecursive.SelectedIndex = -1;
-
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
         }
 
         protected void gvtasks_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -86,17 +88,50 @@ namespace WeShare.WebForms
                 int TaskId = Convert.ToInt32(gvtasks.DataKeys[e.RowIndex].Values["TaskId"].ToString());
                 BLTasks objBlTasks = new BLTasks();
                 objBlTasks.DeleteTask(TaskId);
-                LoadTasksList();
+                LoadTasksListByGrpName();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Implement logging and display alert to the user
-                throw;
+                ManageException(ex);
             }
-
-
         }
 
-      
+        protected void ddlGroups_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadTasksListByGrpName();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+        }
+
+        private void LoadTasksListByGrpName()
+        {
+            BLTasks objBlUser = new BLTasks();
+            gvtasks.DataSource = objBlUser.GetTasksByGroupName(ddlGroups.SelectedValue);
+            gvtasks.DataBind();
+        }
+
+        private void ClearControls()
+        {
+            hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text = string.Empty;
+            rbtnTaskType.SelectedIndex = rbtnTaskRecursive.SelectedIndex = -1;
+            ddlGroups.SelectedIndex = 0;
+        }
+
+        private void LoadGroups()
+        {
+            ddlGroups.Items.Clear();
+            ddlGroups.Items.Add(new ListItem("Select Group", ""));
+            BLGroups objBlGroups = new BLGroups();
+            ddlGroups.DataSource = objBlGroups.GetGroupsList();
+            ddlGroups.DataTextField = "GroupName";
+            ddlGroups.DataValueField = "GroupName";
+            ddlGroups.DataBind();
+        }
+
     }
 }

@@ -26,14 +26,19 @@ namespace WeShare.BusinessLogic
             return objDaTasks.GetTasksList();
         }
 
+        public List<TaskInfo> GetTasksByGroupName(string groupName)
+        {
+            return objDaTasks.GetTasksByGroupName(groupName);
+        }
+
         public void DeleteTask(int TaskId)
         {
             objDaTasks.DeleteTask(TaskId);
         }
 
-      
 
-       
+
+
 
 
     }

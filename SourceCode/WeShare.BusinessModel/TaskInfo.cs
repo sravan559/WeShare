@@ -35,7 +35,13 @@ namespace WeShare.BusinessModel
         /// <summary>
         /// Property to know if the Task is recursive
         /// </summary>
-        public string TaskRecursive { get; set; }
+        public bool IsTaskRecursive { get; set; }
+
+        /// <summary>
+        /// Property to know if the Task is recursive
+        /// </summary>
+        public string GroupName { get; set; }
+
     }
 
 

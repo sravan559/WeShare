@@ -21,34 +21,37 @@ namespace WeShare.BusinessLogic
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(GroupInfo objGroupInfo)
+        public bool SaveGroup(string currentNameofGroup, string newNameofGroup = null)
         {
-            return objDaGroups.SaveGroup(objGroupInfo);
+            return objDaGroups.SaveGroup(currentNameofGroup, newNameofGroup);
         }
 
-        public bool DeleteGroup(int groupId)
+        public bool DeleteGroup(string groupName)
         {
-            return objDaGroups.DeleteGroup(groupId);
+            return objDaGroups.DeleteGroup(groupName);
         }
 
         /// <summary>
         /// Used to get the list of users who are part of the selected group
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupName"></param>
+        /// <param name="getActiveUsersOnly">Indicates whether only active users are required</param>
         /// <returns></returns>
-        public List<string> GetUsersListByGroupId(int groupId)
+        public List<string> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly = false)
         {
-            return objDaGroups.GetUsersListByGroupId(groupId);
+            //Active Users are the ones who are already registered on the site.
+            //Users who have been invited to join the group but not yet registered will not be listed if getActiveUsersOnly =true
+            return objDaGroups.GetUsersListByGroupName(groupName, getActiveUsersOnly);
         }
 
-        public bool AddUserToGroup(int groupID, string userId)
+        public bool AddUserToGroup(string groupName, string userId)
         {
-            return objDaGroups.AddUserToGroup(groupID, userId);
+            return objDaGroups.AddUserToGroup(groupName, userId);
         }
 
-        public bool DeleteUserFromGroup(int groupId, string userId)
+        public bool DeleteUserFromGroup(string groupName, string userId)
         {
-            return objDaGroups.DeleteUserFromGroup(groupId, userId);
+            return objDaGroups.DeleteUserFromGroup(groupName, userId);
         }
 
     }

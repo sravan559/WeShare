@@ -35,7 +35,6 @@ namespace WeShare.DataAccess
                     {
                         GroupInfo objGroupInfo = new GroupInfo()
                         {
-                            GroupId = objSqlReader["Group_Id"].ToInt32(),
                             GroupName = objSqlReader["Group_Name"].ToStr()
                         };
 
@@ -56,7 +55,7 @@ namespace WeShare.DataAccess
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(GroupInfo objGroupInfo)
+        public bool SaveGroup(string currentNameofGroup, string newNameofGroup)
         {
             bool isDataSaved = false;
             try
@@ -66,28 +65,25 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = null;
-                if (objGroupInfo.GroupId > 0)
+                if (!string.IsNullOrEmpty(newNameofGroup))
                 {
                     parameters = new SqlParameter[3];
                     parameters[0] = new SqlParameter("@Action", "U");
-                    parameters[1] = new SqlParameter("@Group_Id", objGroupInfo.GroupId);
-                    parameters[2] = new SqlParameter("@Group_Name", objGroupInfo.GroupName);
+                    parameters[1] = new SqlParameter("@Group_Name", currentNameofGroup);
+                    parameters[2] = new SqlParameter("@New_Group_Name", newNameofGroup);
 
                 }
                 else
                 {
-
                     parameters = new SqlParameter[2];
                     parameters[0] = new SqlParameter("@Action", "C");
-                    parameters[1] = new SqlParameter("@Group_Name", objGroupInfo.GroupName);
+                    parameters[1] = new SqlParameter("@Group_Name", currentNameofGroup);
                 }
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
                 isDataSaved = rowsAffected > 0;
-
             }
-
             finally
             {
                 CloseConnection();
@@ -96,12 +92,13 @@ namespace WeShare.DataAccess
         }
 
         /// <summary>
-        /// Used to delete a Group for a given GroupID
+        /// Used to delete a Group for a given groupName
         /// </summary>
         /// <returns></returns>      
 
-        public bool DeleteGroup(int groupId)
+        public bool DeleteGroup(string groupName)
         {
+            bool isRowDeleted = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -110,26 +107,25 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
                 parameters[0] = new SqlParameter("@Action", "D");
-                parameters[1] = new SqlParameter("@Group_Id", groupId);
+                parameters[1] = new SqlParameter("@Group_Name", groupName);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
-
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isRowDeleted = rowsAffected > 0;
             }
-
             finally
             {
                 CloseConnection();
             }
-            return true;
+            return isRowDeleted;
         }
 
         /// <summary>
         /// Used to get the list of users who are part of the selected group
         /// </summary>
-        /// <param name="groupId"></param>
+        /// <param name="groupName"></param>
         /// <returns></returns>
-        public List<string> GetUsersListByGroupId(int groupId)
+        public List<string> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly )
         {
             List<string> listUserIds = new List<string>();
             objSqlConnection = new SqlConnection(GetConnectionString());
@@ -137,8 +133,11 @@ namespace WeShare.DataAccess
             objSqlCommand.CommandText = DbConstants.UspGroups;
             objSqlCommand.CommandType = CommandType.StoredProcedure;
             SqlParameter[] parameters = new SqlParameter[2];
-            parameters[0] = new SqlParameter("@Action", "GETUSERSINGROUP");
-            parameters[1] = new SqlParameter("@Group_Id", groupId);
+            if (getActiveUsersOnly)
+                parameters[0] = new SqlParameter("@Action", "GETACTIVEUSERSINGROUP"); // get active users only while assigning the tasks
+            else
+                parameters[0] = new SqlParameter("@Action", "GETUSERSINGROUP");
+            parameters[1] = new SqlParameter("@Group_Name", groupName);
             objSqlCommand.Parameters.AddRange(parameters);
             objSqlConnection.Open();
             SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
@@ -148,19 +147,20 @@ namespace WeShare.DataAccess
                 while (objSqlReader.Read())
                 {
                     userID = objSqlReader["User_Id"].ToStr();
-
                     listUserIds.Add(userID);
                 }
             }
             return listUserIds;
         }
 
+
+
         /// <summary>
         /// Method to add a user to the selected group
         /// </summary>
-        public bool AddUserToGroup(int groupID, string userId)
+        public bool AddUserToGroup(string groupName, string userId)
         {
-            bool isSaved = false;
+            bool isRecordSaved = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -168,26 +168,27 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[3];
-                parameters[0] = new SqlParameter("@Action", "ADDUSERINGROUP");
+                parameters[0] = new SqlParameter("@Action", "ADDUSERTOGROUP");
                 parameters[1] = new SqlParameter("@User_Id", userId);
-                parameters[2] = new SqlParameter("@Group_Id", groupID);
+                parameters[2] = new SqlParameter("@Group_Name", groupName);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
-                isSaved = rowsAffected > 0;
+                isRecordSaved = rowsAffected > 0;
             }
             finally
             {
                 CloseConnection();
             }
-            return isSaved;
+            return isRecordSaved;
         }
 
         /// <summary>
         /// Method to delete a user from the selected group
         /// </summary>
-        public bool DeleteUserFromGroup(int groupId, string userId)
+        public bool DeleteUserFromGroup(string groupName, string userId)
         {
+            bool isUserDeleted = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -196,18 +197,19 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[3];
                 parameters[0] = new SqlParameter("@Action", "DELETEUSERINGROUP");
-                parameters[1] = new SqlParameter("@Group_Id", groupId);
+                parameters[1] = new SqlParameter("@Group_Name", groupName);
                 parameters[2] = new SqlParameter("@User_Id", userId);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isUserDeleted = rowsAffected > 0;
             }
 
             finally
             {
                 CloseConnection();
             }
-            return true;
+            return isUserDeleted;
         }
     }
 }

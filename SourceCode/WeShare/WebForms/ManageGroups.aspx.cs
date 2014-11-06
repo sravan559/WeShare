@@ -15,41 +15,63 @@ namespace WeShare.WebForms
         #region Events
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (!IsPostBack)
+            try
             {
-                LoadGroupsList();
+                if (!IsPostBack)
+                {
+                    LoadGroupsList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            bool isGroupCreated = false;
             try
             {
-                GroupInfo objGroupInfo = new GroupInfo()
+                if (txtGroupName.Text.Trim() == hdnCurrentGroupName.Value)
                 {
-                    GroupName = txtGroupName.Text.Trim()
-                };
-
+                    //user has not changed the group name
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_nochange", "alert('No changes have been made to the group name!')", true);
+                    return;
+                }
                 BLGroups objGroupBL = new BLGroups();
-                bool isSaved = objGroupBL.SaveGroup(objGroupInfo);
-                txtGroupName.Text = string.Empty;
+                isGroupCreated = objGroupBL.SaveGroup(txtGroupName.Text.Trim(), hdnCurrentGroupName.Value);
+                if (isGroupCreated)
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('Group created successfully!')", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_failure", "alert('Group with the given name already exists. Please select a different name.!')", true);
+                }
+                txtGroupName.Text = hdnCurrentGroupName.Value = string.Empty;
                 LoadGroupsList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                ManageException(ex);
             }
         }
 
-
-
         protected void gvUserGroups_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "EditGroup")
+            try
             {
-                int rowIndex = Convert.ToInt32(e.CommandArgument);
-                txtGroupName.Text = gvUserGroups.DataKeys[rowIndex].Values["GroupName"].ToString();
+                if (e.CommandName == "EditGroup")
+                {
+                    GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int rowIndex = currentGridRow.RowIndex;
+                    hdnCurrentGroupName.Value = txtGroupName.Text = gvUserGroups.DataKeys[rowIndex].Values["GroupName"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
 
@@ -57,18 +79,15 @@ namespace WeShare.WebForms
         {
             try
             {
-                int groupID = Convert.ToInt32(gvUserGroups.DataKeys[e.RowIndex].Values["GroupId"].ToString());
+                string groupName = gvUserGroups.DataKeys[e.RowIndex].Values["GroupName"].ToString();
                 BLGroups objBlGroups = new BLGroups();
-                objBlGroups.DeleteGroup(groupID);
+                objBlGroups.DeleteGroup(groupName);
                 LoadGroupsList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                ManageException(ex);
             }
-
-
         }
 
         #endregion

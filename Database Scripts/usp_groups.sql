@@ -20,35 +20,53 @@ GO
 -- =============================================
 CREATE PROCEDURE [dbo].[usp_groups] 
 (
-	@Group_Id NVARCHAR(50)=NULL,
 	@Group_Name NVARCHAR(50)=NULL,
-	@Action NVARCHAR(10)=NULL,
+	@New_Group_Name nvarchar(50)=NULL,
+	@Action NVARCHAR(20)=NULL,
 	@User_Id NVARCHAR(50)=NULL
 )
 AS
 BEGIN
 	IF @Action = 'C' -- create/save group details
-		INSERT INTO Groups(Group_Name)
-				   VALUES (@Group_Name)
+		BEGIN
+			IF NOT EXISTS (SELECT Group_Name FROM Groups WHERE Group_Name in (@Group_Name,@New_Group_Name))
+			BEGIN
+				BEGIN TRAN
+				
+				INSERT INTO Groups(Group_Name) VALUES (@Group_Name)
+				INSERT INTO UsersInGroups (Group_Name,User_Id) VALUES(@Group_Name,@User_Id)
+				IF(@@ERROR>0)
+					ROLLBACK TRAN
+				ELSE 
+					COMMIT TRAN	
+			END	
+		END	
 	
 	ELSE IF @Action = 'U'
-		UPDATE Groups SET Group_Name=@Group_Name
-						 WHERE Group_Id=@Group_Id
+		UPDATE Groups SET Group_Name=@New_Group_Name
+						 WHERE Group_Name=@Group_Name
 	
 	ELSE IF @Action = 'R'
-		SELECT Group_Id, Group_Name FROM Groups
+		SELECT Group_Name FROM Groups
 		
 	ELSE IF @Action = 'D'
-		DELETE FROM Groups WHERE Group_Id=@Group_Id;
-	
+		BEGIN
+			IF NOT EXISTS (select USER_ID from UsersInGroups where Group_Name=@Group_Name)
+				DELETE FROM Groups WHERE Group_Name=@Group_Name;
+		END
 	ELSE IF @Action = 'DELETEUSERINGROUP'
-		DELETE FROM UsersInGroups WHERE Group_Id=@Group_Id AND User_Id=@User_Id;
+		DELETE FROM UsersInGroups WHERE Group_Name=@Group_Name AND User_Id=@User_Id;
 		
-	ELSE IF @Action = 'ADDUSERINGROUP'
-		INSERT INTO UsersInGroups(Group_Id,User_Id) VALUES (@Group_Id,@User_Id);
-		
+	ELSE IF @Action = 'ADDUSERTOGROUP'
+		BEGIN
+		IF NOT EXISTS(SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id)
+		INSERT INTO UsersInGroups(Group_Name,User_Id) VALUES (@Group_Name,@User_Id);
+		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
-		SELECT USER_ID FROM UsersInGroups WHERE Group_Id=@Group_Id;
+		SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name
+		
+	ELSE IF @Action = 'GETACTIVEUSERSINGROUP' -- List of users who are already registered on the site
+		SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name	
 END
 
 GO

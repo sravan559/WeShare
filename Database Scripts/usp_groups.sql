@@ -43,9 +43,11 @@ BEGIN
 		END	
 	
 	ELSE IF @Action = 'U'
-		UPDATE Groups SET Group_Name=@New_Group_Name
+		BEGIN
+		 if not exists (select Group_Name from Groups where Group_Name=@New_Group_Name)
+		 UPDATE Groups SET Group_Name=@New_Group_Name
 						 WHERE Group_Name=@Group_Name
-	
+		END
 	ELSE IF @Action = 'R'
 		SELECT Group_Name FROM Groups
 		

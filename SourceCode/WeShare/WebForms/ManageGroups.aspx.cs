@@ -40,7 +40,7 @@ namespace WeShare.WebForms
                     return;
                 }
                 BLGroups objGroupBL = new BLGroups();
-                isGroupCreated = objGroupBL.SaveGroup(txtGroupName.Text.Trim(), hdnCurrentGroupName.Value);
+                isGroupCreated = objGroupBL.SaveGroup(hdnCurrentGroupName.Value, txtGroupName.Text.Trim());
                 if (isGroupCreated)
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('Group created successfully!')", true);
@@ -82,8 +82,12 @@ namespace WeShare.WebForms
             {
                 string groupName = gvUserGroups.DataKeys[e.RowIndex].Values["GroupName"].ToString();
                 BLGroups objBlGroups = new BLGroups();
-                objBlGroups.DeleteGroup(groupName);
-                LoadGroupsList();
+                if (objBlGroups.DeleteGroup(groupName))
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_delete", "alert('Group deleted successfully.')", true);
+                    LoadGroupsList();
+                }
+
             }
             catch (Exception ex)
             {

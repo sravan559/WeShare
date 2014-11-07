@@ -73,7 +73,20 @@ namespace WeShare.WebForms
                     txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
                     txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
                     txtTaskPoints.Text = gvtasks.DataKeys[rowIndex].Values["PointsAllocated"].ToString();
-                    ddlGroups.SelectedIndex = ddlGroups.Items.IndexOf(ddlGroups.Items.FindByValue(gvtasks.DataKeys[rowIndex].Values["GroupName"].ToString()));
+
+                    bool isTaskRecursive = gvtasks.DataKeys[rowIndex].Values["IsTaskRecursive"].ToBoolean();
+                    rbtnTaskRecursive.SelectedIndex = isTaskRecursive ? 0 : 1;
+                    string taskType = gvtasks.DataKeys[rowIndex].Values["TaskType"].ToStr();
+                    switch (taskType)
+                    {
+                        case "Weekly":
+                            rbtnTaskType.SelectedIndex = 0;
+                            break;
+                        case "Monthy":
+                            rbtnTaskType.SelectedIndex = 1;
+                            break;
+                    }
+                    //ddlGroups.SelectedIndex = ddlGroups.Items.IndexOf(ddlGroups.Items.FindByValue(gvtasks.DataKeys[rowIndex].Values["GroupName"].ToString()));
                 }
             }
             catch (Exception ex)
@@ -109,7 +122,7 @@ namespace WeShare.WebForms
             }
         }
         #endregion
-        
+
         #region User Defined Methods
         private void LoadTasksListByGrpName()
         {

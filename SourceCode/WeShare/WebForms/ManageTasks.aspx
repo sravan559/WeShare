@@ -72,7 +72,7 @@
         List of Tasks</h3>
     <div class="grid">
         <asp:GridView ID="gvtasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvtasks_RowCommand"
-            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvtasks_RowDeleting"
+            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated,GroupName,TaskType,IsTaskRecursive" OnRowDeleting="gvtasks_RowDeleting"
             Width="100%" class="table table-hover" AllowPaging="true">
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />

@@ -163,3 +163,5 @@ th {width:35%;text-align:left;}
 }
 
 .gridheader {background-color:#C0C0C0 !important;}
+
+input[type="radio"] {padding:0px 5px 0px 5px;}

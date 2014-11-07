@@ -9,7 +9,7 @@
             <label for="ddlGroups" class="col-sm-2 control-label">
                 Group Name</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtGroupName" runat="server" Width="50%"></asp:TextBox>
+                <asp:TextBox ID="txtGroupName" runat="server" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
@@ -53,6 +53,7 @@
                     </tr>
                 </table>
             </EmptyDataTemplate>
+            <HeaderStyle CssClass="gridheader" />
         </asp:GridView>
     </div>
 </asp:Content>

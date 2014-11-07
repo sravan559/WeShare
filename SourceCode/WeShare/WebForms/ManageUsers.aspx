@@ -10,7 +10,7 @@
                 Select Group</label>
             <div class="col-sm-10">
                 <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
-                    OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" Width="50%">
+                    OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" Width="50%" class="form-control">
                 </asp:DropDownList>
             </div>
         </div>
@@ -18,7 +18,7 @@
             <label for="txtUserId" class="col-sm-2 control-label">
                 User ID</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%"></asp:TextBox>
+                <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
 
@@ -26,7 +26,7 @@
             <label for="txtMinPoints" class="col-sm-2 control-label">
                 Minimum Points</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtMinPoints" runat="server" Width="50%"></asp:TextBox>
+                <asp:TextBox ID="txtMinPoints" runat="server" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
 
@@ -65,6 +65,7 @@
                     </tr>
                 </table>
             </EmptyDataTemplate>
+            <HeaderStyle CssClass="gridheader" />
         </asp:GridView>
     </div>
 </asp:Content>

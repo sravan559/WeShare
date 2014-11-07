@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <div>
         <h3>
-            My Tasks:
+            My Tasks
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
@@ -40,7 +40,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-                <HeaderStyle BackColor="LightBlue" />
+               
                 <EmptyDataTemplate>
                     <table class="table table-hover">
                         <tr>
@@ -64,10 +64,11 @@
                         </tr>
                     </table>
                 </EmptyDataTemplate>
+                <HeaderStyle CssClass="gridheader" />
             </asp:GridView>
         </div>
         <h3>
-            Roommates Tasks:
+            Roommates Tasks
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId"
@@ -100,7 +101,7 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-                <HeaderStyle BackColor="LightBlue" />
+               
                 <EmptyDataTemplate>
                     <table class="table table-hover">
                         <tr>
@@ -127,6 +128,7 @@
                         </tr>
                     </table>
                 </EmptyDataTemplate>
+                <HeaderStyle CssClass="gridheader" />
             </asp:GridView>
         </div>
     </div>

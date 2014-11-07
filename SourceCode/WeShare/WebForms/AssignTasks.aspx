@@ -12,7 +12,7 @@
                 Select Group</label>
             <div class="col-sm-10">
                 <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
-                    Width="50%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged">
+                    Width="50%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" class="form-control">
                     <asp:ListItem Text="Select Group" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -21,7 +21,7 @@
             <label for="ddlTasks" class="col-sm-2 control-label">
                 Select Task</label>
             <div class="col-sm-10">
-                <asp:DropDownList ID="ddlTasks" runat="server" AppendDataBoundItems="true" Width="50%">
+                <asp:DropDownList ID="ddlTasks" runat="server" AppendDataBoundItems="true" Width="50%" class="form-control">
                     <asp:ListItem Text="Select Task" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -30,7 +30,7 @@
             <label for="ddlUsers" class="col-sm-2 control-label">
                 Select User</label>
             <div class="col-sm-10">
-                <asp:DropDownList ID="ddlUsers" runat="server" AppendDataBoundItems="true" Width="50%">
+                <asp:DropDownList ID="ddlUsers" runat="server" AppendDataBoundItems="true" Width="50%" class="form-control">
                     <asp:ListItem Text="Select User" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -39,7 +39,7 @@
             <label for="txtDueDate" class="col-sm-2 control-label">
                 Due Date</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtDueDate" runat="server" Width="50%"></asp:TextBox>
+                <asp:TextBox ID="txtDueDate" runat="server" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
@@ -50,8 +50,8 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <h2>
-            Assigned Tasks List</h2>
+        <h3>
+            Assigned Tasks List</h3>
         <asp:GridView ID="gvAssignedTasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvAssignedTasks_RowCommand"
             DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated" OnRowDeleting="gvAssignedTasks_RowDeleting"
             Width="80%" class="table table-hover" AllowPaging="true">

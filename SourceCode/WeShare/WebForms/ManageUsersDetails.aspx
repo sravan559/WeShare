@@ -57,7 +57,7 @@
                 <div class="gridcontainer1">
                     <asp:GridView ID="gvUsers" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsers_RowCommand"
                         DataKeyNames="UserId,FirstName,LastName,ContactNumber" OnRowDeleting="gvUsers_RowDeleting"
-                        Width="90%" class="table table-hover" AllowPaging="true" class="table table-hover">
+                        Width="90%" class="table table-hover" AllowPaging="true">
                         <Columns>
                             <asp:BoundField DataField="UserId" HeaderText="Email ID" HeaderStyle-Width="20%" />
                             <asp:BoundField DataField="FirstName" HeaderText="First Name" HeaderStyle-Width="20%" />
@@ -97,6 +97,7 @@
                                 </tr>
                             </table>
                         </EmptyDataTemplate>
+                        <HeaderStyle CssClass="gridheader" />
                     </asp:GridView>
                 </div>
             </div>

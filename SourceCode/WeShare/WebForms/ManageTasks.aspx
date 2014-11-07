@@ -10,7 +10,7 @@
                 Select Group</label>
             <div class="col-sm-10">
                 <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
-                    Width="100%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" class="form-control">
+                    Width="50%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" class="form-control">
                     <asp:ListItem Text="Select Group" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -19,14 +19,15 @@
             <label for="txtTaskName" class="col-sm-2 control-label">
                 Task Name</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtTaskName" input="text" class="form-control" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtTaskName" input="text" class="form-control" runat="server" Width="50%"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
             <label for="txtTaskPoints" class="col-sm-2 control-label">
                 Points</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtTaskPoints" input="text" class="form-control" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtTaskPoints" input="text" class="form-control" runat="server"
+                    Width="50%"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
@@ -34,15 +35,14 @@
                 Task Description</label>
             <div class="col-sm-10">
                 <asp:TextBox ID="txtTaskDesc" input="text" class="form-control" runat="server" TextMode="MultiLine"
-                    Rows="5" Columns="30"></asp:TextBox>
+                    Rows="5" Columns="30" Width="50%"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
             <label for="rbtnTaskRecursive" class="col-sm-2 control-label">
                 Is the Task Recursive</label>
             <div class="col-sm-10">
-                <asp:RadioButtonList ID="rbtnTaskRecursive" runat="server" RepeatDirection="Horizontal"
-                    class="form-control">
+                <asp:RadioButtonList ID="rbtnTaskRecursive" runat="server" RepeatDirection="Horizontal">
                     <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
                     <asp:ListItem Text="No" Value="No"></asp:ListItem>
                 </asp:RadioButtonList>
@@ -59,7 +59,7 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10" align="center">
+            <div class="col-sm-offset-2 col-sm-10">
                 <asp:HiddenField ID="hdnTaskId" runat="server" />
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
                     BorderColor="Black" />
@@ -72,8 +72,8 @@
         List of Tasks</h3>
     <div class="grid">
         <asp:GridView ID="gvtasks" runat="server" AutoGenerateColumns="false" OnRowCommand="gvtasks_RowCommand"
-            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated,GroupName,TaskType,IsTaskRecursive" OnRowDeleting="gvtasks_RowDeleting"
-            Width="100%" class="table table-hover" AllowPaging="true">
+            DataKeyNames="TaskId,TaskTitle,TaskDescription,PointsAllocated,GroupName,TaskType,IsTaskRecursive"
+            OnRowDeleting="gvtasks_RowDeleting" Width="100%" class="table table-hover" AllowPaging="true">
             <Columns>
                 <asp:BoundField DataField="TaskTitle" HeaderText="Task Name" />
                 <asp:BoundField DataField="TaskDescription" HeaderText="Description" />
@@ -130,9 +130,20 @@
                     </tr>
                 </table>
             </EmptyDataTemplate>
-            
+            <HeaderStyle CssClass="gridheader" />
         </asp:GridView>
     </div>
+    <style type="text/css">
+        #cphBody_rbtnTaskRecursive td input
+        {
+            margin: 6px;
+        }
+        #cphBody_rbtnTaskType td input
+        {
+            margin: 6px;
+        } 
+        
+    </style>
     <script type="text/javascript">
         $("#<%=rbtnTaskRecursive.ClientID%> input[type='radio']").click(function () {
             var isRecursive = $(this).val();

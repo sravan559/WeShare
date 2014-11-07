@@ -44,9 +44,9 @@ namespace WeShare.BusinessLogic
             return objDaGroups.GetUsersListByGroupName(groupName, getActiveUsersOnly);
         }
 
-        public bool AddUserToGroup(string groupName, string userId)
+        public bool AddUserToGroup(string groupName, string userId,int minPoints)
         {
-            return objDaGroups.AddUserToGroup(groupName, userId);
+            return objDaGroups.AddUserToGroup(groupName, userId, minPoints);
         }
 
         public bool DeleteUserFromGroup(string groupName, string userId)

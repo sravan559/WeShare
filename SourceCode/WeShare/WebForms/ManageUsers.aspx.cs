@@ -55,7 +55,7 @@ namespace WeShare.WebForms
                 }
                 else
                 {
-                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim());
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(),Convert.ToInt32(txtMinPoints));
                     LoadUsersInGroup();
                     txtUserId.Text = string.Empty;
                     if (isSaved)

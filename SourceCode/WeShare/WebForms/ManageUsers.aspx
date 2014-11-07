@@ -21,6 +21,15 @@
                 <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%"></asp:TextBox>
             </div>
         </div>
+
+        <div class="form-group">
+            <label for="txtMinPoints" class="col-sm-2 control-label">
+                Minimum Points</label>
+            <div class="col-sm-10">
+                <asp:TextBox ID="txtMinPoints" runat="server" Width="50%"></asp:TextBox>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10" align="left">
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
@@ -33,6 +42,7 @@
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
+                <asp:BoundField DataField="MinPoints" HeaderText="Minimum Points" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="imgDeleteUser" runat="server" align="center" CommandName="Delete"

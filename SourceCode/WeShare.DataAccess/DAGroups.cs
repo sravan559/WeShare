@@ -150,7 +150,9 @@ namespace WeShare.DataAccess
                     UserInfo objCurrentUser = new UserInfo()
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
-                        Name = objSqlReader["Name"].ToStr()
+                        Name = objSqlReader["Name"].ToStr(),
+                        MinPoints=Convert.ToInt32(objSqlReader["Min_Points"])
+
                     };
                     listUsers.Add(objCurrentUser);
                 }
@@ -163,7 +165,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Method to add a user to the selected group
         /// </summary>
-        public bool AddUserToGroup(string groupName, string userId)
+        public bool AddUserToGroup(string groupName, string userId,int minPoints)
         {
             bool isRecordSaved = false;
             try
@@ -172,10 +174,11 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[3];
+                SqlParameter[] parameters = new SqlParameter[4];
                 parameters[0] = new SqlParameter("@Action", "ADDUSERTOGROUP");
                 parameters[1] = new SqlParameter("@Group_Name", groupName);
                 parameters[2] = new SqlParameter("@User_Id", userId);
+                parameters[3] = new SqlParameter("@Min_Points", minPoints);
 
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();

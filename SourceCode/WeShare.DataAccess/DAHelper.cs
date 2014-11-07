@@ -19,7 +19,8 @@ namespace WeShare.DataAccess
         /// <returns></returns>
         protected static string GetConnectionString()
         {
-            return ConfigurationManager.ConnectionStrings["WeShareConnectionString"].ConnectionString;
+           // return ConfigurationManager.ConnectionStrings["WeShareConnectionString"].ConnectionString;
+            return "Data Source=TERMINATOR;Initial Catalog=WeShare;User ID=sa;Password=Sandeepgarimella220";
         }
 
         //TODO Remove the parameter after code integration

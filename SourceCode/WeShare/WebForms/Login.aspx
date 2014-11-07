@@ -8,14 +8,15 @@
     <script src="../Scripts/jquery-1.11.1.js" type="text/javascript"></script>
     <script src="../Scripts/jquery.validate.js" type="text/javascript"></script>
     <script src="../Scripts/additional-methods.js" type="text/javascript"></script>
-    <link href="../Styles/bootstrap.min.css" rel="Stylesheet" type="text/css" />
+    <%--<link href="../Styles/bootstrap.min.css" rel="Stylesheet" type="text/css" />
     <script src="../Scripts/bootstrap.min.js" type="text/javascript"></script>
+    --%>
 </head>
 <body bgcolor="#ffffff">
-  <form id="signUpForm" runat="server" >
+    <form id="signUpForm" runat="server">
     <div id="userLogin" class="login form-signin">
         <h2 style="text-align: center;">
-            WeShare Login</h2> 
+            WeShare Login</h2>
         <table align="center">
             <tr>
                 <td>
@@ -43,6 +44,8 @@
     </div>
     <div id="userSignUp" style="display: none; border: 2px solid black; width: 70% !important;
         max-width: 500px;" class="login form-signin">
+         <h2 style="text-align: center;">
+            WeShare User - Sign Up</h2>
         <table style="width: 100%;">
             <tr>
                 <th>
@@ -101,8 +104,6 @@
             </tr>
         </table>
     </div>
-
-
     </form>
 </body>
 <script type="text/javascript">
@@ -197,5 +198,4 @@ $("#signUpForm").validate(
     });
     
 </script>
-
 </html>

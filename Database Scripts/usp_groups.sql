@@ -70,7 +70,7 @@ BEGIN
 		INSERT INTO UsersInGroups(Group_Name,User_Id,Min_Points) VALUES (@Group_Name,@User_Id,@Min_Points);
 		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
-		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name' FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id WHERE Group_Name=@Group_Name
+		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name',Min_Points FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id WHERE Group_Name=@Group_Name
 		
 	ELSE IF @Action = 'GETACTIVEUSERSINGROUP' -- List of users who are already registered on the site
 		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name' FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id  WHERE Group_Name=@Group_Name	

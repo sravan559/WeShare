@@ -207,7 +207,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Returns all the tasks assigned to all the Roommates
         /// </summary>
-        public List<TaskAssignmentInfo> GetAllAssignedTasks()
+        public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userID)
         {
             List<TaskAssignmentInfo> listTasks = null;
             try
@@ -217,8 +217,9 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[1];
-                parameters[0] = new SqlParameter("@Action", "GetAllTasks");
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "GetRoommatesTasks");
+                parameters[1] = new SqlParameter("@User_Id", userID);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();

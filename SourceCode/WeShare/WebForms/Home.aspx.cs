@@ -19,7 +19,7 @@ namespace WeShare.WebForms
                 if (!IsPostBack)
                 {
                     LoadMyTasks();
-                    LoadAllTasks();
+                    LoadRoomMatesTasks();
                 }
             }
             catch (Exception ex)
@@ -48,7 +48,7 @@ namespace WeShare.WebForms
         }
 
 
-        private void LoadAllTasks()
+        private void LoadRoomMatesTasks()
         {
             try
             {
@@ -57,7 +57,7 @@ namespace WeShare.WebForms
                 {
                     Response.Redirect("Login.aspx");
                 }
-                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetAllAssignedTasks();
+                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetRoomMatesAssignedTasks(UserId);
                 gvAllTasks.DataSource = listTaskInfo;
                 gvAllTasks.DataBind();
             }
@@ -96,7 +96,7 @@ namespace WeShare.WebForms
                 if (e.Row.RowType == DataControlRowType.DataRow)
                 {
                     string status = gvMyTasks.DataKeys[e.Row.RowIndex].Values["Status"].ToStr();
-                    if (status.ToLower() == "complete")
+                    if (status.ToLower() == "completed")
                     {
                         ImageButton imgMarkComplete = (ImageButton)e.Row.FindControl("imgMarkComplete");
                         imgMarkComplete.Visible = false;

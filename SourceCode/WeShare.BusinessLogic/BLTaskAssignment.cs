@@ -43,9 +43,9 @@ namespace WeShare.BusinessLogic
         }
 
 
-        public List<TaskAssignmentInfo> GetAllAssignedTasks()
+        public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userID)
         {
-            return objDaTaskAssignment.GetAllAssignedTasks();
+            return objDaTaskAssignment.GetRoomMatesAssignedTasks(userID);
         }
 
         public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)

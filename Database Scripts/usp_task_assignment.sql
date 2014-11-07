@@ -61,11 +61,12 @@ BEGIN
 		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
 		WHERE at.User_Id=@User_Id
 		
-	ELSE IF @Action='GetAllTasks'
+	ELSE IF @Action='GetRoommatesTasks'
 		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		from Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id
+		where u.User_Id <> @User_Id
 				 	 	
 		
 END

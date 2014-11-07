@@ -31,10 +31,9 @@ namespace WeShare.WebForms
         {
             try
             {
-                Label lblUser = (Label)gvUsersInGroup.Rows[e.RowIndex].FindControl("lblUser");
+                string userId = gvUsersInGroup.DataKeys[e.RowIndex].Values["UserId"].ToString();
                 BLGroups objBlGroups = new BLGroups();
-
-                bool delete = objBlGroups.DeleteUserFromGroup(ddlGroups.SelectedValue, lblUser.Text);
+                bool delete = objBlGroups.DeleteUserFromGroup(ddlGroups.SelectedValue, userId);
                 LoadUsersInGroup();
                 txtUserId.Text = string.Empty;
             }
@@ -55,7 +54,7 @@ namespace WeShare.WebForms
                 }
                 else
                 {
-                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(),txtMinPoints.Text.ToInt32());
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtMinPoints.Text.ToInt32());
                     LoadUsersInGroup();
                     txtUserId.Text = string.Empty;
                     if (isSaved)

@@ -23,6 +23,7 @@ CREATE PROCEDURE [dbo].[usp_groups]
 	@Group_Name NVARCHAR(50)=NULL,
 	@New_Group_Name nvarchar(50)=NULL,	
 	@User_Id NVARCHAR(50)=NULL,
+	@Min_Points NVARCHAR(50)=NULL,
 	@Action NVARCHAR(50)
 )
 AS
@@ -66,7 +67,7 @@ BEGIN
 	ELSE IF @Action = 'ADDUSERTOGROUP'
 		BEGIN
 		IF NOT EXISTS(SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id)
-		INSERT INTO UsersInGroups(Group_Name,User_Id) VALUES (@Group_Name,@User_Id);
+		INSERT INTO UsersInGroups(Group_Name,User_Id,Min_Points) VALUES (@Group_Name,@User_Id,@Min_Points);
 		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
 		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name' FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id WHERE Group_Name=@Group_Name

@@ -14,29 +14,46 @@ namespace WeShare.WebForms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            try
             {
-                bool isSessionExpired = Request.QueryString["IsSessionExpired"].ToBoolean();
-                lblErrorMessage.Visible = isSessionExpired;
+                if (!IsPostBack)
+                {
+                    bool isSessionExpired = Request.QueryString["IsSessionExpired"].ToBoolean();
+                    lblErrorMessage.Visible = isSessionExpired;
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            BLUsers objBlUsers = new BLUsers();
-            bool isUserValid = objBlUsers.IsUserValid(txtLoginEmail.Text.Trim(), txtLoginPassword.Text.Trim());
-            if (isUserValid)
+            try
             {
-                UserId = txtLoginEmail.Text.Trim();
-                Response.Redirect("Home.aspx");
+                BLUsers objBlUsers = new BLUsers();
+                bool isUserValid = objBlUsers.IsUserValid(txtLoginEmail.Text.Trim(), txtLoginPassword.Text.Trim());
+                if (isUserValid)
+                {
+                    UserId = txtLoginEmail.Text.Trim();
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", "alert('Please enter valid login credentials.')", true);
             }
-            else
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", "alert('Please enter valid login credentials.')", true);
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
         }
+
 
         protected void btnSignUpUser_Click(object sender, EventArgs e)
         {
-            UserInfo objUserInfo = new UserInfo()
+            try
+            {
+                UserInfo objUserInfo = new UserInfo()
             {
                 FirstName = txtFirstName.Text.Trim(),
                 LastName = txtLastName.Text.Trim(),
@@ -44,15 +61,20 @@ namespace WeShare.WebForms
                 Password = txtPassword.Text.Trim(),
                 ContactNumber = txtContactNumber.Text.Trim()
             };
-            BLUsers objBlUsers = new BLUsers();
-            bool isUserRegistered = objBlUsers.SaveUserDetails(objUserInfo);
-            if (!isUserRegistered)
-            {
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('Email Id already registered. Please use a different Email Id.')", true);
+                BLUsers objBlUsers = new BLUsers();
+                bool isUserRegistered = objBlUsers.SaveUserDetails(objUserInfo);
+                if (!isUserRegistered)
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('Email Id already registered. Please use a different Email Id.')", true);
+                }
+                else
+                {
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('User registered successfully. Please login to access the application.')", true);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "Signup_Alert", "alert('User registered successfully. Please login to access the application.')", true);
+                ManageException(ex);
             }
         }
     }

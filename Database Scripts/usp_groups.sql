@@ -35,7 +35,7 @@ BEGIN
 				BEGIN TRAN
 				
 				INSERT INTO Groups(Group_Name) VALUES (@New_Group_Name)
-				INSERT INTO UsersInGroups (Group_Name,User_Id) VALUES(@New_Group_Name,@User_Id)
+				INSERT INTO UsersInGroups (Group_Name,User_Id,Min_Points) VALUES(@New_Group_Name,@User_Id,@Min_Points)
 				IF(@@ERROR>0)
 					ROLLBACK TRAN
 				ELSE 

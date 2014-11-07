@@ -71,16 +71,19 @@ namespace WeShare.WebForms
         {
             try
             {
+                GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+
                 if (e.CommandName == "TaskComplete")
                 {
-                    GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
                     int rowIndex = currentGridRow.RowIndex;
                     int taskId = gvMyTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");
                     LoadMyTasks();
+
                 }
+             
             }
 
             catch (Exception ex)
@@ -106,6 +109,20 @@ namespace WeShare.WebForms
             catch (Exception ex)
             {
                 ManageException(ex);
+            }
+        }
+
+        protected void gvAllTasks_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "AssignToSelf")
+            {
+                GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                int rowIndex = currentGridRow.RowIndex;
+                int taskId = gvAllTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
+                BLTaskAssignment objBlTasks = new BLTaskAssignment();
+                objBlTasks.ReAssignTaskToOtherUser(taskId, UserId);
+                LoadRoomMatesTasks();
+                LoadMyTasks();
             }
         }
 

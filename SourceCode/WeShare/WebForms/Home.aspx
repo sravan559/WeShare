@@ -73,7 +73,7 @@
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId"
-                Width="80%" class="table table-hover">
+                Width="80%" class="table table-hover" onrowcommand="gvAllTasks_RowCommand">
                 <Columns>
                     <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
@@ -99,6 +99,11 @@
                         <ItemTemplate>
                             <asp:Label ID="lbltaskstatus" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "Status", "") %>'>
                             </asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Action" HeaderStyle-Width="10%">
+                        <ItemTemplate>
+                            <asp:Button ID="btnAssignToSelf" runat="server" Text="AssignToSelf" CommandName="AssignToSelf" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

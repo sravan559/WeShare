@@ -42,6 +42,10 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetUserTasksByMailId(emailId);
         }
 
+        public bool ReAssignTaskToOtherUser(int taskId, string userId, DateTime? dtDueDate = null)
+        {
+            return objDaTaskAssignment.ReAssignTaskToOtherUser(taskId, userId, dtDueDate);
+        }
 
         public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userID)
         {

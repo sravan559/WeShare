@@ -56,17 +56,24 @@ BEGIN
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name
 					
-	ELSE IF @Action='GetTasksByEmailId'
+	ELSE IF @Action='GETTASKSBYEMAILID'
 		SELECT t.Task_Id,Task_Title,Task_Description,Due_Date,Status 
 		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
 		WHERE at.User_Id=@User_Id
 		
-	ELSE IF @Action='GetRoommatesTasks'
+	ELSE IF @Action='GETROOMMATESTASKS'
 		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		from Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id
 		where u.User_Id <> @User_Id
+	ELSE IF @Action='REASSIGNTASK'
+		UPDATE 	AssignedTasks set User_Id=@User_Id where Task_Id=@Task_Id
+		--						  Due_Date = case when (@Due_Date IS NULL or @Due_Date = '')then Due_Date
+		--									 else @Due_Date	
+		--									 end	
+							 
+		
 				 	 	
 		
 END

@@ -156,6 +156,7 @@ namespace WeShare.DataAccess
         public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
         {
             //Implementation
+            bool isTaskAssigned = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -170,13 +171,45 @@ namespace WeShare.DataAccess
                 parameters[4] = new SqlParameter("@Status", objTaskInfo.Status);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isTaskAssigned = rowsAffected > 0;
             }
             finally
             {
                 CloseConnection();
             }
-            return true;
+            return isTaskAssigned;
+        }
+
+        public bool ReAssignTaskToOtherUser(int taskId, string userId, DateTime? dtDueDate)
+        {
+            //Implementation
+            bool isTaskReassigned = false;
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[4];
+                parameters[0] = new SqlParameter("@Action", "REASSIGNTASK");
+                parameters[1] = new SqlParameter("@Task_Id", taskId);
+                parameters[2] = new SqlParameter("@User_Id", userId);
+                if (dtDueDate != null && dtDueDate != DateTime.MinValue)
+                    parameters[3] = new SqlParameter("@Due_Date", dtDueDate);
+                else
+                    parameters[3] = new SqlParameter("@Due_Date", DBNull.Value);
+
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isTaskReassigned = rowsAffected > 0;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return isTaskReassigned;
         }
 
         /// <summary>
@@ -207,7 +240,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Returns all the tasks assigned to all the Roommates
         /// </summary>
-        public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userID)
+        public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userId)
         {
             List<TaskAssignmentInfo> listTasks = null;
             try
@@ -219,7 +252,7 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
                 parameters[0] = new SqlParameter("@Action", "GetRoommatesTasks");
-                parameters[1] = new SqlParameter("@User_Id", userID);
+                parameters[1] = new SqlParameter("@User_Id", userId);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();

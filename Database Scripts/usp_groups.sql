@@ -21,9 +21,9 @@ GO
 CREATE PROCEDURE [dbo].[usp_groups] 
 (
 	@Group_Name NVARCHAR(50)=NULL,
-	@New_Group_Name nvarchar(50)=NULL,
-	@Action NVARCHAR(20)=NULL,
-	@User_Id NVARCHAR(50)=NULL
+	@New_Group_Name nvarchar(50)=NULL,	
+	@User_Id NVARCHAR(50)=NULL,
+	@Action NVARCHAR(50)
 )
 AS
 BEGIN
@@ -45,8 +45,12 @@ BEGIN
 	ELSE IF @Action = 'U'
 		BEGIN
 		 if not exists (select Group_Name from Groups where Group_Name=@New_Group_Name)
-		 UPDATE Groups SET Group_Name=@New_Group_Name
-						 WHERE Group_Name=@Group_Name
+			 BEGIN
+				 UPDATE Groups SET Group_Name=@New_Group_Name
+									 WHERE Group_Name=@Group_Name
+				
+				 UPDATE UsersInGroups set Group_Name=@New_Group_Name	WHERE Group_Name=@Group_Name
+			 END
 		END
 	ELSE IF @Action = 'R'
 		SELECT Group_Name FROM Groups
@@ -68,7 +72,7 @@ BEGIN
 		SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name
 		
 	ELSE IF @Action = 'GETACTIVEUSERSINGROUP' -- List of users who are already registered on the site
-		SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name	
+		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name' FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id  WHERE Group_Name=@Group_Name	
 END
 
 GO

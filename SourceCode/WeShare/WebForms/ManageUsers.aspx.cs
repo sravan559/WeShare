@@ -60,7 +60,7 @@ namespace WeShare.WebForms
                     txtUserId.Text = string.Empty;
                     if (isSaved)
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -101,10 +101,10 @@ namespace WeShare.WebForms
         private void LoadUsersInGroup()
         {
             BLGroups objBlGroups = new BLGroups();
-            List<string> listUsers = objBlGroups.GetUsersListByGroupName(ddlGroups.SelectedValue);
+            List<UserInfo> listUsers = objBlGroups.GetUsersListByGroupName(ddlGroups.SelectedValue);
             gvUsersInGroup.DataSource = listUsers;
             gvUsersInGroup.DataBind();
-            
+
         }
         #endregion
 

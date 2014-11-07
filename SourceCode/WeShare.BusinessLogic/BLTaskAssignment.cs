@@ -29,6 +29,14 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetAssignedTaskList();
         }
 
+        /// <summary>
+        /// Returns the list of assigned tasks based on the group name
+        /// </summary>
+        public List<TaskAssignmentInfo> GetAssignedTaskListByGroupName(string groupName)
+        {
+            return objDaTaskAssignment.GetAssignedTaskListByGroupName(groupName);
+        }
+
         public List<TaskAssignmentInfo> GetUserTasksByMailId(string emailId)
         {
             return objDaTaskAssignment.GetUserTasksByMailId(emailId);

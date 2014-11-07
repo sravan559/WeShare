@@ -126,7 +126,7 @@ namespace WeShare.WebForms
         private void LoadAssignedTasks()
         {
             BLTaskAssignment objBlTasks = new BLTaskAssignment();
-            List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetAssignedTaskList();
+            List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetAssignedTaskListByGroupName(ddlGroups.SelectedValue);
             gvAssignedTasks.DataSource = listTaskInfo;
             gvAssignedTasks.DataBind();
 
@@ -140,6 +140,7 @@ namespace WeShare.WebForms
             {
                 LoadUnAssignedTasks();
                 LoadUsers();
+                LoadAssignedTasks();
             }
             catch (Exception ex)
             {

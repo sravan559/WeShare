@@ -55,7 +55,7 @@ namespace WeShare.DataAccess
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(string userId,string currentNameofGroup, string newNameofGroup)
+        public bool SaveGroup(string userId, string currentNameofGroup, string newNameofGroup)
         {
             bool isDataSaved = false;
             try
@@ -67,7 +67,7 @@ namespace WeShare.DataAccess
                 SqlParameter[] parameters = null;
                 parameters = new SqlParameter[3];
                 if (!string.IsNullOrEmpty(currentNameofGroup))
-                {  
+                {
                     parameters[0] = new SqlParameter("@Action", "U");
                     parameters[1] = new SqlParameter("@Group_Name", currentNameofGroup);
                     parameters[2] = new SqlParameter("@New_Group_Name", newNameofGroup);
@@ -126,9 +126,10 @@ namespace WeShare.DataAccess
         /// </summary>
         /// <param name="groupName"></param>
         /// <returns></returns>
-        public List<string> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly )
+        public List<UserInfo> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly)
         {
-            List<string> listUserIds = new List<string>();
+            List<UserInfo> listUsers = new List<UserInfo>();
+
             objSqlConnection = new SqlConnection(GetConnectionString());
             objSqlCommand = objSqlConnection.CreateCommand();
             objSqlCommand.CommandText = DbConstants.UspGroups;
@@ -144,14 +145,17 @@ namespace WeShare.DataAccess
             SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
             if (objSqlReader != null && objSqlReader.HasRows)
             {
-                string userID;
                 while (objSqlReader.Read())
                 {
-                    userID = objSqlReader["User_Id"].ToStr();
-                    listUserIds.Add(userID);
+                    UserInfo objCurrentUser = new UserInfo()
+                    {
+                        UserId = objSqlReader["User_ID"].ToStr(),
+                        Name = objSqlReader["Name"].ToStr()
+                    };
+                    listUsers.Add(objCurrentUser);
                 }
             }
-            return listUserIds;
+            return listUsers;
         }
 
 
@@ -172,7 +176,7 @@ namespace WeShare.DataAccess
                 parameters[0] = new SqlParameter("@Action", "ADDUSERINGROUP");
                 parameters[1] = new SqlParameter("@Group_Name", groupName);
                 parameters[2] = new SqlParameter("@User_Id", userId);
-               
+
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();

@@ -37,7 +37,7 @@ namespace WeShare.BusinessLogic
         /// <param name="groupName"></param>
         /// <param name="getActiveUsersOnly">Indicates whether only active users are required</param>
         /// <returns></returns>
-        public List<string> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly = false)
+        public List<UserInfo> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly = false)
         {
             //Active Users are the ones who are already registered on the site.
             //Users who have been invited to join the group but not yet registered will not be listed if getActiveUsersOnly =true

@@ -56,7 +56,7 @@ namespace WeShare.WebForms
                 {
                     bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtMinPoints.Text.ToInt32());
                     LoadUsersInGroup();
-                    txtUserId.Text = string.Empty;
+                    txtUserId.Text = txtMinPoints.Text = string.Empty;
                     if (isSaved)
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
 

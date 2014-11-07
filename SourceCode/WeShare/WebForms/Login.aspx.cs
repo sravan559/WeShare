@@ -37,7 +37,7 @@ namespace WeShare.WebForms
                 if (isUserValid)
                 {
                     UserId = txtLoginEmail.Text.Trim();
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("Home.aspx",false);
                 }
                 else
                     ClientScript.RegisterClientScriptBlock(this.GetType(), "Alert", "alert('Please enter valid login credentials.')", true);

@@ -80,6 +80,43 @@ namespace WeShare.DataAccess
         }
 
         /// <summary>
+        /// Returns the list of assigned tasks based on the group name
+        /// </summary>
+        public List<TaskAssignmentInfo> GetAssignedTaskListByGroupName(string groupName)
+        {
+            List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
+            objSqlConnection = new SqlConnection(GetConnectionString());
+            objSqlCommand = objSqlConnection.CreateCommand();
+            objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+            objSqlCommand.CommandType = CommandType.StoredProcedure;
+            SqlParameter[] parameters = new SqlParameter[2];
+            parameters[0] = new SqlParameter("@Action", "GETASSIGNEDTASKSBYGROUP");
+            parameters[1] = new SqlParameter("@Group_Name", groupName);
+
+            objSqlCommand.Parameters.AddRange(parameters);
+            objSqlConnection.Open();
+            SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
+            if (objSqlReader != null && objSqlReader.HasRows)
+            {
+                while (objSqlReader.Read())
+                {
+                    TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo()
+                    {
+                        TaskId = objSqlReader["Task_Id"].ToInt32(),
+                        TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
+                        UserId = objSqlReader["User_Id"].ToStr(),
+                        UserName = objSqlReader["User_Name"].ToStr(),
+                        DueDate = objSqlReader["Due_Date"].ToDateTime(),
+                        Status = objSqlReader["Status"].ToStr()
+                    };
+                    listTasks.Add(objTaskInfo);
+                }
+            }
+            return listTasks;
+        }
+
+        /// <summary>
         /// Returns the list of tasks assigned to a user using his/her mailid
         /// </summary>
         public List<TaskAssignmentInfo> GetUserTasksByMailId(string userId)

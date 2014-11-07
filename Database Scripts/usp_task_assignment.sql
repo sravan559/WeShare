@@ -23,7 +23,7 @@ CREATE PROCEDURE [dbo].[usp_task_assignment]
 @Due_Date DATETIME =NULL,
 @Status NVARCHAR(50)=NULL,
 @Group_Name NVARCHAR(50)=NULL,
-@Action NVARCHAR(20)
+@Action NVARCHAR(50)
 )
 AS
 BEGIN
@@ -48,7 +48,14 @@ BEGIN
 		from Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id
-				
+
+			
+	ELSE IF @Action='GETASSIGNEDTASKSBYGROUP'
+		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
+		from Tasks t inner join AssignedTasks at 
+		on t.Task_Id=at.Task_Id
+		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name
+					
 	ELSE IF @Action='GetTasksByEmailId'
 		SELECT t.Task_Id,Task_Title,Task_Description,Due_Date,Status 
 		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 

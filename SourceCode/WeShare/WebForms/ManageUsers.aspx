@@ -31,11 +31,8 @@
     <div class="gridcontainer">
         <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting">
             <Columns>
-                <asp:TemplateField HeaderText="User ID">
-                    <ItemTemplate>
-                        <asp:Label ID="lblUser" runat="server" Text="<%# Container.DataItem %>" />
-                    </ItemTemplate>
-                </asp:TemplateField>
+                <asp:BoundField DataField="UserId" HeaderText="User ID" />
+                <asp:BoundField DataField="Name" HeaderText="User Name" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="imgDeleteUser" runat="server" align="center" CommandName="Delete"

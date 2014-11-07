@@ -21,9 +21,9 @@ namespace WeShare.BusinessLogic
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(string currentNameofGroup, string newNameofGroup = null)
+        public bool SaveGroup(string userId,string currentNameofGroup, string newNameofGroup = null)
         {
-            return objDaGroups.SaveGroup(currentNameofGroup, newNameofGroup);
+            return objDaGroups.SaveGroup(userId,currentNameofGroup, newNameofGroup);
         }
 
         public bool DeleteGroup(string groupName)
@@ -37,7 +37,7 @@ namespace WeShare.BusinessLogic
         /// <param name="groupName"></param>
         /// <param name="getActiveUsersOnly">Indicates whether only active users are required</param>
         /// <returns></returns>
-        public List<string> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly = false)
+        public List<UserInfo> GetUsersListByGroupName(string groupName, bool getActiveUsersOnly = false)
         {
             //Active Users are the ones who are already registered on the site.
             //Users who have been invited to join the group but not yet registered will not be listed if getActiveUsersOnly =true

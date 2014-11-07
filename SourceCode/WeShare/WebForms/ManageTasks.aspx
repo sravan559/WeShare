@@ -111,7 +111,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="table">
+                <table class="table table-hover">
                     <tr>
                         <th>
                             Task Name
@@ -130,7 +130,7 @@
                     </tr>
                 </table>
             </EmptyDataTemplate>
-            <HeaderStyle BackColor="LightBlue" />
+            
         </asp:GridView>
     </div>
     <script type="text/javascript">

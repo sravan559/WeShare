@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting">
+        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting" class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
@@ -42,7 +42,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="table">
+                <table class="table table-hover">
                     <tr>
                         <th>
                             User ID

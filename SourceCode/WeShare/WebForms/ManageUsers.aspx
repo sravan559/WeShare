@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting"
+        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting" DataKeyNames="UserId"
             class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />

@@ -33,17 +33,31 @@
             <Columns>
                 <asp:TemplateField HeaderText="User ID">
                     <ItemTemplate>
-                        <asp:Label ID="lblUser" runat="server" Text="<%# Container.DataItem %>"/>
+                        <asp:Label ID="lblUser" runat="server" Text="<%# Container.DataItem %>" />
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
-                        <asp:ImageButton ID="imgDeleteUser" runat="server" CommandName="Delete" ToolTip="Delete user from group?"
-                            OnClientClick="return confirm('Are you sure?')" AlternateText="Delete" ImageUrl="~/Images/img_delete.gif"
-                            CssClass="imagebutton" />
+                        <asp:ImageButton ID="imgDeleteUser" runat="server" align="center" CommandName="Delete"
+                            ToolTip="Delete user from group?" OnClientClick="return confirm('Are you sure?')"
+                            AlternateText="Delete" ImageUrl="~/Images/img_delete.gif" CssClass="imagebutton" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
+            <EmptyDataTemplate>
+                <table class="table">
+                    <tr>
+                        <th>
+                            User ID
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            There are no users in this group!
+                        </td>
+                    </tr>
+                </table>
+            </EmptyDataTemplate>
         </asp:GridView>
     </div>
 </asp:Content>

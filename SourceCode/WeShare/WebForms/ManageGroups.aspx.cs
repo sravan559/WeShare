@@ -67,6 +67,7 @@ namespace WeShare.WebForms
                     GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
                     int rowIndex = currentGridRow.RowIndex;
                     hdnCurrentGroupName.Value = txtGroupName.Text = gvUserGroups.DataKeys[rowIndex].Values["GroupName"].ToString();
+
                 }
             }
             catch (Exception ex)
@@ -101,5 +102,7 @@ namespace WeShare.WebForms
             gvUserGroups.DataBind();
         }
         #endregion
+
+
     }
 }

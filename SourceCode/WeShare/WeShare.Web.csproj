@@ -51,9 +51,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\img_complete.jpg" />
-    <Content Include="Images\img_delete.gif" />
-    <Content Include="Images\img_edit.gif" />
+    <Content Include="Properties\Images\img_complete.jpg" />
+    <Content Include="Properties\Images\img_delete.gif" />
+    <Content Include="Properties\Images\img_edit.gif" />
     <Content Include="Scripts\additional-methods.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.11.1.js" />

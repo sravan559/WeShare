@@ -168,9 +168,10 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[3];
-                parameters[0] = new SqlParameter("@Action", "ADDUSERTOGROUP");
-                parameters[1] = new SqlParameter("@User_Id", userId);
-                parameters[2] = new SqlParameter("@Group_Name", groupName);
+                parameters[0] = new SqlParameter("@Action", "ADDUSERINGROUP");
+                parameters[1] = new SqlParameter("@Group_Name", groupName);
+                parameters[2] = new SqlParameter("@User_Id", userId);
+               
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();

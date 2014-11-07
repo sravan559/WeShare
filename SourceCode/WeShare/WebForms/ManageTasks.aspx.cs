@@ -12,6 +12,7 @@ namespace WeShare.WebForms
 {
     public partial class ManageTasks : BasePage
     {
+        #region Events
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -107,7 +108,9 @@ namespace WeShare.WebForms
                 ManageException(ex);
             }
         }
-
+        #endregion
+        
+        #region User Defined Methods
         private void LoadTasksListByGrpName()
         {
             BLTasks objBlUser = new BLTasks();
@@ -132,6 +135,6 @@ namespace WeShare.WebForms
             ddlGroups.DataValueField = "GroupName";
             ddlGroups.DataBind();
         }
-
+        #endregion
     }
 }

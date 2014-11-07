@@ -36,6 +36,7 @@ namespace WeShare.WebForms
 
                 bool delete = objBlGroups.DeleteUserFromGroup(ddlGroups.SelectedValue, lblUser.Text);
                 LoadUsersInGroup();
+                txtUserId.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -48,8 +49,19 @@ namespace WeShare.WebForms
             try
             {
                 BLGroups objGroupBL = new BLGroups();
-                bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim());
-                LoadUsersInGroup();
+                if (ddlGroups.SelectedValue == "")
+                {
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_failure", "alert('Please select a group to add the user!')", true);
+                }
+                else
+                {
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim());
+                    LoadUsersInGroup();
+                    txtUserId.Text = string.Empty;
+                    if (isSaved)
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
+                    
+                }
             }
             catch (Exception ex)
             {
@@ -92,6 +104,7 @@ namespace WeShare.WebForms
             List<string> listUsers = objBlGroups.GetUsersListByGroupName(ddlGroups.SelectedValue);
             gvUsersInGroup.DataSource = listUsers;
             gvUsersInGroup.DataBind();
+            
         }
         #endregion
 

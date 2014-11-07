@@ -60,15 +60,29 @@ namespace WeShare.WebForms
 
         protected void gvAssignedTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "EditTask")
+            try
             {
+                if (e.CommandName == "EditTask")
+                {
 
+                }
             }
-        }
 
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+
+        }
         protected void gvAssignedTasks_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-
+            try
+            {
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
         }
 
 
@@ -122,8 +136,16 @@ namespace WeShare.WebForms
 
         protected void ddlGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            LoadUnAssignedTasks();
-            LoadUsers();
+            try
+            {
+                LoadUnAssignedTasks();
+                LoadUsers();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+
         }
 
     }

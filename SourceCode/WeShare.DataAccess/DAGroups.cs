@@ -55,7 +55,7 @@ namespace WeShare.DataAccess
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(string currentNameofGroup, string newNameofGroup)
+        public bool SaveGroup(string userId,string currentNameofGroup, string newNameofGroup)
         {
             bool isDataSaved = false;
             try
@@ -65,9 +65,9 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = null;
-                if (!string.IsNullOrEmpty(newNameofGroup))
-                {
-                    parameters = new SqlParameter[3];
+                parameters = new SqlParameter[3];
+                if (!string.IsNullOrEmpty(currentNameofGroup))
+                {  
                     parameters[0] = new SqlParameter("@Action", "U");
                     parameters[1] = new SqlParameter("@Group_Name", currentNameofGroup);
                     parameters[2] = new SqlParameter("@New_Group_Name", newNameofGroup);
@@ -75,9 +75,10 @@ namespace WeShare.DataAccess
                 }
                 else
                 {
-                    parameters = new SqlParameter[2];
                     parameters[0] = new SqlParameter("@Action", "C");
-                    parameters[1] = new SqlParameter("@Group_Name", currentNameofGroup);
+                    parameters[1] = new SqlParameter("@New_Group_Name", newNameofGroup);
+                    parameters[2] = new SqlParameter("@User_Id", userId);
+
                 }
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();

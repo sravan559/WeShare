@@ -21,9 +21,9 @@ namespace WeShare.BusinessLogic
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(string currentNameofGroup, string newNameofGroup = null)
+        public bool SaveGroup(string userId,string currentNameofGroup, string newNameofGroup = null)
         {
-            return objDaGroups.SaveGroup(currentNameofGroup, newNameofGroup);
+            return objDaGroups.SaveGroup(userId,currentNameofGroup, newNameofGroup);
         }
 
         public bool DeleteGroup(string groupName)

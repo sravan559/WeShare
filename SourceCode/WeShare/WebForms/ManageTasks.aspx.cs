@@ -135,7 +135,6 @@ namespace WeShare.WebForms
         {
             hdnTaskId.Value = txtTaskName.Text = txtTaskDesc.Text = txtTaskPoints.Text = string.Empty;
             rbtnTaskType.SelectedIndex = rbtnTaskRecursive.SelectedIndex = -1;
-            ddlGroups.SelectedIndex = 0;
         }
 
         private void LoadGroups()

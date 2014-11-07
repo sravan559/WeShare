@@ -10,7 +10,7 @@
                 Select Group</label>
             <div class="col-sm-10">
                 <asp:DropDownList ID="ddlGroups" runat="server" AppendDataBoundItems="true" AutoPostBack="true"
-                    Width="50%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged">
+                    Width="100%" OnSelectedIndexChanged="ddlGroups_SelectedIndexChanged" class="form-control">
                     <asp:ListItem Text="Select Group" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>

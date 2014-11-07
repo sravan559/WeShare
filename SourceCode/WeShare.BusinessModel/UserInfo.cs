@@ -36,5 +36,10 @@ namespace WeShare.BusinessModel
         /// Property for Password
         /// </summary>
         public string Password { get; set; }
+
+        /// <summary>
+        /// Minimum points for User
+        /// </summary>
+        public int MinPoints { get; set; }
     }
 }

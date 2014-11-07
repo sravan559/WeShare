@@ -70,7 +70,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="table table-hover">
+                <table class="table emptytable">
                     <tr>
                         <th>
                             Task Name

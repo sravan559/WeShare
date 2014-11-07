@@ -22,7 +22,7 @@
     </div>
     <div class="gridcontainer">
         <asp:GridView ID="gvUserGroups" runat="server" DataKeyNames="GroupName" AutoGenerateColumns="false"
-            OnRowCommand="gvUserGroups_RowCommand" class="table table-hover" OnRowDeleting="gvUserGroups_RowDeleting" >
+            OnRowCommand="gvUserGroups_RowCommand" class="table table-hover" OnRowDeleting="gvUserGroups_RowDeleting">
             <Columns>
                 <asp:TemplateField HeaderText="S.No.">
                     <ItemTemplate>
@@ -40,7 +40,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="table">
+                <table class="table emptytable">
                     <tr>
                         <th>
                             Group Name

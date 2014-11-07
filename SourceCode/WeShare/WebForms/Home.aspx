@@ -10,7 +10,8 @@
         </h3>
         <div class="gridcontainer">
             <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
-                OnRowCommand="gvMyTasks_RowCommand" Width="80%" OnRowDataBound="gvMyTasks_RowDataBound" class="table table-hover">
+                OnRowCommand="gvMyTasks_RowCommand" Width="80%" OnRowDataBound="gvMyTasks_RowDataBound"
+                class="table table-hover">
                 <Columns>
                     <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                         <ItemTemplate>
@@ -36,13 +37,13 @@
                         <ItemTemplate>
                             <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark Task as Complete"
                                 ImageUrl="~/Images/img_complete.jpg" CssClass="imagebutton" ImageAlign="Middle"
-                                OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')" Height="20px" Width="20px" />
+                                OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')"
+                                Height="20px" Width="20px" />
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-               
                 <EmptyDataTemplate>
-                    <table class="table table-hover">
+                    <table class="table emptytable">
                         <tr>
                             <th>
                                 Task
@@ -101,9 +102,8 @@
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-               
                 <EmptyDataTemplate>
-                    <table class="table table-hover">
+                    <table class="table emptytable">
                         <tr>
                             <th>
                                 Task

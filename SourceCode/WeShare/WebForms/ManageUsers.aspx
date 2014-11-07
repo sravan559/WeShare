@@ -18,10 +18,10 @@
             <label for="txtUserId" class="col-sm-2 control-label">
                 User ID</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%" class="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtUserId" runat="server" placeholder="abc@xyz.com" Width="50%"
+                    class="form-control"></asp:TextBox>
             </div>
         </div>
-
         <div class="form-group">
             <label for="txtMinPoints" class="col-sm-2 control-label">
                 Minimum Points</label>
@@ -29,7 +29,6 @@
                 <asp:TextBox ID="txtMinPoints" runat="server" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10" align="left">
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
@@ -38,7 +37,8 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting" class="table table-hover">
+        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting"
+            class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
@@ -52,7 +52,7 @@
                 </asp:TemplateField>
             </Columns>
             <EmptyDataTemplate>
-                <table class="table table-hover">
+                <table class="table emptytable">
                     <tr>
                         <th>
                             User ID

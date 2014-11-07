@@ -75,7 +75,7 @@ namespace WeShare.WebForms
                 {
                     GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
                     int rowIndex = currentGridRow.RowIndex;
-                    int taskId = Convert.ToInt32(gvMyTasks.DataKeys[rowIndex].Values["TaskId"]);
+                    int taskId = gvMyTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");

@@ -19,8 +19,11 @@ namespace WeShare.WebHelper
 
         protected void ManageException(Exception exception, string sourceMethodName = null)
         {
-            ExceptionUtility.LogException(exception, sourceMethodName);
-            Response.Redirect("ErrorPage.aspx");
+            if (!(exception is System.Threading.ThreadAbortException))
+            {
+                ExceptionUtility.LogException(exception, sourceMethodName);
+                Response.Redirect("ErrorPage.aspx");
+            }
         }
     }
 }

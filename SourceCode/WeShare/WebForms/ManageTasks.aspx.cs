@@ -39,7 +39,7 @@ namespace WeShare.WebForms
                     TaskId = hdnTaskId.Value.ToInt32(),
                     TaskTitle = txtTaskName.Text.Trim(),
                     TaskDescription = txtTaskDesc.Text.Trim(),
-                    PointsAllocated = Convert.ToInt32(txtTaskPoints.Text.Trim()),
+                    PointsAllocated = txtTaskPoints.Text.Trim().ToInt32(),
 
                     IsTaskRecursive = rbtnTaskRecursive.Text.Trim().ToBoolean(),
                     TaskType = rbtnTaskType.SelectedValue.Trim(),
@@ -68,7 +68,7 @@ namespace WeShare.WebForms
             {
                 if (e.CommandName == "EditTask")
                 {
-                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    int rowIndex = e.CommandArgument.ToInt32();
                     hdnTaskId.Value = gvtasks.DataKeys[rowIndex].Values["TaskId"].ToString();
                     txtTaskName.Text = gvtasks.DataKeys[rowIndex].Values["TaskTitle"].ToString();
                     txtTaskDesc.Text = gvtasks.DataKeys[rowIndex].Values["TaskDescription"].ToString();
@@ -99,7 +99,7 @@ namespace WeShare.WebForms
         {
             try
             {
-                int TaskId = Convert.ToInt32(gvtasks.DataKeys[e.RowIndex].Values["TaskId"].ToString());
+                int TaskId = gvtasks.DataKeys[e.RowIndex].Values["TaskId"].ToInt32();
                 BLTasks objBlTasks = new BLTasks();
                 objBlTasks.DeleteTask(TaskId);
                 LoadTasksListByGrpName();

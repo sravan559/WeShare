@@ -71,7 +71,7 @@ namespace WeShare.WebForms
 
                 if (e.CommandName == "EditUser")
                 {
-                    int rowIndex = Convert.ToInt32(e.CommandArgument);
+                    int rowIndex = e.CommandArgument.ToInt32();
                     txtEmailAddress.Text = gvUsers.DataKeys[rowIndex].Values["UserId"].ToString();
                     txtFirstName.Text = gvUsers.DataKeys[rowIndex].Values["FirstName"].ToString();
                     txtLastName.Text = gvUsers.DataKeys[rowIndex].Values["LastName"].ToString();

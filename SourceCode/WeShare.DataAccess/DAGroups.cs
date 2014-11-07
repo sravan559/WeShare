@@ -151,7 +151,7 @@ namespace WeShare.DataAccess
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
                         Name = objSqlReader["Name"].ToStr(),
-                        MinPoints=Convert.ToInt32(objSqlReader["Min_Points"])
+                        MinPoints = objSqlReader["Min_Points"].ToInt32()
 
                     };
                     listUsers.Add(objCurrentUser);

@@ -12,6 +12,7 @@ namespace WeShare.WebForms
 {
     public partial class Home : BasePage
     {
+        #region Events
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -20,6 +21,7 @@ namespace WeShare.WebForms
                 {
                     LoadMyTasks();
                     LoadRoomMatesTasks();
+                    LoadMinPoints();
                 }
             }
             catch (Exception ex)
@@ -27,46 +29,6 @@ namespace WeShare.WebForms
                 ManageException(ex);
             }
         }
-
-        private void LoadMyTasks()
-        {
-            try
-            {
-                BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                if (Session["UserId"] == null)
-                {
-                    Response.Redirect("Login.aspx?IsSessionExpired=1");
-                }
-                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(UserId);
-                gvMyTasks.DataSource = listTaskInfo;
-                gvMyTasks.DataBind();
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex);
-            }
-        }
-
-
-        private void LoadRoomMatesTasks()
-        {
-            try
-            {
-                BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                if (Session["UserId"] == null)
-                {
-                    Response.Redirect("Login.aspx");
-                }
-                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetRoomMatesAssignedTasks(UserId);
-                gvAllTasks.DataSource = listTaskInfo;
-                gvAllTasks.DataBind();
-            }
-            catch (Exception ex)
-            {
-                ManageException(ex);
-            }
-        }
-
         protected void gvMyTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -83,7 +45,7 @@ namespace WeShare.WebForms
                     LoadMyTasks();
 
                 }
-             
+
             }
 
             catch (Exception ex)
@@ -114,19 +76,76 @@ namespace WeShare.WebForms
 
         protected void gvAllTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "AssignToSelf")
+            try
             {
-                GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
-                int rowIndex = currentGridRow.RowIndex;
-                int taskId = gvAllTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
-                BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                objBlTasks.ReAssignTaskToOtherUser(taskId, UserId);
-                LoadRoomMatesTasks();
-                LoadMyTasks();
+
+                if (e.CommandName == "AssignToSelf")
+                {
+                    GridViewRow currentGridRow = (GridViewRow)((Control)e.CommandSource).NamingContainer;
+                    int rowIndex = currentGridRow.RowIndex;
+                    int taskId = gvAllTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
+                    BLTaskAssignment objBlTasks = new BLTaskAssignment();
+                    objBlTasks.ReAssignTaskToOtherUser(taskId, UserId);
+                    LoadRoomMatesTasks();
+                    LoadMyTasks();
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
             }
         }
 
+        #endregion
 
+        #region User Defined
 
+        private void LoadMyTasks()
+        {
+            try
+            {
+                BLTaskAssignment objBlTasks = new BLTaskAssignment();
+                if (Session["UserId"] == null)
+                {
+                    Response.Redirect("Login.aspx?IsSessionExpired=1");
+                }
+                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetUserTasksByMailId(UserId);
+                gvMyTasks.DataSource = listTaskInfo;
+                gvMyTasks.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+        }
+
+        private void LoadRoomMatesTasks()
+        {
+            try
+            {
+                BLTaskAssignment objBlTasks = new BLTaskAssignment();
+                if (Session["UserId"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                }
+                List<TaskAssignmentInfo> listTaskInfo = objBlTasks.GetRoomMatesAssignedTasks(UserId);
+                gvAllTasks.DataSource = listTaskInfo;
+                gvAllTasks.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+        }
+
+        private void LoadMinPoints()
+        {
+            BLGroups objBlGroups = new BLGroups();
+            int points = objBlGroups.GetMinPoints(UserId);
+            ltlMinPoints.Text = points.ToStr();
+        }
+
+        #endregion
     }
 }

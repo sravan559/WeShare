@@ -22,6 +22,12 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
+                                 <asp:TemplateField HeaderText="Task Points" HeaderStyle-Width="10%">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTaskPoints" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PointsAllocated") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Description" HeaderStyle-Width="20%">
                                     <ItemTemplate>
                                         <asp:Label ID="lblTaskDesc" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription") %>'>
@@ -50,6 +56,9 @@
                                     <tr>
                                         <th>
                                             Task
+                                        </th>
+                                        <th>
+                                        Task Points
                                         </th>
                                         <th>
                                             Description

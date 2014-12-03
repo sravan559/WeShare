@@ -140,6 +140,7 @@ namespace WeShare.DataAccess
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
                         TaskTitle = objSqlReader["Task_Title"].ToStr(),
+                        PointsAllocated = objSqlReader["Points"].ToInt32(),
                         TaskDescription = objSqlReader["Task_Description"].ToStr(),
                         DueDate = objSqlReader["Due_Date"].ToDateTime(),
                         Status = objSqlReader["Status"].ToStr()

@@ -1,15 +1,8 @@
-
-/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 11/04/2014 19:03:13 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_groups]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[usp_groups]
+USE [WeShare]
 GO
-
-
-
-/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 11/04/2014 19:03:13 ******/
+/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 12/03/2014 15:08:02 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -18,12 +11,12 @@ GO
 -- Create date: 
 -- Description:	
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_groups] 
+ALTER PROCEDURE [dbo].[usp_groups] 
 (
 	@Group_Name NVARCHAR(50)=NULL,
 	@New_Group_Name nvarchar(50)=NULL,	
 	@User_Id NVARCHAR(50)=NULL,
-	@Min_Points NVARCHAR(50)=NULL,
+	@Weekly_Points NVARCHAR(50)=NULL,
 	@Action NVARCHAR(50)
 )
 AS
@@ -35,7 +28,7 @@ BEGIN
 				BEGIN TRAN
 				
 				INSERT INTO Groups(Group_Name) VALUES (@New_Group_Name)
-				INSERT INTO UsersInGroups (Group_Name,User_Id,Min_Points) VALUES(@New_Group_Name,@User_Id,40)
+				INSERT INTO UsersInGroups (Group_Name,User_Id,Weekly_Points) VALUES(@New_Group_Name,@User_Id,40)
 				IF(@@ERROR>0)
 					ROLLBACK TRAN
 				ELSE 
@@ -67,26 +60,19 @@ BEGIN
 	ELSE IF @Action = 'ADDUSERTOGROUP'
 		BEGIN
 			IF NOT EXISTS(SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id)
-			INSERT INTO UsersInGroups(Group_Name,User_Id,Min_Points) VALUES (@Group_Name,@User_Id,@Min_Points)
+			INSERT INTO UsersInGroups(Group_Name,User_Id,Weekly_Points) VALUES (@Group_Name,@User_Id,@Weekly_Points)
 		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
-		SELECT ug.USER_ID, First_Name+', '+Last_Name as 'Name',Min_Points 
+		SELECT ug.USER_ID, First_Name+', '+Last_Name as 'Name',Weekly_Points 
 		FROM UsersInGroups ug left join Users u on u.User_Id=ug.User_Id 
 		WHERE Group_Name=@Group_Name
 		
 	ELSE IF @Action = 'GETACTIVEUSERSINGROUP' -- List of users who are already registered on the site
-		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name', Min_Points 
+		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name', Weekly_Points 
 		FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id  
 		WHERE Group_Name=@Group_Name	
 		
-	ELSE IF @Action = 'GETMINPOINTS'
-		SELECT Min_Points FROM UsersInGroups WHERE User_Id=@User_Id;
+	ELSE IF @Action = 'GETWEEKLYPOINTS'
+		SELECT Weekly_Points FROM UsersInGroups WHERE User_Id=@User_Id;
 END
-
-GO
-
-
-
-
-
 

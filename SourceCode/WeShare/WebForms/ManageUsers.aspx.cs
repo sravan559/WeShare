@@ -54,9 +54,9 @@ namespace WeShare.WebForms
                 }
                 else
                 {
-                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtMinPoints.Text.ToInt32());
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtWeeklyPoints.Text.ToInt32());
                     LoadUsersInGroup();
-                    txtUserId.Text = txtMinPoints.Text = string.Empty;
+                    txtUserId.Text = txtWeeklyPoints.Text = string.Empty;
                     if (isSaved)
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
 

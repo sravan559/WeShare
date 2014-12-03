@@ -1,13 +1,8 @@
-/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 10/10/2014 14:38:28 ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_task_assignment]') AND type in (N'P', N'PC'))
-DROP PROCEDURE [dbo].[usp_task_assignment]
+USE [WeShare]
 GO
-
-
-/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 10/10/2014 14:38:28 ******/
+/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 12/03/2014 00:08:30 ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
 
@@ -16,7 +11,7 @@ GO
 -- Create date: 
 -- Description:	
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_task_assignment]
+ALTER PROCEDURE [dbo].[usp_task_assignment]
 (
 @Task_Id INT=NULL,
 @User_Id nvarchar(50)=NULL,
@@ -49,7 +44,10 @@ BEGIN
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id
 
-			
+	ELSE IF @Action = 'GETGROUPNAME'
+		SELECT Group_Name from UsersInGroups where User_Id=@User_Id
+		
+	
 	ELSE IF @Action='GETASSIGNEDTASKSBYGROUP'
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		from Tasks t inner join AssignedTasks at 
@@ -57,7 +55,7 @@ BEGIN
 		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name
 					
 	ELSE IF @Action='GETTASKSBYEMAILID'
-		SELECT t.Task_Id,Task_Title,Task_Description,Due_Date,Status 
+		SELECT t.Task_Id,Task_Title,Points,Task_Description,Due_Date,Status 
 		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
 		WHERE at.User_Id=@User_Id
 		
@@ -77,7 +75,4 @@ BEGIN
 				 	 	
 		
 END
-
-GO
-
 

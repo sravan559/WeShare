@@ -44,9 +44,9 @@ namespace WeShare.BusinessLogic
             return objDaGroups.GetUsersListByGroupName(groupName, getActiveUsersOnly);
         }
 
-        public bool AddUserToGroup(string groupName, string userId,int minPoints)
+        public bool AddUserToGroup(string groupName, string userId,int weeklyPoints)
         {
-            return objDaGroups.AddUserToGroup(groupName, userId, minPoints);
+            return objDaGroups.AddUserToGroup(groupName, userId, weeklyPoints);
         }
 
         public bool DeleteUserFromGroup(string groupName, string userId)
@@ -54,9 +54,9 @@ namespace WeShare.BusinessLogic
             return objDaGroups.DeleteUserFromGroup(groupName, userId);
         }
 
-        public int GetMinPoints(string userId)
+        public int GetWeeklyPoints(string userId)
         {
-            return objDaGroups.GetMinPoints(userId);
+            return objDaGroups.GetWeeklyPoints(userId);
         }
     }
 }

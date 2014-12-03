@@ -21,7 +21,7 @@ namespace WeShare.WebForms
                 {
                     LoadMyTasks();
                     LoadRoomMatesTasks();
-                    LoadMinPoints();
+                    LoadWeeklyPoints();
                 }
             }
             catch (Exception ex)
@@ -42,6 +42,9 @@ namespace WeShare.WebForms
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");
+                    //change taskId as taskPoints in the function below
+                    // double taskPoints = gvMyTasks.DataKeys[rowIndex].Values["TaskPoints"].ToInt32();
+                    objBlTasks.UpdateTaskPoints(taskId,UserId);
                     LoadMyTasks();
 
                 }
@@ -139,10 +142,10 @@ namespace WeShare.WebForms
             }
         }
 
-        private void LoadMinPoints()
+        private void LoadWeeklyPoints()
         {
             BLGroups objBlGroups = new BLGroups();
-            int points = objBlGroups.GetMinPoints(UserId);
+            int points = objBlGroups.GetWeeklyPoints(UserId);
             ltlMinPoints.Text = points.ToStr();
         }
 

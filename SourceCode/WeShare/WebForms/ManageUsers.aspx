@@ -23,10 +23,10 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="txtMinPoints" class="col-sm-2 control-label">
-                Minimum Points</label>
+            <label for="txtWeeklyPoints" class="col-sm-2 control-label">
+                Weekly Points</label>
             <div class="col-sm-10">
-                <asp:TextBox ID="txtMinPoints" runat="server" Width="50%" class="form-control"></asp:TextBox>
+                <asp:TextBox ID="txtWeeklyPoints" runat="server" Width="50%" class="form-control"></asp:TextBox>
             </div>
         </div>
         <div class="form-group">
@@ -42,7 +42,7 @@
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
-                <asp:BoundField DataField="MinPoints" HeaderText="Minimum Points" />
+                <asp:BoundField DataField="WeeklyPoints" HeaderText="Weekly Points" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="imgDeleteUser" runat="server" align="center" CommandName="Delete"

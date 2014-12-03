@@ -282,6 +282,48 @@ namespace WeShare.DataAccess
             return listTasks;
         }
 
+        public bool UpdateTaskPoints(double taskpoints, string userID)
+        {
+            bool isTaskPointUpdated = false;
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                                
+                //replace id by points here
+                double totalDelta=taskpoints*0.2;
+                double newtask = taskpoints - totalDelta;
+                SqlParameter[] param1 = new SqlParameter[2];
+                param1[0] = new SqlParameter("@Action", "GETGROUPNAME");
+                param1[1] = new SqlParameter("@User_Id", userID);
+                objSqlCommand.Parameters.AddRange(param1);
+                objSqlConnection.Open();
+                SqlDataReader rdr = objSqlCommand.ExecuteReader();
+                string groupname = rdr[0].ToString();
+                List<TaskInfo> unassignedtasks = GetUnassignedTasksByGroup(groupname);
+                double sumPoints= unassignedtasks.Sum( item => item.PointsAllocated);
+                   
+                
+                SqlParameter[] param2 = new SqlParameter[3];
+                param2[0] = new SqlParameter("@Action", "UPDATEDTASKPOINTS");
+                param2[1] = new SqlParameter("@Points", newtask);
+                foreach (TaskInfo objTask in unassignedtasks)
+                {
+                    double increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated)/ sumPoints;
+                    param2[2] = new SqlParameter("@Points", increasedpoints);
+                    objSqlCommand.Parameters.AddRange(param2);
+                    int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                    isTaskPointUpdated = rowsAffected > 0;
+                }
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return isTaskPointUpdated;
+        }
 
     }
 }

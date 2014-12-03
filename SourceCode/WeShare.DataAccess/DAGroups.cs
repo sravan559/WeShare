@@ -151,7 +151,7 @@ namespace WeShare.DataAccess
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
                         Name = objSqlReader["Name"].ToStr(),
-                        MinPoints = objSqlReader["Min_Points"].ToInt32()
+                        WeeklyPoints = objSqlReader["Weekly_Points"].ToInt32()
 
                     };
                     listUsers.Add(objCurrentUser);
@@ -165,7 +165,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Method to add a user to the selected group
         /// </summary>
-        public bool AddUserToGroup(string groupName, string userId, int minPoints)
+        public bool AddUserToGroup(string groupName, string userId, int weeklyPoints)
         {
             bool isRecordSaved = false;
             try
@@ -178,7 +178,7 @@ namespace WeShare.DataAccess
                 parameters[0] = new SqlParameter("@Action", "ADDUSERTOGROUP");
                 parameters[1] = new SqlParameter("@Group_Name", groupName);
                 parameters[2] = new SqlParameter("@User_Id", userId);
-                parameters[3] = new SqlParameter("@Min_Points", minPoints);
+                parameters[3] = new SqlParameter("@Weekly_Points", weeklyPoints);
 
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
@@ -221,9 +221,9 @@ namespace WeShare.DataAccess
             return isUserDeleted;
         }
 
-        public int GetMinPoints(string userId)
+        public int GetWeeklyPoints(string userId)
         {
-            int minpoints = 0;
+            int weeklypoints = 0;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -231,7 +231,7 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
-                parameters[0] = new SqlParameter("@Action", "GETMINPOINTS");
+                parameters[0] = new SqlParameter("@Action", "GETWEEKLYPOINTS");
                 parameters[1] = new SqlParameter("@User_Id", userId);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
@@ -242,10 +242,10 @@ namespace WeShare.DataAccess
                     {
                         UserInfo objCurrentUser = new UserInfo()
                         {
-                            MinPoints = objSqlReader["Min_Points"].ToInt32()
+                            WeeklyPoints = objSqlReader["Weekly_Points"].ToInt32()
                         };
 
-                        minpoints = objCurrentUser.MinPoints;
+                        weeklypoints = objCurrentUser.WeeklyPoints;
 
                     }
                 }
@@ -256,7 +256,7 @@ namespace WeShare.DataAccess
             }
 
 
-            return minpoints;
+            return weeklypoints;
         }
     }
 }

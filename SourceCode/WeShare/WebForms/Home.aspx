@@ -12,7 +12,7 @@
             <tr>
                 <td style="width: 70%;">
                     <div class="gridcontainer">
-                        <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
+                        <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status,PointsAllocated"
                             OnRowCommand="gvMyTasks_RowCommand" Width="95%" OnRowDataBound="gvMyTasks_RowDataBound"
                             class="table table-hover">
                             <Columns>
@@ -87,8 +87,8 @@
                             Current Goal:</h4>
                     </div>
                     <div style="">
-                        <b>Minimum points to achieve by completing the tasks:</b>
-                        <asp:Literal ID="ltlMinPoints" runat="server"></asp:Literal>
+                        <b>Points to be accomplished</b>
+                        <asp:Literal ID="ltlWeeklyPoints" runat="server"></asp:Literal>
                     </div>
                 </td>
             </tr>

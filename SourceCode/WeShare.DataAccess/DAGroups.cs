@@ -221,9 +221,9 @@ namespace WeShare.DataAccess
             return isUserDeleted;
         }
 
-        public int GetWeeklyPoints(string userId)
+        public double GetWeeklyPoints(string userId)
         {
-            int weeklypoints = 0;
+            double weeklypoints = 0;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());

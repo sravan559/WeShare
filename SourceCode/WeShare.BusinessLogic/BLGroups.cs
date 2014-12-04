@@ -54,7 +54,7 @@ namespace WeShare.BusinessLogic
             return objDaGroups.DeleteUserFromGroup(groupName, userId);
         }
 
-        public int GetWeeklyPoints(string userId)
+        public double GetWeeklyPoints(string userId)
         {
             return objDaGroups.GetWeeklyPoints(userId);
         }

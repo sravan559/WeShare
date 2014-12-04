@@ -31,9 +31,9 @@ CREATE PROCEDURE [dbo].[usp_tasks]
 AS
 BEGIN
 	IF @Action = 'C' -- create/save task details
-	
 		INSERT INTO Tasks ( Task_Title, Task_Description, Points, Task_Type, Is_Task_Recursive,Group_Name)
 				   VALUES ( @Task_Title,@Task_Description,@Points,@Task_Type,@Is_Task_Recursive,@Group_Name)
+	
 	ELSE IF @Action = 'U'
 		UPDATE Tasks SET Task_Title=@Task_Title,
 						 Task_Description=@Task_Description,
@@ -41,8 +41,10 @@ BEGIN
 						 Task_Type=@Task_Type,
 						 Is_Task_Recursive=@Is_Task_Recursive
 						 WHERE Task_Id=@Task_Id
+	
 	ELSE IF @Action = 'R'
 		SELECT Task_Id, Task_Title, Task_Description, Points,Task_Type,Is_Task_Recursive FROM Tasks
+	
 	ELSE IF @Action='GETTASKSBYGROUP'	
 		SELECT Task_Id, Task_Title, Task_Description, Points,Task_Type,Is_Task_Recursive FROM Tasks
 		WHERE Group_Name=@Group_Name
@@ -52,11 +54,16 @@ BEGIN
 			IF NOT EXISTS (SELECT Task_Id from AssignedTasks where Task_Id=@Task_Id)
 				DELETE FROM Tasks WHERE Task_Id=@Task_Id
 		END
+	
 	ELSE IF @Action= 'UPDATETASK' -- UPDATE THE DATA CORRESPONDING TO A SPECIFIC TASK BASED ON THE TASK_ID	
 		UPDATE Tasks SET Points=@Points,
 						 Task_Title=@Task_Title,
 						 Task_Description=@Task_Description
 					WHERE Task_Id=@Task_Id	
+	
+	ELSE IF @Action = 'UPDATEDTASKPOINTS'
+		UPDATE Tasks SET Points=@Points WHERE Task_Id=@Task_Id;
+		
 END
 
 GO

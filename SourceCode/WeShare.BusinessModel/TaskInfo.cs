@@ -25,7 +25,7 @@ namespace WeShare.BusinessModel
         /// <summary>
         /// Property for Points allocated to that Task
         /// </summary>
-        public int PointsAllocated { get; set; }
+        public double PointsAllocated { get; set; }
 
         /// <summary>
         /// Property for Type of the Task

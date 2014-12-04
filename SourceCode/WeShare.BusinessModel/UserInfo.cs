@@ -40,6 +40,6 @@ namespace WeShare.BusinessModel
         /// <summary>
         /// Minimum points for User
         /// </summary>
-        public int WeeklyPoints { get; set; }
+        public double WeeklyPoints { get; set; }
     }
 }

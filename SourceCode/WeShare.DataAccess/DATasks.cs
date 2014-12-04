@@ -81,7 +81,7 @@ namespace WeShare.DataAccess
                             TaskId = objSqlReader["Task_Id"].ToInt32(),
                             TaskTitle = objSqlReader["Task_Title"].ToStr(),
                             TaskDescription = objSqlReader["Task_Description"].ToStr(),
-                            PointsAllocated = objSqlReader["Points"].ToInt32(),
+                            PointsAllocated = Convert.ToDouble(objSqlReader["Points"]),
                             TaskType = objSqlReader["Task_Type"].ToStr(),
                             IsTaskRecursive = objSqlReader["Is_Task_Recursive"].ToBoolean()
                         };
@@ -123,7 +123,7 @@ namespace WeShare.DataAccess
                             TaskId = objSqlReader["Task_Id"].ToInt32(),
                             TaskTitle = objSqlReader["Task_Title"].ToStr(),
                             TaskDescription = objSqlReader["Task_Description"].ToStr(),
-                            PointsAllocated = objSqlReader["Points"].ToInt32(),
+                            PointsAllocated = Convert.ToDouble(objSqlReader["Points"]),
                             TaskType = objSqlReader["Task_Type"].ToStr(),
                             IsTaskRecursive = objSqlReader["Is_Task_Recursive"].ToBoolean()
                         };

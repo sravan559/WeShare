@@ -242,7 +242,7 @@ namespace WeShare.DataAccess
                     {
                         UserInfo objCurrentUser = new UserInfo()
                         {
-                            WeeklyPoints = objSqlReader["Weekly_Points"].ToInt32()
+                            WeeklyPoints = Convert.ToDouble(objSqlReader["Weekly_Points"]),
                         };
 
                         weeklypoints = objCurrentUser.WeeklyPoints;

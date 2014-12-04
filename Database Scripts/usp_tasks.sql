@@ -22,7 +22,7 @@ CREATE PROCEDURE [dbo].[usp_tasks]
 	@Task_Id NVARCHAR(50)=NULL,
 	@Task_Title NVARCHAR(50)=NULL,
 	@Task_Description NVARCHAR(50)=NULL,
-	@Points NVARCHAR(20) = NULL,	
+	@Points FLOAT = NULL,	
 	@Task_Type NVARCHAR(50)= NULL,
 	@Is_Task_Recursive NVARCHAR(50)=NULL,
 	@Group_Name NVARCHAR(50)=NULL,

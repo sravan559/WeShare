@@ -16,7 +16,7 @@ ALTER PROCEDURE [dbo].[usp_groups]
 	@Group_Name NVARCHAR(50)=NULL,
 	@New_Group_Name nvarchar(50)=NULL,	
 	@User_Id NVARCHAR(50)=NULL,
-	@Weekly_Points NVARCHAR(50)=NULL,
+	@Weekly_Points FLOAT=NULL,
 	@Action NVARCHAR(50)
 )
 AS

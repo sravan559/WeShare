@@ -1,17 +1,22 @@
-USE [WeShare]
+/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 12/03/2014 21:07:30 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_task_assignment]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[usp_task_assignment]
 GO
-/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 12/03/2014 00:08:30 ******/
+
+/****** Object:  StoredProcedure [dbo].[usp_task_assignment]    Script Date: 12/03/2014 21:07:30 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Author:		
 -- Create date: 
 -- Description:	
 -- =============================================
-ALTER PROCEDURE [dbo].[usp_task_assignment]
+CREATE PROCEDURE [dbo].[usp_task_assignment]
 (
 @Task_Id INT=NULL,
 @User_Id nvarchar(50)=NULL,
@@ -75,4 +80,8 @@ BEGIN
 				 	 	
 		
 END
+
+
+GO
+
 

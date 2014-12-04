@@ -1,17 +1,22 @@
-USE [WeShare]
+/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 12/03/2014 21:08:24 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_groups]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [dbo].[usp_groups]
 GO
-/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 12/03/2014 15:08:02 ******/
+
+/****** Object:  StoredProcedure [dbo].[usp_groups]    Script Date: 12/03/2014 21:08:24 ******/
 SET ANSI_NULLS ON
 GO
+
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 -- =============================================
 -- Author:		Varsha
 -- Create date: 
 -- Description:	
 -- =============================================
-ALTER PROCEDURE [dbo].[usp_groups] 
+CREATE PROCEDURE [dbo].[usp_groups] 
 (
 	@Group_Name NVARCHAR(50)=NULL,
 	@New_Group_Name nvarchar(50)=NULL,	
@@ -75,4 +80,8 @@ BEGIN
 	ELSE IF @Action = 'GETWEEKLYPOINTS'
 		SELECT Weekly_Points FROM UsersInGroups WHERE User_Id=@User_Id;
 END
+
+
+GO
+
 

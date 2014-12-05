@@ -80,6 +80,9 @@ BEGIN
 		
 	ELSE IF @Action = 'GETWEEKLYPOINTS'
 		SELECT Weekly_Points FROM UsersInGroups WHERE User_Id=@User_Id;
+		
+	ELSE IF @Action = 'UPDATEWEEKLYPOINTS'
+	UPDATE UsersInGroups SET Weekly_Points = @Weekly_Points where User_Id=@User_Id;  
 END
 
 

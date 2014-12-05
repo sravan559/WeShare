@@ -48,10 +48,6 @@ BEGIN
 		from Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Task_Id
 		inner join Users u on at.User_Id=u.User_Id
-
-	ELSE IF @Action = 'GETGROUPNAME'
-		SELECT Group_Name from UsersInGroups where User_Id=@User_Id
-	
 		
 	ELSE IF @Action='GETASSIGNEDTASKSBYGROUP'
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 

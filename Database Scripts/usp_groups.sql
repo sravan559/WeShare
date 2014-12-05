@@ -21,7 +21,7 @@ CREATE PROCEDURE [dbo].[usp_groups]
 	@Group_Name NVARCHAR(50)=NULL,
 	@New_Group_Name nvarchar(50)=NULL,	
 	@User_Id NVARCHAR(50)=NULL,
-	@Weekly_Points FLOAT=NULL,
+	@Weekly_Points DECIMAL(18,2)=NULL,
 	@Action NVARCHAR(50)
 )
 AS
@@ -51,8 +51,9 @@ BEGIN
 				 UPDATE UsersInGroups set Group_Name=@New_Group_Name	WHERE Group_Name=@Group_Name
 			 END
 		END
+	
 	ELSE IF @Action = 'R'
-		SELECT Group_Name FROM Groups
+		SELECT Group_Name from UsersInGroups where User_Id=@User_Id
 		
 	ELSE IF @Action = 'D'
 		BEGIN

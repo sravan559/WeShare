@@ -108,7 +108,7 @@ namespace WeShare.WebForms
         private void LoadGroupsList()
         {
             BLGroups objGroupBl = new BLGroups();
-            gvUserGroups.DataSource = objGroupBl.GetGroupsList();
+            gvUserGroups.DataSource = objGroupBl.GetGroupsList(UserId);
             gvUserGroups.DataBind();
         }
         #endregion

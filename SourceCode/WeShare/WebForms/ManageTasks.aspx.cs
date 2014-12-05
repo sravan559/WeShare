@@ -142,7 +142,7 @@ namespace WeShare.WebForms
             ddlGroups.Items.Clear();
             ddlGroups.Items.Add(new ListItem("Select Group", ""));
             BLGroups objBlGroups = new BLGroups();
-            ddlGroups.DataSource = objBlGroups.GetGroupsList();
+            ddlGroups.DataSource = objBlGroups.GetGroupsList(UserId);
             ddlGroups.DataTextField = "GroupName";
             ddlGroups.DataValueField = "GroupName";
             ddlGroups.DataBind();

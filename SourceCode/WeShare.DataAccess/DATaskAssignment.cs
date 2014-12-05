@@ -140,7 +140,7 @@ namespace WeShare.DataAccess
                     {
                         TaskId = objSqlReader["Task_Id"].ToInt32(),
                         TaskTitle = objSqlReader["Task_Title"].ToStr(),
-                        PointsAllocated = Convert.ToDouble(objSqlReader["Points"]),
+                        PointsAllocated = Convert.ToDecimal(objSqlReader["Points"]),
                         TaskDescription = objSqlReader["Task_Description"].ToStr(),
                         DueDate = objSqlReader["Due_Date"].ToDateTime(),
                         Status = objSqlReader["Status"].ToStr()
@@ -284,7 +284,7 @@ namespace WeShare.DataAccess
         }
         //changes to be made to this function 
         //taskpoints ---> masterTaskPoints
-        public bool UpdateTaskPoints(double taskpoints, string userID, int taskID)
+        public bool UpdateTaskPoints(decimal taskpoints, string userID, int taskID)
         {
             bool isTaskPointUpdated = false;
             string groupname=string.Empty;
@@ -295,8 +295,8 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspTasks;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                                 
-                double totalDelta=taskpoints*0.2;
-                double PointsNextOccurance = taskpoints - totalDelta;
+                decimal totalDelta=taskpoints*(decimal)0.20;
+                decimal PointsNextOccurance = taskpoints - totalDelta;
 
                 SqlParameter[] param1 = new SqlParameter[3];
                 param1[0] = new SqlParameter("@Action", "UPDATEDTASKPOINTS");
@@ -309,10 +309,10 @@ namespace WeShare.DataAccess
                 CloseConnection();
 
                 objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+                objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] param2 = new SqlParameter[2];
-                param2[0] = new SqlParameter("@Action", "GETGROUPNAME");
+                param2[0] = new SqlParameter("@Action", "R");
                 param2[1] = new SqlParameter("@User_Id", userID);
                 objSqlCommand.Parameters.AddRange(param2);
                 objSqlConnection.Open();
@@ -331,10 +331,10 @@ namespace WeShare.DataAccess
 
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandType = CommandType.Text;
-                double sumPoints = unassignedtasks.Sum(item => item.PointsAllocated);
+                decimal sumPoints = unassignedtasks.Sum(item => item.PointsAllocated);
                 foreach (TaskInfo objTask in unassignedtasks)
                 {
-                    double increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated)/ sumPoints;
+                    decimal increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated)/ sumPoints;
                     objSqlCommand.CommandText = "UPDATE Tasks SET Points = " + increasedpoints + " where Task_Id =" + objTask.TaskId;    
                     objSqlConnection.Open();
                     int rowsAff = objSqlCommand.ExecuteNonQuery();

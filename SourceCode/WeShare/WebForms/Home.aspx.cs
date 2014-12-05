@@ -43,7 +43,7 @@ namespace WeShare.WebForms
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");
                     /*------write code for Subtract taskPoints from ltlWeeklyPoints here----- */
-                    double taskPoints = Convert.ToDouble(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
+                    decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
                     objBlTasks.UpdateTaskPoints(taskPoints,UserId,taskId);
                     LoadMyTasks();
 
@@ -145,7 +145,7 @@ namespace WeShare.WebForms
         private void LoadWeeklyPoints()
         {
             BLGroups objBlGroups = new BLGroups();
-            double points = objBlGroups.GetWeeklyPoints(UserId);
+            decimal points = objBlGroups.GetWeeklyPoints(UserId);
             ltlWeeklyPoints.Text = points.ToStr();
         }
 

@@ -54,7 +54,7 @@ namespace WeShare.WebForms
                 }
                 else
                 {
-                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtWeeklyPoints.Text.ToInt32());
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), Convert.ToDecimal(txtWeeklyPoints.Text));
                     LoadUsersInGroup();
                     txtUserId.Text = txtWeeklyPoints.Text = string.Empty;
                     if (isSaved)
@@ -88,7 +88,7 @@ namespace WeShare.WebForms
             List<GroupInfo> listGroups = new List<GroupInfo>();
             //TODO wright Code to get the groups from database
             BLGroups objBLGroup = new BLGroups();
-            listGroups = objBLGroup.GetGroupsList();
+            listGroups = objBLGroup.GetGroupsList(UserId);
             ddlGroups.Items.Clear();
             ddlGroups.Items.Add(new ListItem("Select Group", ""));
             ddlGroups.DataTextField = "GroupName";

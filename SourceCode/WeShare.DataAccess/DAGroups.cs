@@ -14,7 +14,7 @@ namespace WeShare.DataAccess
         /// Used to save a new group with its details
         /// </summary>
         /// <returns></returns>
-        public List<GroupInfo> GetGroupsList()
+        public List<GroupInfo> GetGroupsList(string userID)
         {
             List<GroupInfo> listGroups = new List<GroupInfo>();
             try
@@ -24,8 +24,9 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[1];
+                SqlParameter[] parameters = new SqlParameter[2];
                 parameters[0] = new SqlParameter("@Action", "R");
+                parameters[1] = new SqlParameter("@User_Id", userID);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
@@ -165,7 +166,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Method to add a user to the selected group
         /// </summary>
-        public bool AddUserToGroup(string groupName, string userId, int weeklyPoints)
+        public bool AddUserToGroup(string groupName, string userId, decimal weeklyPoints)
         {
             bool isRecordSaved = false;
             try
@@ -221,9 +222,9 @@ namespace WeShare.DataAccess
             return isUserDeleted;
         }
 
-        public double GetWeeklyPoints(string userId)
+        public decimal GetWeeklyPoints(string userId)
         {
-            double weeklypoints = 0;
+            decimal weeklypoints = 0;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -242,7 +243,7 @@ namespace WeShare.DataAccess
                     {
                         UserInfo objCurrentUser = new UserInfo()
                         {
-                            WeeklyPoints = Convert.ToDouble(objSqlReader["Weekly_Points"]),
+                            WeeklyPoints = Convert.ToDecimal(objSqlReader["Weekly_Points"]),
                         };
 
                         weeklypoints = objCurrentUser.WeeklyPoints;

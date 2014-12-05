@@ -11,9 +11,9 @@ namespace WeShare.BusinessLogic
     {
         DAGroups objDaGroups = new DAGroups();
 
-        public List<GroupInfo> GetGroupsList()
+        public List<GroupInfo> GetGroupsList(string userID)
         {
-            return objDaGroups.GetGroupsList();
+            return objDaGroups.GetGroupsList(userID);
 
         }
 
@@ -44,7 +44,7 @@ namespace WeShare.BusinessLogic
             return objDaGroups.GetUsersListByGroupName(groupName, getActiveUsersOnly);
         }
 
-        public bool AddUserToGroup(string groupName, string userId,int weeklyPoints)
+        public bool AddUserToGroup(string groupName, string userId,decimal weeklyPoints)
         {
             return objDaGroups.AddUserToGroup(groupName, userId, weeklyPoints);
         }
@@ -54,7 +54,7 @@ namespace WeShare.BusinessLogic
             return objDaGroups.DeleteUserFromGroup(groupName, userId);
         }
 
-        public double GetWeeklyPoints(string userId)
+        public decimal GetWeeklyPoints(string userId)
         {
             return objDaGroups.GetWeeklyPoints(userId);
         }

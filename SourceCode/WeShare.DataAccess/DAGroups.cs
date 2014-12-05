@@ -152,7 +152,7 @@ namespace WeShare.DataAccess
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
                         Name = objSqlReader["Name"].ToStr(),
-                        WeeklyPoints = objSqlReader["Weekly_Points"].ToInt32()
+                        WeeklyPoints = Convert.ToDecimal(objSqlReader["Weekly_Points"])
 
                     };
                     listUsers.Add(objCurrentUser);

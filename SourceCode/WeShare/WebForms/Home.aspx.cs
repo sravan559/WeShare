@@ -42,8 +42,13 @@ namespace WeShare.WebForms
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");
+                    //pop up stating that weekly points are met
                     /*------write code for Subtract taskPoints from ltlWeeklyPoints here----- */
+                    decimal weeklypoints=Convert.ToDecimal(ltlWeeklyPoints.Text);
                     decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
+                    objBlTasks.UpdateWeeklyPoints(weeklypoints,taskPoints,UserId);
+
+                    LoadWeeklyPoints();
                     objBlTasks.UpdateTaskPoints(taskPoints,UserId,taskId);
                     LoadMyTasks();
 

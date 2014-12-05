@@ -287,15 +287,15 @@ namespace WeShare.DataAccess
         public bool UpdateTaskPoints(decimal taskpoints, string userID, int taskID)
         {
             bool isTaskPointUpdated = false;
-            string groupname=string.Empty;
+            string groupname = string.Empty;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspTasks;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                                
-                decimal totalDelta=taskpoints*(decimal)0.20;
+
+                decimal totalDelta = taskpoints * (decimal)0.20;
                 decimal PointsNextOccurance = taskpoints - totalDelta;
 
                 SqlParameter[] param1 = new SqlParameter[3];
@@ -334,8 +334,8 @@ namespace WeShare.DataAccess
                 decimal sumPoints = unassignedtasks.Sum(item => item.PointsAllocated);
                 foreach (TaskInfo objTask in unassignedtasks)
                 {
-                    decimal increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated)/ sumPoints;
-                    objSqlCommand.CommandText = "UPDATE Tasks SET Points = " + increasedpoints + " where Task_Id =" + objTask.TaskId;    
+                    decimal increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated) / sumPoints;
+                    objSqlCommand.CommandText = "UPDATE Tasks SET Points = " + increasedpoints + " where Task_Id =" + objTask.TaskId;
                     objSqlConnection.Open();
                     int rowsAff = objSqlCommand.ExecuteNonQuery();
                     isTaskPointUpdated = rowsAff > 0;
@@ -348,6 +348,38 @@ namespace WeShare.DataAccess
             }
             return isTaskPointUpdated;
         }
+        public bool UpdateWeeklyPoints(decimal weeklyPoints, decimal taskpoints, string userid)
+        {
+            bool isWeeklyPointsUpdated = false;
+            try
+            {
+                weeklyPoints = weeklyPoints - taskpoints;
+
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspGroups;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter[] parameter = new SqlParameter[3];
+                parameter[0] = new SqlParameter("@Action", "UPDATEWEEKLYPOINTS");
+                parameter[1] = new SqlParameter("@User_Id", userid);
+                parameter[2] = new SqlParameter("@Weekly_Points", weeklyPoints);
+                objSqlCommand.Parameters.AddRange(parameter);
+                objSqlConnection.Open();
+                int rows = objSqlCommand.ExecuteNonQuery();
+                isWeeklyPointsUpdated = rows > 0;
+                
+            }
+
+            finally
+            {
+                CloseConnection();
+            }
+            return isWeeklyPointsUpdated;
+
+        }
+
 
     }
+
 }

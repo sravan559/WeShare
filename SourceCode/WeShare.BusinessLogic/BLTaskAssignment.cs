@@ -66,5 +66,11 @@ namespace WeShare.BusinessLogic
         {
             return objDaTaskAssignment.UpdateTaskPoints(taskPoints,userID,taskId);
         }
+
+        public bool UpdateWeeklyPoints(decimal weeklyPoints,decimal taskpoints,string userid)
+        {
+            return objDaTaskAssignment.UpdateWeeklyPoints(weeklyPoints,taskpoints,userid);
+        }
+
     }
 }

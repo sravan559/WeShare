@@ -39,13 +39,13 @@ namespace WeShare.WebForms
                 TaskAssignmentInfo objTaskAssignmentInfo = new TaskAssignmentInfo()
                 {
                     UserId = ddlUsers.SelectedValue,
-                    TaskId = ddlTasks.SelectedValue.ToInt32(),
+                    ParentTaskId = ddlTasks.SelectedValue.ToInt32(),
                     DueDate = txtDueDate.Text.Trim().ToDateTime(),
-                    Status = "Pending"
+                    Status = TaskStatus.Pending
                 };
 
                 BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                objBlTasks.SaveAssignedTaskDetails(objTaskAssignmentInfo);
+                objBlTasks.AssignTask(objTaskAssignmentInfo);
                 ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);
                 LoadUnAssignedTasks();
                 LoadUsers();

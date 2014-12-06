@@ -5,8 +5,14 @@ using System.Text;
 
 namespace WeShare.BusinessModel
 {
-    public class TaskAssignmentInfo:TaskInfo
+    public class TaskAssignmentInfo : TaskInfo
     {
+
+        /// <summary>
+        /// Specifies the Parent Task Id for the current task instance
+        /// </summary>
+        public int ParentTaskId { get; set; }
+
         /// <summary>
         /// Property for the Username assigned to the Task
         /// </summary>

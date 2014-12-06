@@ -24,10 +24,7 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetUnassignedTasksByGroup(groupName);
         }
 
-        public List<TaskAssignmentInfo> GetAssignedTaskList()
-        {
-            return objDaTaskAssignment.GetAssignedTaskList();
-        }
+       
 
         /// <summary>
         /// Returns the list of assigned tasks based on the group name
@@ -42,9 +39,9 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetUserTasksByMailId(emailId);
         }
 
-        public bool ReAssignTaskToOtherUser(int taskId, string userId, DateTime? dtDueDate = null)
+        public bool UpdateAssignedTaskDetails(int taskId, string userId, DateTime? dtDueDate = null)
         {
-            return objDaTaskAssignment.ReAssignTaskToOtherUser(taskId, userId, dtDueDate);
+            return objDaTaskAssignment.UpdateAssignedTaskDetails(taskId, userId, dtDueDate);
         }
 
         public List<TaskAssignmentInfo> GetRoomMatesAssignedTasks(string userID)
@@ -52,9 +49,9 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetRoomMatesAssignedTasks(userID);
         }
 
-        public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
+        public bool AssignTask(TaskAssignmentInfo objTaskInfo)
         {
-            return objDaTaskAssignment.SaveAssignedTaskDetails(objTaskInfo);
+            return objDaTaskAssignment.AssignTask(objTaskInfo);
         }
 
         public bool UpdateTaskStatus(int taskId, string status)

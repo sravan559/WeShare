@@ -45,41 +45,6 @@ namespace WeShare.DataAccess
         }
 
         /// <summary>
-        /// Returns the list of assigned tasks
-        /// </summary>
-        public List<TaskAssignmentInfo> GetAssignedTaskList()
-        {
-            List<TaskAssignmentInfo> listTasks = new List<TaskAssignmentInfo>();
-            objSqlConnection = new SqlConnection(GetConnectionString());
-            objSqlCommand = objSqlConnection.CreateCommand();
-            objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
-            objSqlCommand.CommandType = CommandType.StoredProcedure;
-            SqlParameter[] parameters = new SqlParameter[1];
-            parameters[0] = new SqlParameter("@Action", "GETASSIGNEDTASKS");
-            objSqlCommand.Parameters.AddRange(parameters);
-            objSqlConnection.Open();
-            SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
-            if (objSqlReader != null && objSqlReader.HasRows)
-            {
-                while (objSqlReader.Read())
-                {
-                    TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo()
-                    {
-                        TaskId = objSqlReader["Task_Id"].ToInt32(),
-                        TaskTitle = objSqlReader["Task_Title"].ToStr(),
-                        TaskDescription = objSqlReader["Task_Description"].ToStr(),
-                        UserId = objSqlReader["User_Id"].ToStr(),
-                        UserName = objSqlReader["User_Name"].ToStr(),
-                        DueDate = objSqlReader["Due_Date"].ToDateTime(),
-                        Status = objSqlReader["Status"].ToStr()
-                    };
-                    listTasks.Add(objTaskInfo);
-                }
-            }
-            return listTasks;
-        }
-
-        /// <summary>
         /// Returns the list of assigned tasks based on the group name
         /// </summary>
         public List<TaskAssignmentInfo> GetAssignedTaskListByGroupName(string groupName)
@@ -154,7 +119,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Returns true if a new task with its details is saved by a user
         /// </summary>
-        public bool SaveAssignedTaskDetails(TaskAssignmentInfo objTaskInfo)
+        public bool AssignTask(TaskAssignmentInfo objTaskInfo)
         {
             //Implementation
             bool isTaskAssigned = false;
@@ -166,7 +131,7 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[5];
                 parameters[0] = new SqlParameter("@Action", "C");
-                parameters[1] = new SqlParameter("@Task_Id", objTaskInfo.TaskId);
+                parameters[1] = new SqlParameter("@Parent_Task_Id", objTaskInfo.ParentTaskId);
                 parameters[2] = new SqlParameter("@User_Id", objTaskInfo.UserId);
                 parameters[3] = new SqlParameter("@Due_Date", objTaskInfo.DueDate);
                 parameters[4] = new SqlParameter("@Status", objTaskInfo.Status);
@@ -182,7 +147,9 @@ namespace WeShare.DataAccess
             return isTaskAssigned;
         }
 
-        public bool ReAssignTaskToOtherUser(int taskId, string userId, DateTime? dtDueDate)
+
+
+        public bool UpdateAssignedTaskDetails(int taskId, string userId, DateTime? dtDueDate)
         {
             //Implementation
             bool isTaskReassigned = false;
@@ -306,7 +273,7 @@ namespace WeShare.DataAccess
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
                 isTaskPointUpdated = rowsAffected > 0;
-                CloseConnection();
+                //CloseConnection();
 
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspGroups;
@@ -315,7 +282,7 @@ namespace WeShare.DataAccess
                 param2[0] = new SqlParameter("@Action", "R");
                 param2[1] = new SqlParameter("@User_Id", userID);
                 objSqlCommand.Parameters.AddRange(param2);
-                objSqlConnection.Open();
+                //objSqlConnection.Open();
                 SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
                 if (objSqlReader != null && objSqlReader.HasRows)
                 {
@@ -324,10 +291,10 @@ namespace WeShare.DataAccess
                         groupname = objSqlReader["Group_Name"].ToStr();
                     }
                 }
-                CloseConnection();
+                //CloseConnection();
 
                 List<TaskInfo> unassignedtasks = GetUnassignedTasksByGroup(groupname);
-                CloseConnection();
+                //CloseConnection();
 
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandType = CommandType.Text;
@@ -336,10 +303,10 @@ namespace WeShare.DataAccess
                 {
                     decimal increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated) / sumPoints;
                     objSqlCommand.CommandText = "UPDATE Tasks SET Points = " + increasedpoints + " where Task_Id =" + objTask.TaskId;
-                    objSqlConnection.Open();
+                    //objSqlConnection.Open();
                     int rowsAff = objSqlCommand.ExecuteNonQuery();
                     isTaskPointUpdated = rowsAff > 0;
-                    CloseConnection();
+                    //CloseConnection();
                 }
             }
             finally
@@ -368,7 +335,7 @@ namespace WeShare.DataAccess
                 objSqlConnection.Open();
                 int rows = objSqlCommand.ExecuteNonQuery();
                 isWeeklyPointsUpdated = rows > 0;
-                
+
             }
 
             finally

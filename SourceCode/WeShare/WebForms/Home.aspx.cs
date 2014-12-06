@@ -13,7 +13,7 @@ namespace WeShare.WebForms
     public partial class Home : BasePage
     {
         #region Events
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -76,6 +76,13 @@ namespace WeShare.WebForms
                         ImageButton imgMarkComplete = (ImageButton)e.Row.FindControl("imgMarkComplete");
                         imgMarkComplete.Visible = false;
                     }
+                    DateTime duedate=gvMyTasks.DataKeys[e.Row.RowIndex].Values["DueDate"].ToDateTime();
+                 
+                    if(duedate.Date<DateTime.Now.Date)
+                    {
+                        e.Row.BackColor = System.Drawing.Color.Red;
+                    }
+
                 }
             }
             catch (Exception ex)

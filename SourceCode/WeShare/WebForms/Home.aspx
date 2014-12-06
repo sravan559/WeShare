@@ -12,7 +12,7 @@
             <tr>
                 <td style="width: 70%;">
                     <div class="gridcontainer">
-                        <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status,PointsAllocated"
+                        <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status,PointsAllocated,DueDate"
                             OnRowCommand="gvMyTasks_RowCommand" Width="98%" OnRowDataBound="gvMyTasks_RowDataBound"
                             class="table table-hover">
                             <Columns>

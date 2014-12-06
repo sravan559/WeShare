@@ -4,13 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>We Share</title>
-    <script type="text/javascript" src="../Scripts/jquery.js"></script>
     <link type="text/css" href="../Styles/jquery-ui.css" rel="stylesheet" />
-    <%-- <link href="../Styles/weshare.css" rel="stylesheet" type="text/css" /> --%>
     <link href="../Styles/WeShareProject.css" rel="Stylesheet" type="text/css" />
     <link href="../Styles/menustyle.css" rel="stylesheet" type="text/css" />
     <link href="../Styles/bootstrap.min.css" rel="Stylesheet" type="text/css" />
+    <%--<script type="text/javascript" src="../Scripts/jquery.js"></script>--%>
+    <script type="text/javascript" src="../Scripts/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="../Scripts/jquery-ui.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -34,6 +35,9 @@
                         <li><a href="ManageTasks.aspx">Manage Tasks</a></li>
                         <li><a href="AssignTasks.aspx">Assign Tasks</a></li>
                     </ul>
+                    <ul class="nav navbar-nav" style="float:right;">
+                        <li style="float: right;"><a href="Login.aspx">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -43,8 +47,6 @@
         </asp:ContentPlaceHolder>
     </div>
     </form>
-    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-1.11.1.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var url = window.location;

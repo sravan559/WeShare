@@ -13,7 +13,7 @@
                 <td style="width: 70%;">
                     <div class="gridcontainer">
                         <asp:GridView ID="gvMyTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status,PointsAllocated"
-                            OnRowCommand="gvMyTasks_RowCommand" Width="95%" OnRowDataBound="gvMyTasks_RowDataBound"
+                            OnRowCommand="gvMyTasks_RowCommand" Width="98%" OnRowDataBound="gvMyTasks_RowDataBound"
                             class="table table-hover">
                             <Columns>
                                 <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
@@ -22,7 +22,7 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                 <asp:TemplateField HeaderText="Task Points" HeaderStyle-Width="10%">
+                                <asp:TemplateField HeaderText="Task Points" HeaderStyle-Width="10%">
                                     <ItemTemplate>
                                         <asp:Label ID="lblTaskPoints" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PointsAllocated") %>'>
                                         </asp:Label>
@@ -58,7 +58,7 @@
                                             Task
                                         </th>
                                         <th>
-                                        Task Points
+                                            Task Points
                                         </th>
                                         <th>
                                             Description
@@ -82,9 +82,8 @@
                     </div>
                 </td>
                 <td valign="top">
-                    <div style="background: #FA5757; height: 30px;">
-                        <h4>
-                            Current Goal:</h4>
+                    <div style="background: #C0C0C0; height: 30px; padding: 2px;">
+                        <b>Current Goal:</b>
                     </div>
                     <div style="">
                         <b>Points to be accomplished</b>
@@ -99,8 +98,8 @@
                 Roommates Tasks
             </h3>
             <div class="gridcontainer">
-                <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId"
-                    Width="80%" class="table table-hover" OnRowCommand="gvAllTasks_RowCommand">
+                <asp:GridView ID="gvAllTasks" runat="server" AutoGenerateColumns="False" DataKeyNames="TaskId,Status"
+                    Width="80%" class="table table-hover" OnRowCommand="gvAllTasks_RowCommand" OnRowDataBound="gvAllTasks_RowDataBound">
                     <Columns>
                         <asp:TemplateField HeaderText="Task" HeaderStyle-Width="10%">
                             <ItemTemplate>

@@ -18,6 +18,7 @@ namespace WeShare.WebForms
             {
                 if (!IsPostBack)
                 {
+                    Session.Clear();//Clearing the session when the user is navigated to the login page
                     bool isSessionExpired = Request.QueryString["IsSessionExpired"].ToBoolean();
                     lblErrorMessage.Visible = isSessionExpired;
                 }

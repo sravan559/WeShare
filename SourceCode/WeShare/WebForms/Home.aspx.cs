@@ -13,6 +13,7 @@ namespace WeShare.WebForms
     public partial class Home : BasePage
     {
         #region Events
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -29,6 +30,7 @@ namespace WeShare.WebForms
                 ManageException(ex);
             }
         }
+
         protected void gvMyTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -44,12 +46,12 @@ namespace WeShare.WebForms
                     objBlTasks.UpdateTaskStatus(taskId, "Completed");
                     //pop up stating that weekly points are met
                     /*------write code for Subtract taskPoints from ltlWeeklyPoints here----- */
-                    decimal weeklypoints=Convert.ToDecimal(ltlWeeklyPoints.Text);
+                    decimal weeklypoints = Convert.ToDecimal(ltlWeeklyPoints.Text);
                     decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
-                    objBlTasks.UpdateWeeklyPoints(weeklypoints,taskPoints,UserId);
+                    objBlTasks.UpdateWeeklyPoints(weeklypoints, taskPoints, UserId);
 
                     LoadWeeklyPoints();
-                    objBlTasks.UpdateTaskPoints(taskPoints,UserId,taskId);
+                    objBlTasks.UpdateTaskPoints(taskPoints, UserId, taskId);
                     LoadMyTasks();
 
                 }
@@ -104,16 +106,39 @@ namespace WeShare.WebForms
             }
         }
 
+        protected void gvAllTasks_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    string status = gvAllTasks.DataKeys[e.Row.RowIndex].Values["Status"].ToStr();
+                    if (status.ToLower() == "completed")
+                    {
+                        Button btnAssignToSelf = (Button)e.Row.FindControl("btnAssignToSelf");
+                        btnAssignToSelf.Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ManageException(ex);
+            }
+        }
+
         #endregion
 
         #region User Defined
 
+        /// <summary>
+        /// Used to get the list of tasks assigned to the logged in user based on the Email Id
+        /// </summary>
         private void LoadMyTasks()
         {
             try
             {
                 BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                if (Session["UserId"] == null)
+                if (string.IsNullOrEmpty(UserId))
                 {
                     Response.Redirect("Login.aspx?IsSessionExpired=1");
                 }
@@ -128,12 +153,16 @@ namespace WeShare.WebForms
             }
         }
 
+
+        /// <summary>
+        /// Used to get the list of tasks assigned to other roommates
+        /// </summary>
         private void LoadRoomMatesTasks()
         {
             try
             {
                 BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                if (Session["UserId"] == null)
+                if (string.IsNullOrEmpty(UserId))
                 {
                     Response.Redirect("Login.aspx");
                 }
@@ -147,6 +176,9 @@ namespace WeShare.WebForms
             }
         }
 
+        /// <summary>
+        /// Used to get the Weekly points that the user is due to complete
+        /// </summary>
         private void LoadWeeklyPoints()
         {
             BLGroups objBlGroups = new BLGroups();

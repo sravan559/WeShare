@@ -93,7 +93,7 @@ namespace WeShare.WebForms
                     int rowIndex = currentGridRow.RowIndex;
                     int taskId = gvAllTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                    objBlTasks.ReAssignTaskToOtherUser(taskId, UserId);
+                    objBlTasks.UpdateAssignedTaskDetails(taskId, UserId);
                     LoadRoomMatesTasks();
                     LoadMyTasks();
                 }

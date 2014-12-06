@@ -44,7 +44,7 @@
             <div class="col-sm-10">
                 <asp:RadioButtonList ID="rbtnTaskRecursive" runat="server" RepeatDirection="Horizontal">
                     <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
+                    <asp:ListItem Text="No" Value="No" Selected="True"></asp:ListItem>
                 </asp:RadioButtonList>
             </div>
         </div>
@@ -141,18 +141,26 @@
         #cphBody_rbtnTaskType td input
         {
             margin: 6px;
-        } 
-        
+        }
     </style>
     <script type="text/javascript">
-        $("#<%=rbtnTaskRecursive.ClientID%> input[type='radio']").click(function () {
-            var isRecursive = $(this).val();
+
+        function pageLoad() {
+            ShowHideRescursionRow();
+        }
+
+        function ShowHideRescursionRow() {
+            var isRecursive = $("#<%=rbtnTaskRecursive.ClientID%> input:checked").val();
             if (isRecursive == "Yes") {
                 $('#trRecursionType').css("display", "");
             }
             else {
                 $('#trRecursionType').css("display", "none");
             }
+
+        }
+        $("#<%=rbtnTaskRecursive.ClientID%> input[type='radio']").click(function () {
+            ShowHideRescursionRow();
         });
     </script>
 </asp:Content>

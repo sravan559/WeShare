@@ -42,6 +42,24 @@ namespace WeShare.BusinessModel
             return result;
         }
 
+
+
+        public static decimal ToDecimal(this object value)
+        {
+            if (value == DBNull.Value || value == null)
+                return 0;
+            else
+                return (Convert.ToDecimal(value));
+        }
+
+        public static decimal ToDecimal(this string value)
+        {
+            decimal result = 0;
+            if (value != null)
+                decimal.TryParse(value, out result);
+            return result;
+        }
+
         public static DateTime ToDateTime(this object value)
         {
             if (value == DBNull.Value || value == null)

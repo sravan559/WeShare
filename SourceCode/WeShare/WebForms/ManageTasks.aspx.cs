@@ -39,7 +39,7 @@ namespace WeShare.WebForms
                     TaskId = hdnTaskId.Value.ToInt32(),
                     TaskTitle = txtTaskName.Text.Trim(),
                     TaskDescription = txtTaskDesc.Text.Trim(),
-                    PointsAllocated = txtTaskPoints.Text.Trim().ToInt32(),
+                    PointsAllocated = txtTaskPoints.Text.Trim().ToDecimal(),
 
                     IsTaskRecursive = rbtnTaskRecursive.Text.Trim().ToBoolean(),
                     TaskType = rbtnTaskType.SelectedValue.Trim(),

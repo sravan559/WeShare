@@ -1,9 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="WeShare.Master" AutoEventWireup="true"
     CodeBehind="Home.aspx.cs" Inherits="WeShare.WebForms.Home" %>
 
+<%@ Register TagPrefix="uc" TagName="DateOffset" Src="~/WebForms/DateOffSetManager.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
+    <div style="display:none;">
+        <uc:DateOffset id="ucDateOffset" runat="server">
+        </uc:DateOffset>
+    </div>
     <div>
         <h3>
             My Tasks

@@ -80,8 +80,8 @@ BEGIN
 		FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id  
 		WHERE Group_Name=@Group_Name	
 		
-	ELSE IF @Action = 'GETWEEKLYPOINTS'
-		SELECT Weekly_Points FROM UsersInGroups WHERE User_Id=@User_Id;
+	ELSE IF @Action = 'GETPOINTSDUE'
+		SELECT Top 1 Points_Due FROM UsersInGroups WHERE User_Id=@User_Id;
 		
 	ELSE IF @Action = 'UPDATEPOINTSDUE' -- Reduce the points due once the user completes a task
 		UPDATE UsersInGroups SET Points_Due = Points_Due-@Task_Points where User_Id=@User_Id and Group_Name=@Group_Name;  

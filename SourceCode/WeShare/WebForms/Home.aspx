@@ -22,15 +22,15 @@
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:TemplateField HeaderText="Task Points" HeaderStyle-Width="10%">
-                                    <ItemTemplate>
-                                        <asp:Label ID="lblTaskPoints" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PointsAllocated") %>'>
-                                        </asp:Label>
-                                    </ItemTemplate>
-                                </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Description" HeaderStyle-Width="20%">
                                     <ItemTemplate>
                                         <asp:Label ID="lblTaskDesc" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "TaskDescription") %>'>
+                                        </asp:Label>
+                                    </ItemTemplate>
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="Task Points" HeaderStyle-Width="10%">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblTaskPoints" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PointsAllocated") %>'>
                                         </asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -44,7 +44,7 @@
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Mark Task as Complete?" HeaderStyle-Width="20%">
                                     <ItemTemplate>
-                                        <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark Task as Complete"
+                                        <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark task as complete"
                                             ImageUrl="~/Images/img_complete.jpg" CssClass="imagebutton" ImageAlign="Middle"
                                             OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')"
                                             Height="20px" Width="20px" />
@@ -58,10 +58,10 @@
                                             Task
                                         </th>
                                         <th>
-                                            Task Points
+                                            Description
                                         </th>
                                         <th>
-                                            Description
+                                            Task Points
                                         </th>
                                         <th>
                                             Due Date

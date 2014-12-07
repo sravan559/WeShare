@@ -45,8 +45,7 @@ namespace WeShare.DataAccess
             }
             return isRecordSaved;
         }
-
-
+        
         /// <summary>
         /// Used to get the list of users from the database
         /// </summary>

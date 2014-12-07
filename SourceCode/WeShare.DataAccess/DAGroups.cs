@@ -222,7 +222,7 @@ namespace WeShare.DataAccess
             return isUserDeleted;
         }
 
-        public decimal GetWeeklyPoints(string userId)
+        public decimal GetPointsDueByUserId(string userId)
         {
             decimal weeklypoints = 0;
             try
@@ -232,7 +232,7 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
                 SqlParameter[] parameters = new SqlParameter[2];
-                parameters[0] = new SqlParameter("@Action", "GETWEEKLYPOINTS");
+                parameters[0] = new SqlParameter("@Action", "GETPOINTSDUE");
                 parameters[1] = new SqlParameter("@User_Id", userId);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();

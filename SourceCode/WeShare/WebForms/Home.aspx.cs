@@ -22,7 +22,7 @@ namespace WeShare.WebForms
                 {
                     LoadMyTasks();
                     LoadRoomMatesTasks();
-                    LoadWeeklyPoints();
+                    LoadUserDuePoints();
                 }
             }
             catch (Exception ex)
@@ -52,7 +52,7 @@ namespace WeShare.WebForms
                     //decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
                     //objBlTasks.UpdatePointsDue(weeklypoints, taskPoints, UserId);
                     //objBlTasks.UpdatePointsDue(taskPoints, UserId);
-                    LoadWeeklyPoints();
+                    LoadUserDuePoints();
                     //TODO discuss with varsha
                     // objBlTasks.UpdateTaskPoints(taskPoints, UserId, taskId);
                     LoadMyTasks();
@@ -81,9 +81,8 @@ namespace WeShare.WebForms
 
                     if (duedate.Date < DateTime.Now.Date)
                     {
-                        e.Row.BackColor = System.Drawing.Color.Red;
+                        e.Row.Cells[5].BackColor = System.Drawing.Color.Red;
                     }
-
                 }
             }
             catch (Exception ex)
@@ -187,10 +186,10 @@ namespace WeShare.WebForms
         /// <summary>
         /// Used to get the Weekly points that the user is due to complete
         /// </summary>
-        private void LoadWeeklyPoints()
+        private void LoadUserDuePoints()
         {
             BLGroups objBlGroups = new BLGroups();
-            decimal points = objBlGroups.GetWeeklyPoints(UserId);
+            decimal points = objBlGroups.GetPointsDueByUserId(UserId);
             ltlWeeklyPoints.Text = points.ToStr();
         }
 

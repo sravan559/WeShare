@@ -24,7 +24,7 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.GetUnassignedTasksByGroup(groupName);
         }
 
-       
+
 
         /// <summary>
         /// Returns the list of assigned tasks based on the group name
@@ -54,19 +54,28 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.AssignTask(objTaskInfo);
         }
 
-        public bool UpdateTaskStatus(int taskId, string status)
+        /// <summary>
+        /// Used to mark the task as complete and adjust the pending points of the user accordingly as per business logic
+        /// </summary>
+        /// <param name="taskId"></param>
+        /// <param name="taskCompletedDate"></param>
+        /// <returns></returns>
+        public bool MarkTaskAsComplete(int taskId, DateTime taskCompletedDate)
         {
-            return objDaTaskAssignment.UpdateTaskStatus(taskId, status);
+            //This method adjusts the points user is due to complete by deleting task points of the current task
+            return objDaTaskAssignment.MarkTaskAsComplete(taskId, taskCompletedDate);
         }
 
-        public bool UpdateTaskPoints(decimal taskPoints,string userID, int taskId)
+
+
+        public bool UpdateTaskPoints(decimal taskPoints, string userID, int taskId)
         {
-            return objDaTaskAssignment.UpdateTaskPoints(taskPoints,userID,taskId);
+            return objDaTaskAssignment.UpdateTaskPoints(taskPoints, userID, taskId);
         }
 
-        public bool UpdateWeeklyPoints(decimal weeklyPoints,decimal taskpoints,string userid)
+        public bool UpdatePointsDue(decimal taskpoints, string userid)
         {
-            return objDaTaskAssignment.UpdateWeeklyPoints(weeklyPoints,taskpoints,userid);
+            return objDaTaskAssignment.UpdatePointsDue(taskpoints, userid);
         }
 
     }

@@ -25,5 +25,11 @@ namespace WeShare.WebHelper
                 Response.Redirect("ErrorPage.aspx");
             }
         }
+
+        protected DateTime GetEffectiveDate()
+        {
+            //TODO Modify this to include the user story 3.6
+            return DateTime.Today;
+        }
     }
 }

@@ -183,7 +183,7 @@ namespace WeShare.DataAccess
         /// <summary>
         /// Returns true if the task details are updated successfully by taskid
         /// </summary>
-        public bool UpdateTaskStatus(int taskId, string status)
+        public bool MarkTaskAsComplete(int taskId, DateTime taskCompletedDate)
         {
             try
             {
@@ -191,10 +191,12 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[3];
-                parameters[0] = new SqlParameter("@Action", "UPDATESTATUS");
+                SqlParameter[] parameters = new SqlParameter[4];
+                parameters[0] = new SqlParameter("@Action", "MARKTASKASCOMPLETE");
                 parameters[1] = new SqlParameter("@Task_Id", taskId);
-                parameters[2] = new SqlParameter("@Status", status);
+                parameters[2] = new SqlParameter("@Status", TaskStatus.Completed);
+                parameters[3] = new SqlParameter("@Date_Completed", taskCompletedDate);
+
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rows = objSqlCommand.ExecuteNonQuery();
@@ -251,8 +253,10 @@ namespace WeShare.DataAccess
         }
         //changes to be made to this function 
         //taskpoints ---> masterTaskPoints
+        
         public bool UpdateTaskPoints(decimal taskpoints, string userID, int taskID)
         {
+            // TODO Verify with Varsha.. why 3.2 case is implemented here
             bool isTaskPointUpdated = false;
             string groupname = string.Empty;
             try
@@ -315,12 +319,27 @@ namespace WeShare.DataAccess
             }
             return isTaskPointUpdated;
         }
-        public bool UpdateWeeklyPoints(decimal weeklyPoints, decimal taskpoints, string userid)
+        
+        //TODo remvoe the following method
+        public bool UpdatePointsDue(decimal taskpoints, string userid)
         {
             bool isWeeklyPointsUpdated = false;
             try
             {
-                weeklyPoints = weeklyPoints - taskpoints;
+                //    weeklyPoints = weeklyPoints - taskpoints;
+
+                //    objSqlConnection = new SqlConnection(GetConnectionString());
+                //    objSqlCommand = objSqlConnection.CreateCommand();
+                //    objSqlCommand.CommandText = DbConstants.UspGroups;
+                //    objSqlCommand.CommandType = CommandType.StoredProcedure;
+
+                //    SqlParameter[] parameter = new SqlParameter[3];
+                //    parameter[0] = new SqlParameter("@Action", "UPDATEPOINTSDUE");
+                //    parameter[1] = new SqlParameter("@User_Id", userid);
+                //    parameter[2] = new SqlParameter("@Weekly_Points", taskpoints);
+
+
+                //   weeklyPoints = weeklyPoints - taskpoints;
 
                 objSqlConnection = new SqlConnection(GetConnectionString());
                 objSqlCommand = objSqlConnection.CreateCommand();
@@ -328,9 +347,10 @@ namespace WeShare.DataAccess
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
 
                 SqlParameter[] parameter = new SqlParameter[3];
-                parameter[0] = new SqlParameter("@Action", "UPDATEWEEKLYPOINTS");
+                parameter[0] = new SqlParameter("@Action", "UPDATEPOINTSDUE");
                 parameter[1] = new SqlParameter("@User_Id", userid);
-                parameter[2] = new SqlParameter("@Weekly_Points", weeklyPoints);
+                parameter[2] = new SqlParameter("@Weekly_Points", taskpoints);
+                //TODO pass group id as parameter and task points .. no need of passing weekly points here
                 objSqlCommand.Parameters.AddRange(parameter);
                 objSqlConnection.Open();
                 int rows = objSqlCommand.ExecuteNonQuery();

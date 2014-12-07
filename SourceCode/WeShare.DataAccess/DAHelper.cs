@@ -29,5 +29,6 @@ namespace WeShare.DataAccess
             if (objSqlConnection != null && objSqlConnection.State == ConnectionState.Open)
                 objSqlConnection.Close();
         }
+
     }
 }

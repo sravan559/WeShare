@@ -31,6 +31,7 @@ namespace WeShare.WebForms
             }
         }
 
+        //TODo Discuss with Team
         protected void gvMyTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -43,21 +44,21 @@ namespace WeShare.WebForms
                     int taskId = gvMyTasks.DataKeys[rowIndex].Values["TaskId"].ToInt32();
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
-                    objBlTasks.UpdateTaskStatus(taskId, "Completed");
+                    objBlTasks.MarkTaskAsComplete(taskId, GetEffectiveDate());
+
                     //pop up stating that weekly points are met
                     /*------write code for Subtract taskPoints from ltlWeeklyPoints here----- */
-                    decimal weeklypoints = Convert.ToDecimal(ltlWeeklyPoints.Text);
-                    decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
-                    objBlTasks.UpdateWeeklyPoints(weeklypoints, taskPoints, UserId);
-
+                    //  decimal weeklypoints = Convert.ToDecimal(ltlWeeklyPoints.Text);
+                    //decimal taskPoints = Convert.ToDecimal(gvMyTasks.DataKeys[rowIndex].Values["PointsAllocated"]);
+                    //objBlTasks.UpdatePointsDue(weeklypoints, taskPoints, UserId);
+                    //objBlTasks.UpdatePointsDue(taskPoints, UserId);
                     LoadWeeklyPoints();
-                    objBlTasks.UpdateTaskPoints(taskPoints, UserId, taskId);
+                    //TODO discuss with varsha
+                    // objBlTasks.UpdateTaskPoints(taskPoints, UserId, taskId);
                     LoadMyTasks();
 
                 }
-
             }
-
             catch (Exception ex)
             {
                 ManageException(ex);
@@ -76,9 +77,9 @@ namespace WeShare.WebForms
                         ImageButton imgMarkComplete = (ImageButton)e.Row.FindControl("imgMarkComplete");
                         imgMarkComplete.Visible = false;
                     }
-                    DateTime duedate=gvMyTasks.DataKeys[e.Row.RowIndex].Values["DueDate"].ToDateTime();
-                 
-                    if(duedate.Date<DateTime.Now.Date)
+                    DateTime duedate = gvMyTasks.DataKeys[e.Row.RowIndex].Values["DueDate"].ToDateTime();
+
+                    if (duedate.Date < DateTime.Now.Date)
                     {
                         e.Row.BackColor = System.Drawing.Color.Red;
                     }

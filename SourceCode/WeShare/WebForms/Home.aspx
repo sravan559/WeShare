@@ -72,7 +72,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="5">
-                                            No data available.
+                                            No pending tasks available.
                                         </td>
                                     </tr>
                                 </table>
@@ -154,7 +154,7 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    No data available.
+                                    No pending tasks available.
                                 </td>
                             </tr>
                         </table>

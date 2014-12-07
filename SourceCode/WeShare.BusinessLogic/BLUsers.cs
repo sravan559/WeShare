@@ -54,6 +54,10 @@ namespace WeShare.BusinessLogic
             return objDaUser.IsUserValid(userId, password);
         }
 
+        public void SaveDateOffset(int dateOffset)
+        {
+            objDaUser.SaveDateOffset(dateOffset);
+        }
 
     }
 }

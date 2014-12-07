@@ -79,7 +79,7 @@ namespace WeShare.WebForms
                     }
                     DateTime duedate = gvMyTasks.DataKeys[e.Row.RowIndex].Values["DueDate"].ToDateTime();
 
-                    if (duedate.Date < DateTime.Now.Date)
+                    if (duedate.Date < GetEffectiveDate())
                     {
                         e.Row.Cells[5].BackColor = System.Drawing.Color.Red;
                     }

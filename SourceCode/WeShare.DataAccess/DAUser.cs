@@ -45,7 +45,7 @@ namespace WeShare.DataAccess
             }
             return isRecordSaved;
         }
-        
+
         /// <summary>
         /// Used to get the list of users from the database
         /// </summary>
@@ -142,6 +142,27 @@ namespace WeShare.DataAccess
                 CloseConnection();
             }
             return isValidUser;
+        }
+
+        public void SaveDateOffset(int dateOffset)
+        {
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspUsers;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "SAVEDATEOFFSET");
+                parameters[1] = new SqlParameter("@Date_Offset", dateOffset);
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                objSqlCommand.ExecuteNonQuery();
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
     }
 }

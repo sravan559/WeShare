@@ -152,8 +152,7 @@ namespace WeShare.DataAccess
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
                         Name = objSqlReader["Name"].ToStr(),
-                        WeeklyPoints = Convert.ToDecimal(objSqlReader["Weekly_Points"])
-
+                        WeeklyPoints = objSqlReader["Weekly_Points"].ToDecimal()
                     };
                     listUsers.Add(objCurrentUser);
                 }
@@ -224,7 +223,7 @@ namespace WeShare.DataAccess
 
         public decimal GetPointsDueByUserId(string userId)
         {
-            decimal weeklypoints = 0;
+            decimal weeklyPoints = 0;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -236,28 +235,13 @@ namespace WeShare.DataAccess
                 parameters[1] = new SqlParameter("@User_Id", userId);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
-                if (objSqlReader != null && objSqlReader.HasRows)
-                {
-                    while (objSqlReader.Read())
-                    {
-                        UserInfo objCurrentUser = new UserInfo()
-                        {
-                            WeeklyPoints = Convert.ToDecimal(objSqlReader["Weekly_Points"]),
-                        };
-
-                        weeklypoints = objCurrentUser.WeeklyPoints;
-
-                    }
-                }
+                weeklyPoints = objSqlCommand.ExecuteScalar().ToDecimal();
             }
             finally
             {
                 CloseConnection();
             }
-
-
-            return weeklypoints;
+            return weeklyPoints;
         }
     }
 }

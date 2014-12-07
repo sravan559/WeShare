@@ -24,6 +24,7 @@ CREATE PROCEDURE [dbo].[usp_task_assignment]
 @Parent_Task_Id INT =NULL,
 @User_Id nvarchar(50)=NULL,
 @Due_Date DATETIME =NULL,
+@Date_Completed DATETIME =NULL,
 @Status NVARCHAR(50)=NULL,
 @Points_Assigned DECIMAL(18,2)=NULL,
 @Group_Name NVARCHAR(50)=NULL,
@@ -33,36 +34,43 @@ AS
 BEGIN
 	IF @Action='C' -- Creates an instance of the task being assigned in the Assigned Tasks table
 		BEGIN	
-			SET @Points_Assigned=(select Top 1 Points from Tasks where Task_Id=@Parent_Task_Id)
+			SET @Points_Assigned=(SELECT Top 1 Points FROM Tasks where Task_Id=@Parent_Task_Id)
 			INSERT INTO AssignedTasks(Parent_Task_Id,User_Id,Due_Date,Status,Points_Assigned)
 					VALUES(@Parent_Task_Id,@User_Id,@Due_Date,@Status,@Points_Assigned)	
 		END					
-	ELSE IF @Action='UPDATESTATUS'
+	ELSE IF @Action='MARKTASKASCOMPLETE'
+		BEGIN
 		 UPDATE AssignedTasks SET Status=@Status ,
-								Date_Completed= CASE WHEN (@Status='Completed') then GetDate()
-											    ELSE NULL END
-								WHERE Task_Id=@Task_Id	
-		 
+								Date_Completed= @Date_Completed											    
+								WHERE Task_Id=@Task_Id
+		 SET @Points_Assigned=(SELECT Points_Assigned FROM AssignedTasks where Task_Id=@Task_Id)	
+		 SET @User_Id = (SELECT User_Id FROM AssignedTasks where Task_Id=@Task_Id)
+		 SET @Parent_Task_Id= (SELECT Parent_Task_Id FROM AssignedTasks where Task_Id=@Task_Id)
+		 SET @Group_Name= (SELECT Group_Name FROM Tasks where Task_Id= @Parent_Task_Id)	
+		 						
+		 UPDATE UsersInGroups SET Points_Due = Points_Due-@Points_Assigned 
+									where User_Id=@User_Id and Group_Name=@Group_Name; 						
+		END 
 	ELSE IF @Action='GETUNASSIGNEDTASKSBYGROUP' 		
-		SELECT Task_Id,Task_Title,Task_Description,Points from Tasks where 
-		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Task_Id FROM AssignedTasks) 
+		SELECT Task_Id,Task_Title,Task_Description,Points FROM Tasks where 
+		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Parent_Task_Id FROM AssignedTasks) 
 				
 	ELSE IF @Action='GETASSIGNEDTASKSBYGROUP'
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
-		from Tasks t inner join AssignedTasks at 
-		on t.Task_Id=at.Task_Id
+		FROM Tasks t inner join AssignedTasks at 
+		on t.Task_Id=at.Parent_Task_Id
 		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name
 					
 	ELSE IF @Action='GETTASKSBYEMAILID'
 		SELECT t.Task_Id,Task_Title,Points,Task_Description,Due_Date,Status 
-		from Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Task_Id 
+		FROM Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Parent_Task_Id 
 		WHERE at.User_Id=@User_Id and Status <> 'Completed'
 		ORDER BY Due_Date 
 		
 	ELSE IF @Action='GETROOMMATESTASKS'
 		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
-		from Tasks t inner join AssignedTasks at 
-		on t.Task_Id=at.Task_Id
+		FROM Tasks t inner join AssignedTasks at 
+		on t.Task_Id=at.Parent_Task_Id
 		INNER JOIN Users u on at.User_Id=u.User_Id
 		where u.User_Id <> @User_Id
 		
@@ -72,6 +80,7 @@ BEGIN
 											 ELSE @Due_Date	
 											 END											 
 									WHERE Task_Id=@Task_Id
+								
 		
 END
 

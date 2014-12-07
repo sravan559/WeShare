@@ -1,13 +1,7 @@
-GO
-
 /****** Object:  StoredProcedure [dbo].[usp_users]    Script Date: 10/10/2014 14:19:25 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usp_users]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[usp_users]
 GO
-
-GO
-
-
 
 /****** Object:  StoredProcedure [dbo].[usp_users]    Script Date: 10/10/2014 14:19:26 ******/
 SET ANSI_NULLS ON
@@ -28,7 +22,11 @@ CREATE PROCEDURE [dbo].[usp_users]
 	@Last_Name nvarchar(50)=NULL,
 	@Contact_Number nvarchar(20) = NULL,
 	@Password nvarchar(20) = NULL,
-	@Action nvarchar(20) = NULL
+	@Action nvarchar(20) = NULL,
+	@Next_Recurrence_Date datetime =NULL,
+	@Recurrence_Start_Date datetime=NULL,
+	@Group_Name nvarchar(50) =NULL,
+	@Points_To_Add decimal(18,2)=NULL
 	)
 AS
 BEGIN
@@ -55,6 +53,13 @@ BEGIN
 			IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
 				SELECT 'TRUE' as 'RESULT'					 
 		END
+	ELSE IF @Action='UPDATEDUEPOINTS' -- USED TO UPDATE THE POITNS DUE BASED ON THE WEEKLY POINTS AND RECURSIVE DATE
+		BEGIN
+			UPDATE UsersInGroups SET Next_Recurrence_Date=@Next_Recurrence_Date,
+								 Points_Due=Points_Due+ @Points_To_Add 
+								 WHERE User_Id=@User_Id and Group_Name=@Group_Name
+		END
+				
 END
 GO
 

@@ -22,6 +22,8 @@ CREATE PROCEDURE [dbo].[usp_groups]
 	@New_Group_Name nvarchar(50)=NULL,	
 	@User_Id NVARCHAR(50)=NULL,
 	@Weekly_Points DECIMAL(18,2)=NULL,
+	@Points_Due decimal (18,2)=NULL,
+	@Task_Points decimal(18,2)=NULL,
 	@Action NVARCHAR(50)
 )
 AS
@@ -81,8 +83,8 @@ BEGIN
 	ELSE IF @Action = 'GETWEEKLYPOINTS'
 		SELECT Weekly_Points FROM UsersInGroups WHERE User_Id=@User_Id;
 		
-	ELSE IF @Action = 'UPDATEWEEKLYPOINTS'
-	UPDATE UsersInGroups SET Weekly_Points = @Weekly_Points where User_Id=@User_Id;  
+	ELSE IF @Action = 'UPDATEPOINTSDUE' -- Reduce the points due once the user completes a task
+		UPDATE UsersInGroups SET Points_Due = Points_Due-@Task_Points where User_Id=@User_Id and Group_Name=@Group_Name;  
 END
 
 

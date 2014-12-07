@@ -53,7 +53,7 @@ BEGIN
 		END 
 	ELSE IF @Action='GETUNASSIGNEDTASKSBYGROUP' 		
 		SELECT Task_Id,Task_Title,Task_Description,Points FROM Tasks where 
-		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Parent_Task_Id FROM AssignedTasks) 
+		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Parent_Task_Id FROM AssignedTasks where Status<>'Completed') 
 				
 	ELSE IF @Action='GETASSIGNEDTASKSBYGROUP'
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 

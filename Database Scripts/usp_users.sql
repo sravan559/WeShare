@@ -54,7 +54,9 @@ BEGIN
 				UPDATE AppConfiguration SET VALUE=@Date_Offset where [KEY]='DATE_OFFSET'
 			ELSE 
 				INSERT INTO APPCONFIGURATION([KEY],VALUE) VALUES('DATE_OFFSET',@DATE_OFFSET)
-		END				
+		END	
+	else if @Action='GETDATEOFFSET'
+		select VALUE FROM AppConfiguration where [KEY]='DATE_OFFSET'				
 										
 	ELSE IF @Action = 'VALIDATEUSER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
 		BEGIN --@Action = 'VALIDATEUSER'
@@ -63,7 +65,7 @@ BEGIN
 					SET @Group_name=(select top 1 group_name from UsersInGroups where User_Id=@User_Id)
 					SET @Next_Recurrence_Date =(select Next_Recurrence_Date from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
 					DECLARE @Effective_System_date datetime
-					SET @Effective_System_date= (select DATEADD(day,cast((select value from Appconfiguration where [KEY]='DATE_OFFSET')as int),GETDATE()))
+					SET @Effective_System_date= (select DATEADD(day,isnull(cast((select value from Appconfiguration where [KEY]='DATE_OFFSET')as int),0),GETDATE()))
 					IF(DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date)>-1)
 						BEGIN -- start update weekly points
 							DECLARE @Weekly_Points decimal(18,2)

@@ -24,6 +24,7 @@ CREATE PROCEDURE [dbo].[usp_groups]
 	@Weekly_Points DECIMAL(18,2)=NULL,
 	@Points_Due decimal (18,2)=NULL,
 	@Task_Points decimal(18,2)=NULL,
+	@Recurrence_Start_Date DATETIME = NULL,
 	@Action NVARCHAR(50)
 )
 AS
@@ -68,7 +69,7 @@ BEGIN
 	ELSE IF @Action = 'ADDUSERTOGROUP'
 		BEGIN
 			IF NOT EXISTS(SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id)
-			INSERT INTO UsersInGroups(Group_Name,User_Id,Weekly_Points) VALUES (@Group_Name,@User_Id,@Weekly_Points)
+			INSERT INTO UsersInGroups(Group_Name,User_Id,Weekly_Points,Recurrence_Start_Date,Next_Recurrence_Date) VALUES (@Group_Name,@User_Id,@Weekly_Points,@Recurrence_Start_Date,@Recurrence_Start_Date)
 		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
 		SELECT ug.USER_ID, First_Name+', '+Last_Name as 'Name',Weekly_Points 

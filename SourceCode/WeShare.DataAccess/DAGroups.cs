@@ -160,12 +160,10 @@ namespace WeShare.DataAccess
             return listUsers;
         }
 
-
-
         /// <summary>
         /// Method to add a user to the selected group
         /// </summary>
-        public bool AddUserToGroup(string groupName, string userId, decimal weeklyPoints)
+        public bool AddUserToGroup(string groupName, string userId, decimal weeklyPoints, DateTime recurrenceStartDate)
         {
             bool isRecordSaved = false;
             try
@@ -174,12 +172,12 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[4];
+                SqlParameter[] parameters = new SqlParameter[5];
                 parameters[0] = new SqlParameter("@Action", "ADDUSERTOGROUP");
                 parameters[1] = new SqlParameter("@Group_Name", groupName);
                 parameters[2] = new SqlParameter("@User_Id", userId);
                 parameters[3] = new SqlParameter("@Weekly_Points", weeklyPoints);
-
+                parameters[4] = new SqlParameter("@Recurrence_Start_Date", recurrenceStartDate);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
@@ -221,6 +219,11 @@ namespace WeShare.DataAccess
             return isUserDeleted;
         }
 
+        /// <summary>
+        /// Used to get the total number of points current user is due to complete
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public decimal GetPointsDueByUserId(string userId)
         {
             decimal weeklyPoints = 0;

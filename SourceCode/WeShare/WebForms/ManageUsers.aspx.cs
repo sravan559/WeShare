@@ -48,25 +48,23 @@ namespace WeShare.WebForms
             try
             {
                 BLGroups objGroupBL = new BLGroups();
-                if (ddlGroups.SelectedValue == "")
+                if (string.IsNullOrEmpty(ddlGroups.SelectedValue))
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_failure", "alert('Please select a group to add the user!')", true);
                 }
                 else
                 {
-                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), Convert.ToDecimal(txtWeeklyPoints.Text));
+                    bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtWeeklyPoints.Text.ToDecimal(), txtRecurrenceStartDate.Text.ToDateTime());
                     LoadUsersInGroup();
                     txtUserId.Text = txtWeeklyPoints.Text = string.Empty;
                     if (isSaved)
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
-
                 }
             }
             catch (Exception ex)
             {
                 ManageException(ex);
             }
-
         }
 
         protected void ddlGroups_SelectedIndexChanged(object sender, EventArgs e)
@@ -86,7 +84,6 @@ namespace WeShare.WebForms
         private void LoadGroupsList()
         {
             List<GroupInfo> listGroups = new List<GroupInfo>();
-            //TODO wright Code to get the groups from database
             BLGroups objBLGroup = new BLGroups();
             listGroups = objBLGroup.GetGroupsList(UserId);
             ddlGroups.Items.Clear();

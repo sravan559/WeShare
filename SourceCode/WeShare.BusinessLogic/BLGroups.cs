@@ -11,6 +11,11 @@ namespace WeShare.BusinessLogic
     {
         DAGroups objDaGroups = new DAGroups();
 
+        /// <summary>
+        /// Used to get the list of groups in which given user is a member
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
         public List<GroupInfo> GetGroupsList(string userID)
         {
             return objDaGroups.GetGroupsList(userID);
@@ -21,11 +26,16 @@ namespace WeShare.BusinessLogic
         /// Used to create a new group or to update the existing group name
         /// </summary>
         /// <returns></returns>
-        public bool SaveGroup(string userId,string currentNameofGroup, string newNameofGroup = null)
+        public bool SaveGroup(string userId, string currentNameofGroup, string newNameofGroup = null)
         {
-            return objDaGroups.SaveGroup(userId,currentNameofGroup, newNameofGroup);
+            return objDaGroups.SaveGroup(userId, currentNameofGroup, newNameofGroup);
         }
 
+        /// <summary>
+        /// Used to delete a group with the given name
+        /// </summary>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
         public bool DeleteGroup(string groupName)
         {
             return objDaGroups.DeleteGroup(groupName);
@@ -44,9 +54,9 @@ namespace WeShare.BusinessLogic
             return objDaGroups.GetUsersListByGroupName(groupName, getActiveUsersOnly);
         }
 
-        public bool AddUserToGroup(string groupName, string userId,decimal weeklyPoints)
+        public bool AddUserToGroup(string groupName, string userId, decimal weeklyPoints, DateTime recurrenceStartDate)
         {
-            return objDaGroups.AddUserToGroup(groupName, userId, weeklyPoints);
+            return objDaGroups.AddUserToGroup(groupName, userId, weeklyPoints, recurrenceStartDate);
         }
 
         public bool DeleteUserFromGroup(string groupName, string userId)
@@ -54,6 +64,11 @@ namespace WeShare.BusinessLogic
             return objDaGroups.DeleteUserFromGroup(groupName, userId);
         }
 
+        /// <summary>
+        /// Used to get the total number of points current user is due to complete
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public decimal GetPointsDueByUserId(string userId)
         {
             return objDaGroups.GetPointsDueByUserId(userId);

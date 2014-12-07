@@ -59,5 +59,12 @@ namespace WeShare.BusinessLogic
             objDaUser.SaveDateOffset(dateOffset);
         }
 
+        public int GetDateOffset()
+        {
+            return objDaUser.GetDateOffset();
+            
+
+        }
+
     }
 }

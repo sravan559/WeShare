@@ -164,5 +164,26 @@ namespace WeShare.DataAccess
                 CloseConnection();
             }
         }
+
+        public int GetDateOffset()
+        {
+            try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspUsers;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@Action", "GETDATEOFFSET");
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                int dateOffset = objSqlCommand.ExecuteScalar().ToInt32();
+                return dateOffset;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
     }
 }

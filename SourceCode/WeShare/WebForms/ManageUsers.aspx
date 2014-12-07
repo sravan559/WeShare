@@ -30,6 +30,13 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="txtRecurrenceStartDate" class="col-sm-2 control-label">
+                Recurrence Start Date</label>
+            <div class="col-sm-10">
+                <asp:TextBox ID="txtRecurrenceStartDate" runat="server" Width="50%" class="form-control"></asp:TextBox>
+            </div>
+        </div>
+        <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10" align="left">
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
                     BorderColor="Black" />
@@ -37,8 +44,8 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting" DataKeyNames="UserId"
-            class="table table-hover">
+        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting"
+            DataKeyNames="UserId" class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
@@ -68,4 +75,8 @@
             <HeaderStyle CssClass="gridheader" />
         </asp:GridView>
     </div>
+    <script type="text/javascript">
+
+        $("#<%=txtRecurrenceStartDate.ClientID %>").datepicker({ minDate: 0 });
+    </script>
 </asp:Content>

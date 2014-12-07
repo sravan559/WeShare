@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using WeShare.BusinessModel;
+using WeShare.BusinessLogic;
+
 namespace WeShare.WebHelper
 {
     public class BasePage : Page
@@ -28,8 +30,9 @@ namespace WeShare.WebHelper
 
         protected DateTime GetEffectiveDate()
         {
-            //TODO Modify this to include the user story 3.6
-            return DateTime.Today;
+            BLUsers objBlusers = new BLUsers();
+            DateTime effectiveDate = DateTime.Today.AddDays(objBlusers.GetDateOffset());
+            return effectiveDate;
         }
     }
 }

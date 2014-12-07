@@ -99,6 +99,9 @@ namespace WeShare.WebForms
             ddlGroups.DataBind();
         }
 
+        /// <summary>
+        /// Used to get the list of tasks that are unassigned in the group
+        /// </summary>
         private void LoadUnAssignedTasks()
         {
             ddlTasks.Items.Clear();
@@ -111,6 +114,9 @@ namespace WeShare.WebForms
             ddlTasks.DataBind();
         }
 
+        /// <summary>
+        /// Used to load the list of users part of the selected group and bind to dropdownlist
+        /// </summary>
         private void LoadUsers()
         {
             ddlUsers.Items.Clear();
@@ -123,6 +129,9 @@ namespace WeShare.WebForms
             ddlUsers.DataBind();
         }
 
+        /// <summary>
+        /// Used to get the list of tasks that are already assigned to users in the group
+        /// </summary>
         private void LoadAssignedTasks()
         {
             BLTaskAssignment objBlTasks = new BLTaskAssignment();

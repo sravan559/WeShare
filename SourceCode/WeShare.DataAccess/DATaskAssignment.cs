@@ -253,7 +253,7 @@ namespace WeShare.DataAccess
         }
         //changes to be made to this function 
         //taskpoints ---> masterTaskPoints
-        
+
         public bool UpdateTaskPoints(decimal taskpoints, string userID, int taskID)
         {
             // TODO Verify with Varsha.. why 3.2 case is implemented here
@@ -319,54 +319,6 @@ namespace WeShare.DataAccess
             }
             return isTaskPointUpdated;
         }
-        
-        //TODo remvoe the following method
-        public bool UpdatePointsDue(decimal taskpoints, string userid)
-        {
-            bool isWeeklyPointsUpdated = false;
-            try
-            {
-                //    weeklyPoints = weeklyPoints - taskpoints;
-
-                //    objSqlConnection = new SqlConnection(GetConnectionString());
-                //    objSqlCommand = objSqlConnection.CreateCommand();
-                //    objSqlCommand.CommandText = DbConstants.UspGroups;
-                //    objSqlCommand.CommandType = CommandType.StoredProcedure;
-
-                //    SqlParameter[] parameter = new SqlParameter[3];
-                //    parameter[0] = new SqlParameter("@Action", "UPDATEPOINTSDUE");
-                //    parameter[1] = new SqlParameter("@User_Id", userid);
-                //    parameter[2] = new SqlParameter("@Weekly_Points", taskpoints);
-
-
-                //   weeklyPoints = weeklyPoints - taskpoints;
-
-                objSqlConnection = new SqlConnection(GetConnectionString());
-                objSqlCommand = objSqlConnection.CreateCommand();
-                objSqlCommand.CommandText = DbConstants.UspGroups;
-                objSqlCommand.CommandType = CommandType.StoredProcedure;
-
-                SqlParameter[] parameter = new SqlParameter[3];
-                parameter[0] = new SqlParameter("@Action", "UPDATEPOINTSDUE");
-                parameter[1] = new SqlParameter("@User_Id", userid);
-                parameter[2] = new SqlParameter("@Weekly_Points", taskpoints);
-                //TODO pass group id as parameter and task points .. no need of passing weekly points here
-                objSqlCommand.Parameters.AddRange(parameter);
-                objSqlConnection.Open();
-                int rows = objSqlCommand.ExecuteNonQuery();
-                isWeeklyPointsUpdated = rows > 0;
-
-            }
-
-            finally
-            {
-                CloseConnection();
-            }
-            return isWeeklyPointsUpdated;
-
-        }
-
-
     }
 
 }

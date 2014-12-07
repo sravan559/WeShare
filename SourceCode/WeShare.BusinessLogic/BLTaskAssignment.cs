@@ -66,17 +66,9 @@ namespace WeShare.BusinessLogic
             return objDaTaskAssignment.MarkTaskAsComplete(taskId, taskCompletedDate);
         }
 
-
-
         public bool UpdateTaskPoints(decimal taskPoints, string userID, int taskId)
         {
             return objDaTaskAssignment.UpdateTaskPoints(taskPoints, userID, taskId);
         }
-
-        public bool UpdatePointsDue(decimal taskpoints, string userid)
-        {
-            return objDaTaskAssignment.UpdatePointsDue(taskpoints, userid);
-        }
-
     }
 }

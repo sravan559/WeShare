@@ -93,6 +93,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="WebForms\AssignTasks.aspx" />
+    <Content Include="WebForms\DateOffSetManager.ascx" />
     <Content Include="WebForms\ErrorPage.aspx" />
     <Content Include="WebForms\Home.aspx" />
     <Content Include="WebForms\Login.aspx" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="WebForms\AssignTasks.aspx.designer.cs">
       <DependentUpon>AssignTasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForms\DateOffSetManager.ascx.cs">
+      <DependentUpon>DateOffSetManager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForms\DateOffSetManager.ascx.designer.cs">
+      <DependentUpon>DateOffSetManager.ascx</DependentUpon>
     </Compile>
     <Compile Include="WebForms\ErrorPage.aspx.cs">
       <DependentUpon>ErrorPage.aspx</DependentUpon>

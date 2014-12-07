@@ -23,7 +23,7 @@ namespace WeShare.DataAccess
            // return "Data Source=TERMINATOR;Initial Catalog=WeShare;User ID=sa;Password=Sandeepgarimella220";
         }
 
-        //TODO Remove the parameter after code integration
+        
         protected void CloseConnection()
         {
             if (objSqlConnection != null && objSqlConnection.State == ConnectionState.Open)

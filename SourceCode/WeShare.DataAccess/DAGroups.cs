@@ -155,8 +155,7 @@ namespace WeShare.DataAccess
                         WeeklyPoints = objSqlReader["Weekly_Points"].ToDecimal()
                     };
                     listUsers.Add(objCurrentUser);
-                }
-
+               }
             }
             return listUsers;
         }

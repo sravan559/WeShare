@@ -44,7 +44,8 @@
         </div>
     </div>
     <div class="gridcontainer">
-        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowDeleting="gvUsersInGroup_RowDeleting"
+        <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsersInGroup_RowCommand"
+            OnRowDeleting="gvUsersInGroup_RowDeleting"
             DataKeyNames="UserId" class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
@@ -52,6 +53,9 @@
                 <asp:BoundField DataField="WeeklyPoints" HeaderText="Weekly Points" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
+                        <asp:ImageButton ID="ImageButton1" runat="server" CommandName="EditUser" AlternateText="Edit"
+                            CommandArgument="<%# ((GridViewRow) Container).RowIndex %>" ImageUrl="~/Images/img_edit.gif"
+                            CssClass="imagebutton" />
                         <asp:ImageButton ID="imgDeleteUser" runat="server" align="center" CommandName="Delete"
                             ToolTip="Delete user from group?" OnClientClick="return confirm('Are you sure?')"
                             AlternateText="Delete" ImageUrl="~/Images/img_delete.gif" CssClass="imagebutton" />

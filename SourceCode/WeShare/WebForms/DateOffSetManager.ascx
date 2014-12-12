@@ -6,7 +6,7 @@
             Enter Date Offset value</label>
         <div class="col-sm-10">
             <asp:TextBox ID="txtDateOffset" runat="server" onkeypress="return isNumber(event)"> </asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvDateOffset" runat="server" ErrorMessage="Please enter valid Offset value."></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ID="rfvDateOffset" runat="server" ErrorMessage="Please enter valid Offset value." ControlToValidate="txtDateOffset"></asp:RequiredFieldValidator>
         </div>
     </div>
     <div class="form-group">

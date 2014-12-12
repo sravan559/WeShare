@@ -144,7 +144,7 @@ namespace WeShare.DataAccess
             return isValidUser;
         }
 
-        public bool SaveDateOffset(int dateOffset)
+        public bool SaveDateOffset(int dateOffset,string userId)
         {
             bool isOffsetSaved = false;
             try
@@ -153,9 +153,11 @@ namespace WeShare.DataAccess
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspUsers;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
-                SqlParameter[] parameters = new SqlParameter[2];
+                SqlParameter[] parameters = new SqlParameter[3];
                 parameters[0] = new SqlParameter("@Action", "SAVEDATEOFFSET");
                 parameters[1] = new SqlParameter("@Date_Offset", dateOffset);
+                parameters[2] = new SqlParameter("@User_Id", userId);
+
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();

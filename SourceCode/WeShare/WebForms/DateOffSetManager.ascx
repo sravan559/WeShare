@@ -5,7 +5,7 @@
         <label for="ddlGroups" class="col-sm-2 control-label">
             Enter Date Offset value</label>
         <div class="col-sm-10">
-            <asp:TextBox ID="txtDateOffset" runat="server" TextMode="Number"> </asp:TextBox>
+            <asp:TextBox ID="txtDateOffset" runat="server"> </asp:TextBox>
         </div>
     </div>
     <div class="form-group">

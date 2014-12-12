@@ -5,7 +5,8 @@
         <label for="ddlGroups" class="col-sm-2 control-label">
             Enter Date Offset value</label>
         <div class="col-sm-10">
-            <asp:TextBox ID="txtDateOffset" runat="server"> </asp:TextBox>
+            <asp:TextBox ID="txtDateOffset" runat="server" onkeypress="return isNumber(event)"> </asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvDateOffset" runat="server" ErrorMessage="Please enter valid Offset value."></asp:RequiredFieldValidator>
         </div>
     </div>
     <div class="form-group">
@@ -17,3 +18,6 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+</script>

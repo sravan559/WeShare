@@ -31,6 +31,15 @@ namespace WeShare.WebForms {
         protected global::System.Web.UI.WebControls.TextBox txtTaskName;
         
         /// <summary>
+        /// rfvTaskName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTaskName;
+        
+        /// <summary>
         /// txtTaskPoints control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace WeShare.WebForms {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTaskPoints;
+        
+        /// <summary>
+        /// rfvTaskPoints control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTaskPoints;
         
         /// <summary>
         /// txtTaskDesc control.

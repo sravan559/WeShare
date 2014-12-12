@@ -114,7 +114,10 @@ namespace WeShare.WebForms
         {
             try
             {
-                LoadTasksListByGrpName();
+                if (ddlGroups.SelectedIndex == 0)
+                    ClearControls();
+                else
+                    LoadTasksListByGrpName();
             }
             catch (Exception ex)
             {

@@ -1,11 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="WeShare.Master" AutoEventWireup="true"
     CodeBehind="Home.aspx.cs" Inherits="WeShare.WebForms.Home" %>
 
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
-   
     <div>
         <h3>
             My Tasks
@@ -48,7 +46,7 @@
                                     <ItemTemplate>
                                         <asp:ImageButton ID="imgMarkComplete" runat="server" CommandName="TaskComplete" AlternateText="Mark task as complete"
                                             ImageUrl="~/Images/img_complete.jpg" CssClass="imagebutton" ImageAlign="Middle"
-                                            OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')"
+                                            ToolTip="Mark Task as complete" OnClientClick="return confirm('Are you sure, you want to mark the task as complete?')"
                                             Height="20px" Width="20px" />
                                     </ItemTemplate>
                                 </asp:TemplateField>
@@ -164,6 +162,8 @@
                     <HeaderStyle CssClass="gridheader" />
                 </asp:GridView>
             </div>
+            <b>Note:</b> Task highlighted in <span style="color: Red; font-weight: bold;">Red</span>
+            indicates overdue tasks
         </div>
     </div>
 </asp:Content>

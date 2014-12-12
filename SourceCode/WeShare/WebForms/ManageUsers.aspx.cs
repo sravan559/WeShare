@@ -35,9 +35,9 @@ namespace WeShare.WebForms
                 if (e.CommandName == "EditUser")
                 {
                     int rowIndex = e.CommandArgument.ToInt32();
-                    txtUserId.Text = txtUserId.Text.Trim();
-                    txtWeeklyPoints.Text = gvUsersInGroup.DataKeys[rowIndex].Values["WeeklyPoints"].ToString();
-                    DateTime recStartDate = gvUsersInGroup.DataKeys[rowIndex].Values["RecurranceDate"].ToString().ToDateTime();                    
+                    txtUserId.Text = gvUsersInGroup.DataKeys[rowIndex].Values["UserId"].ToStr();
+                    txtWeeklyPoints.Text = gvUsersInGroup.DataKeys[rowIndex].Values["WeeklyPoints"].ToStr();
+                    txtRecurrenceStartDate.Text = gvUsersInGroup.DataKeys[rowIndex].Values["RecurrenceDate"].ToDateTime().ToString("MM/dd/yyyy");
                 }
             }
             catch (Exception ex)
@@ -45,7 +45,7 @@ namespace WeShare.WebForms
                 ManageException(ex);
             }
         }
-        
+
 
         protected void gvUsersInGroup_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {

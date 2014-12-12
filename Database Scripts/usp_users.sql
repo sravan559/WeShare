@@ -59,9 +59,8 @@ BEGIN
 				BEGIN -- BEGIN UPDATE
 					set @Current_Offset=(SELECT VALUE FROM AppConfiguration WHERE [KEY]='DATE_OFFSET')										
 					--set @CURRENT_EFFECTIVE_DATE = (SELECT Effective_System_Date FROM AppConfiguration WHERE [KEY]='DATE_OFFSET')		
-					--set @CURRENT_EFFECTIVE_DATE = (select DATEADD(day,isnull(@Current_Offset,0),GETDATE())) --current date will be system date + offset
-					--above line needs to be tested
-					IF(ISNULL(DATEDIFF(DAY,GETDATE(),@NEW_EFFECTIVE_DATE),0)>= 0) -- CHECK IF USER IS TRYING TO GO BACKTO AN EARLIER DATE
+					set @CURRENT_EFFECTIVE_DATE = (select DATEADD(day,isnull(@Current_Offset,0),GETDATE())) --current date will be system date + offset
+					IF(ISNULL(DATEDIFF(DAY,@CURRENT_EFFECTIVE_DATE,@NEW_EFFECTIVE_DATE),0)>= 0) -- CHECK IF USER IS TRYING TO GO BACKTO AN EARLIER DATE
 						BEGIN -- begin isnull
 							UPDATE AppConfiguration SET VALUE=@Date_Offset
 												WHERE [KEY]='DATE_OFFSET'

@@ -94,7 +94,7 @@ BEGIN
 			IF(DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date)>-1)
 				BEGIN -- start update weekly points
 					DECLARE @Weekly_Points decimal(18,2)
-					SET @Weekly_Points=(select Weekly_Points from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
+					SET @Weekly_Points=(select ISNULL(Weekly_Points,0) from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
 					DECLARE @DaysDifference int
 					SET @DaysDifference= (select DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date))
 					DECLARE @Effective_Weeks int
@@ -104,7 +104,7 @@ BEGIN
 					
 					SET @Points_To_Add=(select (@DaysDifference/7+1)*@Weekly_Points)
 					set @New_Recurrence_Date=(SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, @New_Recurrence_Date)))
-					UPDATE UsersInGroups SET Points_Due=Points_Due + @Points_To_Add,
+					UPDATE UsersInGroups SET Points_Due=ISNULL(Points_Due,0) + @Points_To_Add,
 											Next_Recurrence_Date=@New_Recurrence_Date						
 											where User_Id=@User_Id and Group_Name=@Group_Name
 														

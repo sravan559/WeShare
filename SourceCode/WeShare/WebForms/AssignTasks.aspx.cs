@@ -46,7 +46,9 @@ namespace WeShare.WebForms
 
                 BLTaskAssignment objBlTasks = new BLTaskAssignment();
                 objBlTasks.AssignTask(objTaskAssignmentInfo);
+                decimal TaskPoints = objBlTasks.GetTaskPoints(objTaskAssignmentInfo.ParentTaskId);
                 ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('Task assigned successfully!')", true);
+                objBlTasks.UpdateTaskPoints(TaskPoints,objTaskAssignmentInfo.UserId,objTaskAssignmentInfo.ParentTaskId);
                 LoadUnAssignedTasks();
                 LoadUsers();
                 txtDueDate.Text = string.Empty;

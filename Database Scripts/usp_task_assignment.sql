@@ -66,6 +66,9 @@ BEGIN
 		FROM Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Parent_Task_Id 
 		WHERE at.User_Id=@User_Id and Status <> 'Completed'
 		ORDER BY Due_Date 
+	
+	ELSE IF @Action = 'GETTASKPOINTS' 
+		SELECT Points FROM Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Parent_Task_Id  WHERE Parent_Task_Id=@Parent_Task_Id
 		
 	ELSE IF @Action='GETROOMMATESTASKS'
 		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 

@@ -31,7 +31,7 @@ namespace WeShare.WebForms
             }
         }
 
-        //TODo Discuss with Team
+        //TODO Discuss with Team
         protected void gvMyTasks_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -45,12 +45,8 @@ namespace WeShare.WebForms
                     // Mark the respective task as completed
                     BLTaskAssignment objBlTasks = new BLTaskAssignment();
                     objBlTasks.MarkTaskAsComplete(taskId, GetEffectiveDate());
-
                     LoadUserDuePoints();
-                    
-                    // objBlTasks.UpdateTaskPoints(taskPoints, UserId, taskId);
                     LoadMyTasks();
-
                 }
             }
             catch (Exception ex)

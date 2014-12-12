@@ -36,7 +36,7 @@ BEGIN
 				BEGIN TRAN
 				
 				INSERT INTO Groups(Group_Name) VALUES (@New_Group_Name)
-				INSERT INTO UsersInGroups (Group_Name,User_Id,Weekly_Points) VALUES(@New_Group_Name,@User_Id,40)
+				INSERT INTO UsersInGroups (Group_Name,User_Id,Weekly_Points,Points_Due) VALUES(@New_Group_Name,@User_Id,40,40)
 				IF(@@ERROR>0)
 					ROLLBACK TRAN
 				ELSE 
@@ -85,7 +85,9 @@ BEGIN
 		SELECT Top 1 Points_Due FROM UsersInGroups WHERE User_Id=@User_Id;
 		
 	ELSE IF @Action = 'UPDATEPOINTSDUE' -- Reduce the points due once the user completes a task
-		UPDATE UsersInGroups SET Points_Due = Points_Due-@Task_Points where User_Id=@User_Id and Group_Name=@Group_Name;  
+		UPDATE UsersInGroups SET Points_Due = Points_Due-@Task_Points 
+		where User_Id=@User_Id 
+		--and Group_Name=@Group_Name;  
 END
 
 

@@ -156,6 +156,7 @@ namespace WeShare.DataAccess
                     };
                     listUsers.Add(objCurrentUser);
                 }
+
             }
             return listUsers;
         }

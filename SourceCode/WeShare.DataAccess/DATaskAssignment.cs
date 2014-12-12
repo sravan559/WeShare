@@ -251,12 +251,45 @@ namespace WeShare.DataAccess
             }
             return listTasks;
         }
-        //changes to be made to this function 
-        //taskpoints ---> masterTaskPoints
 
-        public bool UpdateTaskPoints(decimal taskpoints, string userID, int taskID)
+        public decimal GetTaskPoints(int ParentTaskId)
         {
-            // TODO Verify with Varsha.. why 3.2 case is implemented here
+           decimal taskPoints=0;
+           try
+            {
+                objSqlConnection = new SqlConnection(GetConnectionString());
+                objSqlCommand = objSqlConnection.CreateCommand();
+                objSqlCommand.CommandText = DbConstants.UspTaskAssignment;
+                objSqlCommand.CommandType = CommandType.StoredProcedure;
+                SqlParameter[] parameters = new SqlParameter[2];
+                parameters[0] = new SqlParameter("@Action", "GETTASKPOINTS");
+                parameters[1] = new SqlParameter("@Parent_Task_Id", ParentTaskId);
+                objSqlCommand.Parameters.AddRange(parameters);
+                objSqlConnection.Open();
+                SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
+                if (objSqlReader != null && objSqlReader.HasRows)
+                {
+                    while (objSqlReader.Read())
+                    {
+                        taskPoints = Convert.ToDecimal(objSqlReader["Points"]);
+                    };
+                       
+                }
+
+             }
+           finally
+            {
+               CloseConnection();
+            }
+
+          return taskPoints;
+         }
+        
+
+         
+        public bool UpdateTaskPoints(decimal taskpoints, string userID, int parentTaskID)
+        {
+            
             bool isTaskPointUpdated = false;
             string groupname = string.Empty;
             try
@@ -272,13 +305,12 @@ namespace WeShare.DataAccess
                 SqlParameter[] param1 = new SqlParameter[3];
                 param1[0] = new SqlParameter("@Action", "UPDATEDTASKPOINTS");
                 param1[1] = new SqlParameter("@Points", PointsNextOccurance);
-                param1[2] = new SqlParameter("@Task_Id", taskID);
+                param1[2] = new SqlParameter("@Task_Id", parentTaskID);
                 objSqlCommand.Parameters.AddRange(param1);
                 objSqlConnection.Open();
                 int rowsAffected = objSqlCommand.ExecuteNonQuery();
                 isTaskPointUpdated = rowsAffected > 0;
-                //CloseConnection();
-
+                
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandText = DbConstants.UspGroups;
                 objSqlCommand.CommandType = CommandType.StoredProcedure;
@@ -286,20 +318,18 @@ namespace WeShare.DataAccess
                 param2[0] = new SqlParameter("@Action", "R");
                 param2[1] = new SqlParameter("@User_Id", userID);
                 objSqlCommand.Parameters.AddRange(param2);
-                //objSqlConnection.Open();
+                
                 SqlDataReader objSqlReader = objSqlCommand.ExecuteReader();
                 if (objSqlReader != null && objSqlReader.HasRows)
                 {
                     while (objSqlReader.Read())
                     {
                         groupname = objSqlReader["Group_Name"].ToStr();
-                    }
+                    };
                 }
-                //CloseConnection();
-
+             
                 List<TaskInfo> unassignedtasks = GetUnassignedTasksByGroup(groupname);
-                //CloseConnection();
-
+                CloseConnection();
                 objSqlCommand = objSqlConnection.CreateCommand();
                 objSqlCommand.CommandType = CommandType.Text;
                 decimal sumPoints = unassignedtasks.Sum(item => item.PointsAllocated);
@@ -307,11 +337,13 @@ namespace WeShare.DataAccess
                 {
                     decimal increasedpoints = objTask.PointsAllocated + (totalDelta * objTask.PointsAllocated) / sumPoints;
                     objSqlCommand.CommandText = "UPDATE Tasks SET Points = " + increasedpoints + " where Task_Id =" + objTask.TaskId;
-                    //objSqlConnection.Open();
+                   
+                    objSqlConnection.Open();
                     int rowsAff = objSqlCommand.ExecuteNonQuery();
                     isTaskPointUpdated = rowsAff > 0;
-                    //CloseConnection();
+                    CloseConnection();
                 }
+                
             }
             finally
             {

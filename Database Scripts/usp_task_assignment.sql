@@ -82,10 +82,10 @@ BEGIN
 		SELECT t.Task_Id,Task_Title,Task_Description,u.User_Id,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		FROM Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Parent_Task_Id
-		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name
+		inner join Users u on at.User_Id=u.User_Id where t.Group_Name=@Group_Name and Status<>'Completed' 
 					
 	ELSE IF @Action='GETTASKSBYEMAILID'
-		SELECT t.Task_Id,Task_Title,Points,Task_Description,Due_Date,Status 
+		SELECT at.Task_Id,Task_Title,Points,Task_Description,Due_Date,Status 
 		FROM Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Parent_Task_Id 
 		WHERE at.User_Id=@User_Id and Status <> 'Completed'
 		ORDER BY Due_Date 
@@ -94,7 +94,7 @@ BEGIN
 		SELECT Points FROM Tasks t INNER JOIN AssignedTasks at ON t.Task_Id=at.Parent_Task_Id  WHERE Parent_Task_Id=@Parent_Task_Id
 		
 	ELSE IF @Action='GETROOMMATESTASKS'
-		SELECT t.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
+		SELECT at.Task_Id,Task_Title,Task_Description,First_Name+', '+Last_Name as 'User_Name', Due_Date,Status 
 		FROM Tasks t inner join AssignedTasks at 
 		on t.Task_Id=at.Parent_Task_Id
 		INNER JOIN Users u on at.User_Id=u.User_Id

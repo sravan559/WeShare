@@ -34,8 +34,9 @@
                         <li><a href="ManageUsers.aspx">Manage Users</a></li>
                         <li><a href="ManageTasks.aspx">Manage Tasks</a></li>
                         <li><a href="AssignTasks.aspx">Assign Tasks</a></li>
+                        <li><a href="DateOffset.aspx">Manage Date Offset</a></li>
                     </ul>
-                    <ul class="nav navbar-nav" style="float:right;">
+                    <ul class="nav navbar-nav" style="float: right;">
                         <li style="float: right;"><a href="Login.aspx">Logout</a></li>
                     </ul>
                 </div>

@@ -28,7 +28,7 @@ CREATE PROCEDURE [dbo].[usp_users]
 	@Points_To_Add decimal(18,2)=NULL,
 	@Date_Offset INT =0,
 	@Effective_Date datetime=NULL,
-	@Action nvarchar(20) = NULL
+	@Action nvarchar(50) = NULL
 	)
 AS
 BEGIN
@@ -62,8 +62,12 @@ BEGIN
 					--set @CURRENT_EFFECTIVE_DATE = (select DATEADD(day,isnull(@Current_Offset,0),GETDATE())) --current date will be system date + offset
 					--above line needs to be tested
 					IF(ISNULL(DATEDIFF(DAY,GETDATE(),@NEW_EFFECTIVE_DATE),0)>= 0) -- CHECK IF USER IS TRYING TO GO BACKTO AN EARLIER DATE
-						UPDATE AppConfiguration SET VALUE=@Date_Offset
+						BEGIN -- begin isnull
+							UPDATE AppConfiguration SET VALUE=@Date_Offset
 												WHERE [KEY]='DATE_OFFSET'
+							EXEC USP_USERS @User_Id=@User_Id,@Action='CALCULATEWEEKLYPOINTS'					
+						END -- end isnull
+												
 				END --END UPDATE				
 			ELSE
 				INSERT INTO APPCONFIGURATION([KEY],VALUE) VALUES('DATE_OFFSET',@DATE_OFFSET)
@@ -75,30 +79,38 @@ BEGIN
 		BEGIN --@Action = 'VALIDATEUSER'
 			IF EXISTS (SELECT USER_ID from Users where User_Id=@User_Id AND password=@Password)
 				BEGIN --begin valid user
-					SET @Group_name=(select top 1 group_name from UsersInGroups where User_Id=@User_Id)
-					SET @Next_Recurrence_Date =(select Next_Recurrence_Date from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
-					DECLARE @Effective_System_date datetime
-					SET @Effective_System_date= (select DATEADD(day,isnull(cast((select value from Appconfiguration where [KEY]='DATE_OFFSET')as int),0),GETDATE()))
-					IF(DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date)>-1)
-						BEGIN -- start update weekly points
-							DECLARE @Weekly_Points decimal(18,2)
-							SET @Weekly_Points=(select Weekly_Points from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
-							DECLARE @DaysDifference int
-							SET @DaysDifference= (select DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date))
-							DECLARE @Effective_Weeks int
-							SET @Effective_Weeks= (@DaysDifference/7+1)
-							DECLARE @New_Recurrence_Date datetime
-							SET @New_Recurrence_Date=(select dateadd(day,(@DaysDifference/7+1)*7,@Next_Recurrence_Date))		
-							
-							SET @Points_To_Add=(select (@DaysDifference/7+1)*@Weekly_Points)
-							UPDATE UsersInGroups SET Points_Due=Points_Due + @Points_To_Add,
-													Next_Recurrence_Date=@New_Recurrence_Date						
-													where User_Id=@User_Id and Group_Name=@Group_Name				
-						END--end update weekly points	
+					EXEC USP_USERS 	@User_Id=@User_Id, @Action='CALCULATEWEEKLYPOINTS'
 					SELECT 'TRUE' as 'RESULT'
-					
 				END--end valid user						 
 		END --@Action = 'VALIDATEUSER'
+	ELSE IF @Action='CALCULATEWEEKLYPOINTS' 
+		BEGIN --@Action='CALCULATEWEEKLYPOINTS'
+			SET @Group_name=(select top 1 group_name from UsersInGroups where User_Id=@User_Id)
+			SET @Next_Recurrence_Date =(select Next_Recurrence_Date from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
+			DECLARE @Effective_System_date datetime
+			SET @Effective_System_date= (select DATEADD(day,isnull(cast((select value from Appconfiguration where [KEY]='DATE_OFFSET')as int),0),GETDATE()))
+			--set @Next_Recurrence_Date=(SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, @Next_Recurrence_Date)))
+			--set @Effective_System_date=(SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, @Effective_System_date)))
+			
+			IF(DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date)>-1)
+				BEGIN -- start update weekly points
+					DECLARE @Weekly_Points decimal(18,2)
+					SET @Weekly_Points=(select Weekly_Points from UsersInGroups where User_Id=@User_Id and Group_Name=@Group_Name)
+					DECLARE @DaysDifference int
+					SET @DaysDifference= (select DATEDIFF(day,@Next_Recurrence_Date,@Effective_System_date))
+					DECLARE @Effective_Weeks int
+					SET @Effective_Weeks= (@DaysDifference/7+1)
+					DECLARE @New_Recurrence_Date datetime
+					SET @New_Recurrence_Date=(select dateadd(day,(@DaysDifference/7+1)*7,@Next_Recurrence_Date))		
+					
+					SET @Points_To_Add=(select (@DaysDifference/7+1)*@Weekly_Points)
+					set @New_Recurrence_Date=(SELECT DATEADD(dd, 0, DATEDIFF(dd, 0, @New_Recurrence_Date)))
+					UPDATE UsersInGroups SET Points_Due=Points_Due + @Points_To_Add,
+											Next_Recurrence_Date=@New_Recurrence_Date						
+											where User_Id=@User_Id and Group_Name=@Group_Name
+														
+				END--end update weekly points
+		END	--@Action='CALCULATEWEEKLYPOINTS'
 		
 END
 GO

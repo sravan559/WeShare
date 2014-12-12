@@ -11,7 +11,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.BusinessLogic", "We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.WebHelper", "WeShare.WebHelper\WeShare.WebHelper.csproj", "{070E4B40-1B8B-487A-96BE-F776E00B8F89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeShare.Test", "WeShare.Test\WeShare.Test.csproj", "{D40DDE56-4538-4D28-89A5-F6A5011A84E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EF591100-A935-4E8B-A937-FA7145E53844}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		WeShare.vsmdi = WeShare.vsmdi
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = WeShare.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -37,6 +49,10 @@ Global
 		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{070E4B40-1B8B-487A-96BE-F776E00B8F89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D40DDE56-4538-4D28-89A5-F6A5011A84E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D40DDE56-4538-4D28-89A5-F6A5011A84E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D40DDE56-4538-4D28-89A5-F6A5011A84E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D40DDE56-4538-4D28-89A5-F6A5011A84E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

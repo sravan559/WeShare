@@ -51,7 +51,11 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLTasksTest.cs" />
+    <Compile Include="DAGroupsTest.cs" />
     <Compile Include="DATaskAssignmentTest.cs" />
+    <Compile Include="DATasksTest.cs" />
+    <Compile Include="DAUserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

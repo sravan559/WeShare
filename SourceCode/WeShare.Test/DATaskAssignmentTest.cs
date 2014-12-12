@@ -83,12 +83,12 @@ namespace WeShare.Test
         public void AssignTaskTest()
         {
             DATaskAssignment target = new DATaskAssignment(); // TODO: Initialize to an appropriate value
-            TaskAssignmentInfo objTaskInfo = null; // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
+            TaskAssignmentInfo objTaskInfo = new TaskAssignmentInfo() {ParentTaskId=1,UserId="garimella@gmail.com",DueDate="2014-12-15".ToDateTime(),Status="pending"};
+            bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.AssignTask(objTaskInfo);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            
         }
 
         /// <summary>
@@ -158,13 +158,13 @@ namespace WeShare.Test
         public void MarkTaskAsCompleteTest()
         {
             DATaskAssignment target = new DATaskAssignment(); // TODO: Initialize to an appropriate value
-            int taskId = 0; // TODO: Initialize to an appropriate value
-            DateTime taskCompletedDate = new DateTime(); // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
+            int taskId =2; // TODO: Initialize to an appropriate value
+            DateTime taskCompletedDate = "2014-12-08".ToDateTime();
+            bool expected = true;//TODO: Initialize to an appropriate value
             bool actual;
             actual = target.MarkTaskAsComplete(taskId, taskCompletedDate);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+           //ssert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace WeShare.Test
             bool actual;
             actual = target.UpdateAssignedTaskDetails(taskId, userId, dtDueDate);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            
         }
 
         /// <summary>
@@ -191,14 +191,14 @@ namespace WeShare.Test
         public void UpdateTaskPointsTest()
         {
             DATaskAssignment target = new DATaskAssignment(); // TODO: Initialize to an appropriate value
-            Decimal taskpoints = new Decimal(); // TODO: Initialize to an appropriate value
-            string userID = string.Empty; // TODO: Initialize to an appropriate value
-            int taskID = 0; // TODO: Initialize to an appropriate value
-            bool expected = false; // TODO: Initialize to an appropriate value
+            Decimal taskpoints = 35; // TODO: Initialize to an appropriate value
+            string userID = "garimella@gmail.com"; // TODO: Initialize to an appropriate value
+            int taskID = 1; // TODO: Initialize to an appropriate value
+            bool expected = true; // TODO: Initialize to an appropriate value
             bool actual;
             actual = target.UpdateTaskPoints(taskpoints, userID, taskID);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+           
         }
     }
 }

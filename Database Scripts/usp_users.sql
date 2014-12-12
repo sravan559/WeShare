@@ -21,13 +21,14 @@ CREATE PROCEDURE [dbo].[usp_users]
 	@First_Name nvarchar(50)=NULL,
 	@Last_Name nvarchar(50)=NULL,
 	@Contact_Number nvarchar(20) = NULL,
-	@Password nvarchar(20) = NULL,
-	@Action nvarchar(20) = NULL,
+	@Password nvarchar(20) = NULL,	
 	@Next_Recurrence_Date datetime =NULL,
 	@Recurrence_Start_Date datetime=NULL,
 	@Group_Name nvarchar(50) =NULL,
 	@Points_To_Add decimal(18,2)=NULL,
-	@Date_Offset int =null
+	@Date_Offset INT =0,
+	@Effective_Date datetime=NULL,
+	@Action nvarchar(20) = NULL
 	)
 AS
 BEGIN
@@ -50,13 +51,25 @@ BEGIN
 					WHERE User_Id=@User_Id	
 	ELSE IF @Action='SAVEDATEOFFSET'
 		BEGIN
+			DECLARE @NEW_EFFECTIVE_DATE DATETIME
+			DECLARE @CURRENT_EFFECTIVE_DATE DATETIME			
+			declare @Current_Offset int
+			SET @NEW_EFFECTIVE_DATE= (select DATEADD(day,isnull(@DATE_OFFSET,0),GETDATE()))			
 			IF EXISTS(SELECT VALUE FROM AppConfiguration where [KEY]='DATE_OFFSET')
-				UPDATE AppConfiguration SET VALUE=@Date_Offset where [KEY]='DATE_OFFSET'
-			ELSE 
+				BEGIN -- BEGIN UPDATE
+					set @Current_Offset=(SELECT VALUE FROM AppConfiguration WHERE [KEY]='DATE_OFFSET')										
+					--set @CURRENT_EFFECTIVE_DATE = (SELECT Effective_System_Date FROM AppConfiguration WHERE [KEY]='DATE_OFFSET')		
+					--set @CURRENT_EFFECTIVE_DATE = (select DATEADD(day,isnull(@Current_Offset,0),GETDATE())) --current date will be system date + offset
+					--above line needs to be tested
+					IF(ISNULL(DATEDIFF(DAY,GETDATE(),@NEW_EFFECTIVE_DATE),0)>= 0) -- CHECK IF USER IS TRYING TO GO BACKTO AN EARLIER DATE
+						UPDATE AppConfiguration SET VALUE=@Date_Offset
+												WHERE [KEY]='DATE_OFFSET'
+				END --END UPDATE				
+			ELSE
 				INSERT INTO APPCONFIGURATION([KEY],VALUE) VALUES('DATE_OFFSET',@DATE_OFFSET)
-		END	
-	else if @Action='GETDATEOFFSET'
-		select VALUE FROM AppConfiguration where [KEY]='DATE_OFFSET'				
+		END
+	ELSE IF @Action='GETDATEOFFSET'
+		SELECT VALUE FROM AppConfiguration WHERE [KEY]='DATE_OFFSET'				
 										
 	ELSE IF @Action = 'VALIDATEUSER' -- VERIFIES THE PASSWORD ENTERED BY THE USER
 		BEGIN --@Action = 'VALIDATEUSER'
@@ -86,6 +99,7 @@ BEGIN
 					
 				END--end valid user						 
 		END --@Action = 'VALIDATEUSER'
+		
 END
 GO
 

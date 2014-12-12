@@ -38,6 +38,7 @@ namespace WeShare.WebForms
                     txtUserId.Text = gvUsersInGroup.DataKeys[rowIndex].Values["UserId"].ToStr();
                     txtWeeklyPoints.Text = gvUsersInGroup.DataKeys[rowIndex].Values["WeeklyPoints"].ToStr();
                     txtRecurrenceStartDate.Text = gvUsersInGroup.DataKeys[rowIndex].Values["RecurrenceDate"].ToDateTime().ToString("MM/dd/yyyy");
+
                 }
             }
             catch (Exception ex)
@@ -76,7 +77,7 @@ namespace WeShare.WebForms
                 {
                     bool isSaved = objGroupBL.AddUserToGroup(ddlGroups.SelectedValue, txtUserId.Text.Trim(), txtWeeklyPoints.Text.ToDecimal(), txtRecurrenceStartDate.Text.ToDateTime());
                     LoadUsersInGroup();
-                    txtUserId.Text = txtWeeklyPoints.Text = string.Empty;
+                    txtUserId.Text = txtWeeklyPoints.Text = txtRecurrenceStartDate.Text = string.Empty;
                     if (isSaved)
                         ScriptManager.RegisterStartupScript(this, this.GetType(), "alert_success", "alert('User added successfully!')", true);
                 }

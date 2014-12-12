@@ -152,7 +152,8 @@ namespace WeShare.DataAccess
                     {
                         UserId = objSqlReader["User_ID"].ToStr(),
                         Name = objSqlReader["Name"].ToStr(),
-                        WeeklyPoints = objSqlReader["Weekly_Points"].ToDecimal()
+                        WeeklyPoints = objSqlReader["Weekly_Points"].ToDecimal(),
+                        RecurranceDate = objSqlReader["Recurrence_Start_Date"].ToDateTime(),
                     };
                     listUsers.Add(objCurrentUser);
                }

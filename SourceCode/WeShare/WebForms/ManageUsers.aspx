@@ -46,11 +46,12 @@
     <div class="gridcontainer">
         <asp:GridView ID="gvUsersInGroup" runat="server" AutoGenerateColumns="false" OnRowCommand="gvUsersInGroup_RowCommand"
             OnRowDeleting="gvUsersInGroup_RowDeleting"
-            DataKeyNames="UserId" class="table table-hover">
+            DataKeyNames="UserId,WeeklyPoints,RecurranceDate" class="table table-hover">
             <Columns>
                 <asp:BoundField DataField="UserId" HeaderText="User ID" />
                 <asp:BoundField DataField="Name" HeaderText="User Name" />
                 <asp:BoundField DataField="WeeklyPoints" HeaderText="Weekly Points" />
+                <asp:BoundField DataField="RecurranceDate" HeaderText="Recurrance Date" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
                         <asp:ImageButton ID="ImageButton1" runat="server" CommandName="EditUser" AlternateText="Edit"

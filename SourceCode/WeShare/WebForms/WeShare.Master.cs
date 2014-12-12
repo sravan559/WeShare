@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WeShare.BusinessModel;
 
 namespace WeShare
 {
@@ -11,6 +12,14 @@ namespace WeShare
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                string userId = Session["UserId"].ToStr();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    Response.Redirect("Login.aspx?IsSessionExpired=1");
+                }
+            }
 
         }
     }

@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WeShare.BusinessLogic\WeShare.BusinessLogic.csproj">
+      <Project>{1E1B8468-FBA9-42DB-BA5D-9520FDFFD112}</Project>
+      <Name>WeShare.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WeShare.BusinessModel\WeShare.BusinessModel.csproj">
       <Project>{DCFC8AD2-9969-4CFC-BEAA-CB94A45D7C6B}</Project>
       <Name>WeShare.BusinessModel</Name>

@@ -39,7 +39,8 @@ BEGIN
 					VALUES(@Parent_Task_Id,@User_Id,@Due_Date,@Status,@Points_Assigned)	
 		END					
 	ELSE IF @Action='MARKTASKASCOMPLETE'
-		BEGIN
+		BEGIN --@Action='MARKTASKASCOMPLETE'
+		 BEGIN TRAN	
 		 UPDATE AssignedTasks SET Status=@Status ,
 								Date_Completed= @Date_Completed											    
 								WHERE Task_Id=@Task_Id
@@ -49,8 +50,30 @@ BEGIN
 		 SET @Group_Name= (SELECT Group_Name FROM Tasks where Task_Id= @Parent_Task_Id)	
 		 						
 		 UPDATE UsersInGroups SET Points_Due = Points_Due-@Points_Assigned 
-									where User_Id=@User_Id and Group_Name=@Group_Name; 						
-		END 
+									where User_Id=@User_Id and Group_Name=@Group_Name; 	
+		 --recursive task implementation
+		 declare @Is_Task_Recursive bit
+		 set @Is_Task_Recursive =(SELECT IS_TASK_RECURSIVE FROM TASKS where Task_Id= @Parent_Task_Id)	
+		 IF(@Is_Task_Recursive=1) --task is recursive so adding another taskinstance	
+			begin --(@Is_Task_Recursive=1)
+			 DECLARE @Task_Type nvarchar(50)
+			 
+			 set @Task_Type =(SELECT Task_Type FROM TASKS where Task_Id= @Parent_Task_Id)
+			 set @Due_Date =(SELECT Due_Date FROM AssignedTasks where Task_Id= @Task_Id)
+			 if(@Task_Type='Weekly')
+				 SET @Due_Date= (select DATEADD(day,7,@due_date))
+			 else if (@Task_Type='Montly')
+				 SET @Due_Date= (select DATEADD(month,1,@due_date))
+			
+			INSERT INTO AssignedTasks(Parent_Task_Id,User_Id,Due_Date,Status,Points_Assigned)
+					VALUES(@Parent_Task_Id,@User_Id,@Due_Date,'Pending',@Points_Assigned)	
+			 				
+			end	--(@Is_Task_Recursive=1)								
+		 IF @@ERROR>0
+			ROLLBACK
+		 ELSE 
+			COMMIT												
+		END --@Action='MARKTASKASCOMPLETE'
 	ELSE IF @Action='GETUNASSIGNEDTASKSBYGROUP' 		
 		SELECT Task_Id,Task_Title,Task_Description,Points FROM Tasks where 
 		Group_Name=@Group_Name and Task_Id NOT IN (SELECT Parent_Task_Id FROM AssignedTasks where Status<>'Completed') 

@@ -45,6 +45,6 @@ namespace WeShare.BusinessModel
         /// <summary>
         /// Recurrnce Date for weekly points for User
         /// </summary>
-        public DateTime RecurranceDate { get; set; }
+        public DateTime RecurrenceDate { get; set; }
     }
 }

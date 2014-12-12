@@ -79,7 +79,7 @@ BEGIN
 		WHERE Group_Name=@Group_Name
 		
 	ELSE IF @Action = 'GETACTIVEUSERSINGROUP' -- List of users who are already registered on the site
-		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name', Weekly_Points 
+		SELECT u.USER_ID, First_Name+', '+Last_Name as 'Name', Weekly_Points,Recurrence_Start_Date
 		FROM UsersInGroups ug inner join Users u on u.User_Id=ug.User_Id  
 		WHERE Group_Name=@Group_Name	
 		

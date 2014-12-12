@@ -20,6 +20,7 @@
                 Task Name</label>
             <div class="col-sm-10">
                 <asp:TextBox ID="txtTaskName" input="text" class="form-control" runat="server" Width="50%"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="rfvTaskName" runat="server" ErrorMessage="Please enter a task name" ControlToValidate="txtTaskName"></asp:RequiredFieldValidator>
             </div>
         </div>
         <div class="form-group">
@@ -27,7 +28,9 @@
                 Points</label>
             <div class="col-sm-10">
                 <asp:TextBox ID="txtTaskPoints" input="text" class="form-control" runat="server"
-                    Width="50%"></asp:TextBox>
+                    Width="50%" onkeypress="return isNumber(event)"></asp:TextBox>
+                     <asp:RequiredFieldValidator ID="rfvTaskPoints" runat="server" ErrorMessage="Please assign points for the task." ControlToValidate="txtTaskName"></asp:RequiredFieldValidator>
+            
             </div>
         </div>
         <div class="form-group">
@@ -62,7 +65,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <asp:HiddenField ID="hdnTaskId" runat="server" />
                 <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" class="btn btn-info"
-                    BorderColor="Black" />
+                    BorderColor="Black" OnClientClick="return ValidateInput();"/>
                 <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" class="btn btn-info"
                     BorderColor="Black" />
             </div>
@@ -95,8 +98,8 @@
                     </ItemTemplate>
                     <EditItemTemplate>
                         <asp:RadioButtonList ID="rbTaskRecursive" runat="server">
-                            <asp:ListItem>Yes</asp:ListItem>
-                            <asp:ListItem>No</asp:ListItem>
+                            <asp:ListItem Value="Yes">Yes</asp:ListItem>
+                            <asp:ListItem Value="No">No</asp:ListItem>
                         </asp:RadioButtonList>
                     </EditItemTemplate>
                 </asp:TemplateField>
@@ -162,5 +165,17 @@
         $("#<%=rbtnTaskRecursive.ClientID%> input[type='radio']").click(function () {
             ShowHideRescursionRow();
         });
+
+        function ValidateInput() {
+            var isRecursive = $("#<%=rbtnTaskRecursive.ClientID%> input:checked").val();
+            var recursionType = $("#<%=rbtnTaskType.ClientID%> input:checked").val();
+           
+            if (isRecursive == "Yes" && (recursionType != "Weekly" && recursionType != "Monthly")) {
+                alert('Please select valid Recursion type.');
+                return false;
+            }
+            return true;
+        }
+       
     </script>
 </asp:Content>

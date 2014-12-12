@@ -45,7 +45,6 @@ namespace WeShare.WebForms
                 }
                 else
                     lblMessage.Text = "Please enter a valid number.Offset value cannot be a negative value.";
-
             }
             catch (Exception exception)
             {

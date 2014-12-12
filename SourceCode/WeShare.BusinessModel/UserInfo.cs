@@ -41,5 +41,10 @@ namespace WeShare.BusinessModel
         /// Minimum points for User
         /// </summary>
         public decimal WeeklyPoints { get; set; }
+
+        /// <summary>
+        /// Recurrnce Date for weekly points for User
+        /// </summary>
+        public DateTime RecurranceDate { get; set; }
     }
 }

@@ -70,6 +70,8 @@ BEGIN
 		BEGIN
 			IF NOT EXISTS(SELECT USER_ID FROM UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id)
 			INSERT INTO UsersInGroups(Group_Name,User_Id,Weekly_Points,Recurrence_Start_Date,Next_Recurrence_Date) VALUES (@Group_Name,@User_Id,@Weekly_Points,@Recurrence_Start_Date,@Recurrence_Start_Date)
+			IF EXISTS (select USER_ID from  UsersInGroups WHERE Group_Name=@Group_Name and User_Id=@User_Id ) 
+			UPDATE UsersInGroups SET Weekly_Points=@Weekly_Points,Recurrence_Start_Date=@Recurrence_Start_Date,Next_Recurrence_Date=@Recurrence_Start_Date WHERE Group_Name=@Group_Name and User_Id=@User_Id
 		END
 	ELSE IF @Action = 'GETUSERSINGROUP'
 		SELECT ug.USER_ID, First_Name+', '+Last_Name as 'Name',Weekly_Points 

@@ -35,8 +35,9 @@ namespace WeShare.WebForms
                 if (e.CommandName == "EditUser")
                 {
                     int rowIndex = e.CommandArgument.ToInt32();
+                    txtUserId.Text = txtUserId.Text.Trim();
                     txtWeeklyPoints.Text = gvUsersInGroup.DataKeys[rowIndex].Values["WeeklyPoints"].ToString();
-                    DateTime recStartDate = gvUsersInGroup.DataKeys[rowIndex].Values["txtRecurrenceStartDate"].ToString().ToDateTime();                    
+                    DateTime recStartDate = gvUsersInGroup.DataKeys[rowIndex].Values["RecurranceDate"].ToString().ToDateTime();                    
                 }
             }
             catch (Exception ex)

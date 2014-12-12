@@ -13,15 +13,6 @@ namespace WeShare.WebForms {
     public partial class Home {
         
         /// <summary>
-        /// ucDateOffset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::WeShare.WebForms.DateOffSetManager ucDateOffset;
-        
-        /// <summary>
         /// gvMyTasks control.
         /// </summary>
         /// <remarks>

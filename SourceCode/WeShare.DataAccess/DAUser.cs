@@ -144,8 +144,9 @@ namespace WeShare.DataAccess
             return isValidUser;
         }
 
-        public void SaveDateOffset(int dateOffset)
+        public bool SaveDateOffset(int dateOffset)
         {
+            bool isOffsetSaved = false;
             try
             {
                 objSqlConnection = new SqlConnection(GetConnectionString());
@@ -157,12 +158,14 @@ namespace WeShare.DataAccess
                 parameters[1] = new SqlParameter("@Date_Offset", dateOffset);
                 objSqlCommand.Parameters.AddRange(parameters);
                 objSqlConnection.Open();
-                objSqlCommand.ExecuteNonQuery();
+                int rowsAffected = objSqlCommand.ExecuteNonQuery();
+                isOffsetSaved = rowsAffected > 0;
             }
             finally
             {
                 CloseConnection();
             }
+            return isOffsetSaved;
         }
 
         public int GetDateOffset()

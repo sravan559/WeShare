@@ -32,13 +32,18 @@ namespace WeShare.WebForms
                 BLUsers objBlUsers = new BLUsers();
                 int offsetvalue;
                 bool isValidNumber = int.TryParse(txtDateOffset.Text.Trim(), out offsetvalue);
-                if (isValidNumber)
+                if (isValidNumber && offsetvalue > -1)
                 {
-                    objBlUsers.SaveDateOffset(offsetvalue);
-                    lblMessage.Text = "Date Offset saved successfully.";
+                    bool isOffSetSaved = objBlUsers.SaveDateOffset(offsetvalue);
+                    if (!isOffSetSaved)
+                    {
+                        this.Page.ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('You cannot set the offset value  such that the effective date is less than today.')", true);
+                        //lblMessage.Text = "You cannot set the offset value  such that the effective date is less than today.";
+                        return;
+                    }
                 }
                 else
-                    lblMessage.Text = "Please enter a valid number.";
+                    lblMessage.Text = "Please enter a valid number.Offset value cannot be a negative value.";
 
             }
             catch (Exception exception)
